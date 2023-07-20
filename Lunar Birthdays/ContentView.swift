@@ -10,11 +10,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            VStack {
-                CircleNumberView(color: .red, number: 5)
-                    //.navigationTitle("Red One")
-                    .offset(y: -60)
-                
+            ScrollView {
+                LazyVStack {
+                    ForEach(0..<5) { i in
+                        CircleNumberView(color: .red, number: i)
+                    }
+                }
             }
             .navigationTitle("Birthdays")
             .navigationBarTitleDisplayMode(.inline)
@@ -26,7 +27,7 @@ struct ContentView: View {
                     } label: {
                         NavigationLink(destination: settingsView()) {
                             Image(systemName: "gear")
-                                 }
+                        }
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -35,7 +36,7 @@ struct ContentView: View {
                     } label: {
                         NavigationLink(destination: addView()) {
                             Image(systemName: "plus")
-                                 }
+                        }
                     }
                 }
             }
