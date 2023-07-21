@@ -8,15 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    var birthdays: [Birthday] = BirthdayList.topFive
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVStack {
-                    ForEach(0..<5) { i in
-                        CircleNumberView(color: .red, number: i)
+            List(birthdays, id: \.id) { bday in
+                HStack{
+                    Image(bday.picture)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 70, height: 70)
+                        .clipShape(Circle())
+                        .padding(.vertical, 4)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(bday.name)
+                            .fontWeight(.semibold)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                        Text(bday.date)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
                     }
+                    Spacer()
+                    Text(String(bday.countdown))
+                        .font(.system(size: 40))
                 }
             }
+            .listStyle(PlainListStyle())
             .navigationTitle("Birthdays")
             .navigationBarTitleDisplayMode(.inline)
             
@@ -46,7 +63,20 @@ struct ContentView: View {
 
 struct addView: View {
     var body: some View {
-        Text("Add")
+        NavigationView {
+            CircleNumberView(color: .red, number: 1)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        // TODO
+                    } label: {
+                        NavigationLink(destination: settingsView()) {
+                            Image(systemName: "save")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
