@@ -11,27 +11,10 @@ struct ContentView: View {
     var birthdays: [Birthday] = BirthdayList.topFive
     var body: some View {
         NavigationView {
-            List(birthdays, id: \.id) { bday in
-                HStack{
-                    Image(bday.picture)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 70, height: 70)
-                        .clipShape(Circle())
-                        .padding(.vertical, 4)
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(bday.name)
-                            .fontWeight(.semibold)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
-                        Text(bday.date)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    Spacer()
-                    Text(String(bday.countdown))
-                        .font(.system(size: 40))
-                }
+            List(birthdays, id: \.id) { birthday in
+                NavigationLink(destination: ProfileView(birthday: birthday), label: {
+                    BirthdayCell(birthday: birthday)
+                })
             }
             .listStyle(PlainListStyle())
             .navigationTitle("Birthdays")
@@ -42,7 +25,7 @@ struct ContentView: View {
                     Button {
                         // TODO
                     } label: {
-                        NavigationLink(destination: settingsView()) {
+                        NavigationLink(destination: SettingsView()) {
                             Image(systemName: "gear")
                         }
                     }
@@ -51,7 +34,7 @@ struct ContentView: View {
                     Button {
                         // TODO
                     } label: {
-                        NavigationLink(destination: addView()) {
+                        NavigationLink(destination: SettingsView()) {
                             Image(systemName: "plus")
                         }
                     }
@@ -61,43 +44,28 @@ struct ContentView: View {
     }
 }
 
-struct addView: View {
+struct BirthdayCell: View {
+    var birthday: Birthday
     var body: some View {
-        NavigationView {
-            CircleNumberView(color: .red, number: 1)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        // TODO
-                    } label: {
-                        NavigationLink(destination: settingsView()) {
-                            Image(systemName: "save")
-                        }
-                    }
-                }
+        HStack{
+            Image(birthday.picture)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 70, height: 70)
+                .clipShape(Circle())
+                .padding(.vertical, 4)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(birthday.name)
+                    .fontWeight(.semibold)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                Text(birthday.date)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
             }
-        }
-    }
-}
-
-struct settingsView: View {
-    var body: some View {
-        Text("Settings")
-    }
-}
-
-struct CircleNumberView: View {
-    var color: Color
-    var number: Int
-    
-    var body: some View {
-        ZStack {
-            Circle()
-                .frame(width: 200, height: 200)
-                .foregroundColor(color)
-            Text("\(number)")
-                .foregroundColor(.white)
-                .font(.system(size: 70, weight: .bold))
+            Spacer()
+            Text(String(birthday.countdown))
+                .font(.system(size: 40))
         }
     }
 }
