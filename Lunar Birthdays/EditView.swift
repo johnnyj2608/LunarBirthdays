@@ -15,28 +15,26 @@ struct EditView: View {
     @State private var news = false
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Personal Information")) {
-                    TextField("First Name", text: $firstName)
-                    TextField("Last Name", text: $lastName)
-                    DatePicker("Birth Date", selection: $birthday, displayedComponents: .date)
-                }
-                Section(header: Text("Action")) {
-                    Toggle("Send News", isOn: $news)
-                        .toggleStyle(SwitchToggleStyle(tint:.red))
-                }
+        Form {
+            Section(header: Text("Personal Information")) {
+                TextField("First Name", text: $firstName)
+                TextField("Last Name", text: $lastName)
+                DatePicker("Birth Date", selection: $birthday, displayedComponents: .date)
             }
-            
-            .navigationTitle("Account")
-            //.onTapGesture {
-            //   hideKeyboard()
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("Save", action: saveUser)
-                    }
-                }
+            Section(header: Text("Action")) {
+                Toggle("Send News", isOn: $news)
+                    .toggleStyle(SwitchToggleStyle(tint:.red))
             }
+        }
+        
+        .navigationTitle("Profile")
+        //.onTapGesture {
+        //   hideKeyboard()
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button("Save", action: saveUser)
+            }
+        }
         .accentColor(.red)
         }
     func saveUser() {
