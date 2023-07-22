@@ -9,38 +9,24 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        NavigationView {
-            /*
-            Form {
-                Section(header: Text("Display"), footer: Text("System Override")) {
-                    Toggle(isOn: .constant(true), label: {
-                        Text("Dark Mode")
-                    })
-                    Toggle(isOn: .constant(true), label: {
-                        Text("Dark Mode")
-                    })
-                }
+        Form {
+            Section(header: Text("Upgrade")) {
+                Text("Birthday Reminder Pro")
             }
-             */
-            Form {
-                Section(header: Text("Upgrade")) {
-                    Text("Birthday Reminder Pro")
-                }
-                Section(header: Text("Notificaitons")) {
-                    Text("When Bro")
-                }
-                Section(header: Text("Leap Year")) {
-                    Text("February 29")
-                }
-                Section(header: Text("Visual")) {
-                    Text("Dark Mode")
-                }
-                Section(header: Text("Feedback")) {
-                    Text("Rate this app")
-                }
+            Section(header: Text("Notificaitons")) {
+                Text("When Bro")
             }
-            .navigationTitle("Settings")
+            Section(header: Text("Leap Year")) {
+                Text("February 29")
+            }
+            Section(header: Text("Visual")) {
+                Text("Dark Mode")
+            }
+            Section(header: Text("Feedback")) {
+                Text("Rate this app")
+            }
         }
+        .navigationTitle("Settings")
     }
 }
 

@@ -16,9 +16,7 @@ struct ContentView: View {
                     BirthdayCell(birthday: birthday)
                 })
             }
-            //.listStyle(PlainListStyle())
             .navigationTitle("Birthdays")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
