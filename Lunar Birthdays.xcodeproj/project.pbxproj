@@ -15,6 +15,7 @@
 		09B96CB22A6B298E00FC5AAA /* wish-i-knew.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B96CB12A6B298E00FC5AAA /* wish-i-knew.png */; };
 		09B96CB82A6B40ED00FC5AAA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CB72A6B40ED00FC5AAA /* ProfileView.swift */; };
 		09B96CBA2A6B744A00FC5AAA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CB92A6B744A00FC5AAA /* SettingsView.swift */; };
+		09B96CBC2A6B7D6100FC5AAA /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CBB2A6B7D6100FC5AAA /* EditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		09B96CB12A6B298E00FC5AAA /* wish-i-knew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wish-i-knew.png"; path = "../../wish-i-knew.png"; sourceTree = "<group>"; };
 		09B96CB72A6B40ED00FC5AAA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		09B96CB92A6B744A00FC5AAA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		09B96CBB2A6B7D6100FC5AAA /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,10 +62,11 @@
 		09B96C992A648E0F00FC5AAA /* Lunar Birthdays */ = {
 			isa = PBXGroup;
 			children = (
-				09B96CAF2A6B22E000FC5AAA /* Birthday.swift */,
 				09B96C9A2A648E0F00FC5AAA /* Lunar_BirthdaysApp.swift */,
+				09B96CAF2A6B22E000FC5AAA /* Birthday.swift */,
 				09B96C9C2A648E0F00FC5AAA /* ContentView.swift */,
 				09B96CB72A6B40ED00FC5AAA /* ProfileView.swift */,
+				09B96CBB2A6B7D6100FC5AAA /* EditView.swift */,
 				09B96CB92A6B744A00FC5AAA /* SettingsView.swift */,
 				09B96C9E2A648E1100FC5AAA /* Assets.xcassets */,
 				09B96CB12A6B298E00FC5AAA /* wish-i-knew.png */,
@@ -154,6 +157,7 @@
 			files = (
 				09B96CB82A6B40ED00FC5AAA /* ProfileView.swift in Sources */,
 				09B96CB02A6B22E000FC5AAA /* Birthday.swift in Sources */,
+				09B96CBC2A6B7D6100FC5AAA /* EditView.swift in Sources */,
 				09B96C9D2A648E0F00FC5AAA /* ContentView.swift in Sources */,
 				09B96C9B2A648E0F00FC5AAA /* Lunar_BirthdaysApp.swift in Sources */,
 				09B96CBA2A6B744A00FC5AAA /* SettingsView.swift in Sources */,
