@@ -34,7 +34,7 @@ struct ContentView: View {
                     Button {
                         // TODO
                     } label: {
-                        NavigationLink(destination: SettingsView()) {
+                        NavigationLink(destination: EditView()) {
                             Image(systemName: "plus")
                         }
                     }
@@ -56,16 +56,21 @@ struct BirthdayCell: View {
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
                 Text(birthday.name)
+                    .font(.system(size: 20))
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                 Text(birthday.date)
-                    .font(.subheadline)
+                    .font(.system(size: 15))
                     .foregroundColor(.secondary)
             }
             Spacer()
-            Text(String(birthday.countdown))
-                .font(.system(size: 40))
+            VStack(alignment: .center, spacing: 0) {
+                Text(String(birthday.countdown))
+                    .font(.system(size: 35))
+                    .foregroundColor(birthday.countdown < 11 ? .red : .black)
+                Text("Days")
+            }
         }
     }
 }

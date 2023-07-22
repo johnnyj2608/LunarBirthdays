@@ -1,5 +1,5 @@
 //
-//  Settings.swift
+//  EditView.swift
 //  Lunar Birthdays
 //
 //  Created by Johnny Jiang on 7/21/23.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct EditView: View {
     var body: some View {
-        Text("Settings")
+        Text("Edit")
     }
 }
 
-struct Settings_Previews: PreviewProvider {
+struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        EditView()
     }
 }

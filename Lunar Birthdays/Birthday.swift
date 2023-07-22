@@ -21,7 +21,7 @@ struct BirthdayList {
         Birthday(picture: "wish-i-knew",
                name: "Johnny Jiang",
                date: "November 4, 2023",
-               countdown: 20),
+               countdown: 10),
         
         Birthday(picture: "wish-i-knew",
                name: "Kai Jiang",
