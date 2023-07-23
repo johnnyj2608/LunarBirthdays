@@ -13,6 +13,8 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var birthday: FetchedResults<Birthday>
     
+    @State private var searchText = ""
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -23,6 +25,10 @@ struct ContentView: View {
                             BirthdayCell(birthday: birthday)
                         })
                     }
+                }
+                .searchable(text: $searchText)
+                .onChange(of: searchText) { newValue in
+                    birthday.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "name CONTAINS %@", newValue)
                 }
             }
             .navigationTitle("Birthdays")
