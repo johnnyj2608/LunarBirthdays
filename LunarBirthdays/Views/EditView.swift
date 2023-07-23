@@ -70,7 +70,6 @@ struct EditView: View {
                     dismiss()
                 }
                 .disabled((first+last).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                //.disabled(last.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
     }
