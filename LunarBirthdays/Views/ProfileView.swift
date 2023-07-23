@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ProfileView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     var birthday: Birthday
+    @State private var isPresentingConfirm: Bool = false
     
     var body: some View {
         VStack {
@@ -19,13 +21,13 @@ struct ProfileView: View {
                 .scaledToFit()
                 .frame(height: 150)
                 .clipShape(Circle())
-            Text(birthday.name!)
+            Text(birthday.name ?? "")
                 .font(.system(size: 40))
                 .fontWeight(.semibold)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            Text(dateString(date: birthday.date!))
+            Text(dateString(date: birthday.date ?? Date()))
                 .font(.system(size: 25))
                 .lineLimit(1)
                 .padding(.horizontal)
@@ -33,9 +35,14 @@ struct ProfileView: View {
             // Turning X in X Days
             // Notes
             // Custom Notifications */
-            Button ("Delete" ){
-                // Need confirmations
-                DataController().deleteBirthday(birthday: birthday, context: managedObjContext)
+            Button ("Delete", role: .destructive){
+                isPresentingConfirm = true
+            }
+            .confirmationDialog("Are you sure?",
+                                isPresented: $isPresentingConfirm) {
+                Button("Are you sure?", role: .destructive) {
+                    DataController().deleteBirthday(birthday: birthday, context: managedObjContext)
+                }
             }
         }
         .navigationTitle("Profile")
@@ -56,8 +63,15 @@ struct ProfileView: View {
 
 /*
 struct ProfileView_Previews: PreviewProvider {
+    static let moc = PersistenceController.preview.container.viewContext
+    
     static var previews: some View {
-        ProfileView()
+        let birthday = Birthday(context: moc)
+        birthday.name = "Name"
+        birthday.date = Date()
+        birthday.note = ""
+        
+        return ProfileView(birthday: birthday)
     }
 }
 */

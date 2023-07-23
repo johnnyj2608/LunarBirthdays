@@ -21,6 +21,7 @@ class DataController: ObservableObject {
             }
         }
     }
+    
     func save(context: NSManagedObjectContext) {
         do {
             try context.save()
