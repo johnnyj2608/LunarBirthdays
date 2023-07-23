@@ -45,4 +45,8 @@ class DataController: ObservableObject {
         
         save(context: context)
     }
+    func deleteBirthday(birthday: Birthday, context: NSManagedObjectContext) {
+        context.delete(birthday)
+        save(context: context)
+    }
 }
