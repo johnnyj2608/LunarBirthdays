@@ -63,7 +63,7 @@ struct BirthdayCell: View {
         HStack {
             Image("andrewYang")
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .frame(height: 70)
                 .clipShape(Circle())
                 .padding(.vertical, 4)
