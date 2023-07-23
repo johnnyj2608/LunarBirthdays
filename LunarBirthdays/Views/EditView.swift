@@ -65,9 +65,12 @@ struct EditView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    DataController().addBirthday(name: first+" "+last, date: date, note: note, context: managedObjContext)
+                    let name = first.trimmingCharacters(in: .whitespaces)+" "+last.trimmingCharacters(in: .whitespaces)
+                    DataController().addBirthday(name: name, date: date, note: note, context: managedObjContext)
                     dismiss()
                 }
+                .disabled((first+last).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                //.disabled(last.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
     }
