@@ -13,8 +13,6 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var birthday: FetchedResults<Birthday>
     
-    @State private var showingEditView = false
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -41,16 +39,13 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showingEditView.toggle()
+                        // TODO
                     } label: {
                         NavigationLink(destination: EditView()) {
                             Image(systemName: "plus.circle")
                         }
                     }
                 }
-            }
-            .sheet(isPresented: $showingEditView) {
-                EditView()
             }
         }
         .navigationViewStyle(.stack)
@@ -76,6 +71,7 @@ struct BirthdayCell: View {
                 Text(nextBirthday(date: birthday.date!))
                     .font(.system(size: 15))
                     .foregroundColor(.secondary)
+
             }
             Spacer()
             VStack(alignment: .center, spacing: 0) {
