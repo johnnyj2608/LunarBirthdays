@@ -32,6 +32,7 @@ struct ProfileView: View {
                 .lineLimit(1)
                 .padding(.horizontal)
                 .foregroundColor(.secondary)
+            Text(String(calcAge(date: birthday.date ?? Date())))
             // Turning X in X Days
             // Notes
             // Custom Notifications */

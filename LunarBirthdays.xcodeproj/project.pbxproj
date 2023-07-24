@@ -66,9 +66,9 @@
 			isa = PBXGroup;
 			children = (
 				09B96D082A6CF99A00FC5AAA /* DataModel */,
-				09B96D072A6CF99200FC5AAA /* Helper */,
 				09B96D062A6CF98C00FC5AAA /* Views */,
 				09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */,
+				09B96D0E2A6CFCBF00FC5AAA /* TimeFormatting.swift */,
 				09B96CFB2A6CF8BD00FC5AAA /* Assets.xcassets */,
 				09B96CFD2A6CF8BD00FC5AAA /* LunarBirthdays.entitlements */,
 				09B96CFE2A6CF8BD00FC5AAA /* Preview Content */,
@@ -93,14 +93,6 @@
 				09B96D152A6D076500FC5AAA /* SettingsView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		09B96D072A6CF99200FC5AAA /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				09B96D0E2A6CFCBF00FC5AAA /* TimeFormatting.swift */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		09B96D082A6CF99A00FC5AAA /* DataModel */ = {

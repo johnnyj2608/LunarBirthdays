@@ -18,7 +18,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Search bar
                 List {
                     ForEach(birthday) { birthday in
                         NavigationLink(destination: ProfileView(birthday: birthday), label: {
@@ -35,7 +34,6 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        // TODO
                         
                     } label: {
                         NavigationLink(destination: SettingsView()) {
@@ -45,7 +43,7 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // TODO
+
                     } label: {
                         NavigationLink(destination: EditView()) {
                             Image(systemName: "plus.circle")
