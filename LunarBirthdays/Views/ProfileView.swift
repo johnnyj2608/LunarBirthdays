@@ -33,8 +33,7 @@ struct ProfileView: View {
                 .padding(.horizontal)
                 .foregroundColor(.secondary)
             Text(String(calcAge(date: birthday.date ?? Date())))
-            // Turning X in X Days
-            // Notes
+            Text(birthday.note ?? "")
             // Custom Notifications */
             Button ("Delete", role: .destructive){
                 isPresentingConfirm = true
