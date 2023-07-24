@@ -18,6 +18,7 @@ struct EditView: View {
     
     @State private var first = ""
     @State private var last = ""
+    
     @State private var date = Date()
     @State private var note = ""
     
@@ -33,9 +34,17 @@ struct EditView: View {
                 .clipShape(Circle())
             PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
             Form {
-                Section(header: Text("Bio")) {
+                Section(header: Text("Name")) {
                     TextField("First Name", text: $first)
+                        .modifier(TextFieldClearButton(text: $first))
+                        .onReceive(first.publisher.collect()) {
+                                first = String($0.prefix(35))
+                        }
                     TextField("Last Name", text: $last)
+                        .modifier(TextFieldClearButton(text: $last))
+                        .onReceive(last.publisher.collect()) {
+                                last = String($0.prefix(35))
+                        }
                 }
                 Section(header: Text("Birthday")) {
                     Picker("Calendar", selection: $selectedCalendar) {
@@ -45,8 +54,8 @@ struct EditView: View {
                     }
                     DatePicker("Date", selection: $date, in: ...Date(), displayedComponents: .date)
                 }
-                Section(header: Text("Notes")) {
-                    TextField("Notes", text: $note)
+                Section(header: Text("Note")) {
+                    TextEditor(text: $note)
                 }
             }
         }
