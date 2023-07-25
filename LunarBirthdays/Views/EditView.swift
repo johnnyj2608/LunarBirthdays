@@ -56,6 +56,9 @@ struct EditView: View {
                 }
                 Section(header: Text("Note")) {
                     TextEditor(text: $note)
+                    .onReceive(note.publisher.collect()) {
+                            note = String($0.prefix(255))
+                    }
                 }
             }
         }

@@ -12,6 +12,7 @@ class DataController: ObservableObject {
     
     let container = NSPersistentContainer(name: "BirthdayModel")
     
+    
     init() {
         container.loadPersistentStores { desc, error in
             if let error = error {
