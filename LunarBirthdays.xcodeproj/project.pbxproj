@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		092663E92A6F2C1E0034296A /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092663E82A6F2C1E0034296A /* ClearButton.swift */; };
+		0926640D2A6F4FC40034296A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926640C2A6F4FC40034296A /* Persistence.swift */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
 		09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */; };
 		09B96CFC2A6CF8BD00FC5AAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B96CFB2A6CF8BD00FC5AAA /* Assets.xcassets */; };
 		09B96D002A6CF8BD00FC5AAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B96CFF2A6CF8BD00FC5AAA /* Preview Assets.xcassets */; };
 		09B96D0B2A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D092A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld */; };
 		09B96D0D2A6CFA5500FC5AAA /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D0C2A6CFA5500FC5AAA /* DataController.swift */; };
-		09B96D0F2A6CFCBF00FC5AAA /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D0E2A6CFCBF00FC5AAA /* TimeFormatting.swift */; };
+		09B96D0F2A6CFCBF00FC5AAA /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D0E2A6CFCBF00FC5AAA /* Calendar.swift */; };
 		09B96D112A6CFE7500FC5AAA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D102A6CFE7500FC5AAA /* ProfileView.swift */; };
 		09B96D132A6CFF2400FC5AAA /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D122A6CFF2400FC5AAA /* EditView.swift */; };
 		09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D152A6D076500FC5AAA /* SettingsView.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		092663E82A6F2C1E0034296A /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
+		0926640C2A6F4FC40034296A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
 		09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -30,7 +32,7 @@
 		09B96CFF2A6CF8BD00FC5AAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		09B96D0A2A6CF9F200FC5AAA /* BirthdayModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BirthdayModel.xcdatamodel; sourceTree = "<group>"; };
 		09B96D0C2A6CFA5500FC5AAA /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		09B96D0E2A6CFCBF00FC5AAA /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
+		09B96D0E2A6CFCBF00FC5AAA /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		09B96D102A6CFE7500FC5AAA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		09B96D122A6CFF2400FC5AAA /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		09B96D142A6D04FA00FC5AAA /* BirthdayModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BirthdayModel 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -48,6 +50,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0926640E2A6F50740034296A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				092663E82A6F2C1E0034296A /* ClearButton.swift */,
+				09B96D0E2A6CFCBF00FC5AAA /* Calendar.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		09B96CEB2A6CF8BB00FC5AAA = {
 			isa = PBXGroup;
 			children = (
@@ -67,11 +78,10 @@
 		09B96CF62A6CF8BB00FC5AAA /* LunarBirthdays */ = {
 			isa = PBXGroup;
 			children = (
-				09B96D082A6CF99A00FC5AAA /* DataModel */,
-				09B96D062A6CF98C00FC5AAA /* Views */,
 				09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */,
-				09B96D0E2A6CFCBF00FC5AAA /* TimeFormatting.swift */,
-				092663E82A6F2C1E0034296A /* ClearButton.swift */,
+				09B96D062A6CF98C00FC5AAA /* Views */,
+				0926640E2A6F50740034296A /* Helper */,
+				09B96D082A6CF99A00FC5AAA /* DataModel */,
 				09B96CFB2A6CF8BD00FC5AAA /* Assets.xcassets */,
 				09B96CFD2A6CF8BD00FC5AAA /* LunarBirthdays.entitlements */,
 				09B96CFE2A6CF8BD00FC5AAA /* Preview Content */,
@@ -103,6 +113,7 @@
 			children = (
 				09B96D092A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld */,
 				09B96D0C2A6CFA5500FC5AAA /* DataController.swift */,
+				0926640C2A6F4FC40034296A /* Persistence.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -177,7 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09B96D0F2A6CFCBF00FC5AAA /* TimeFormatting.swift in Sources */,
+				09B96D0F2A6CFCBF00FC5AAA /* Calendar.swift in Sources */,
 				09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */,
 				09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */,
 				09B96D0D2A6CFA5500FC5AAA /* DataController.swift in Sources */,
@@ -186,6 +197,7 @@
 				09B96D112A6CFE7500FC5AAA /* ProfileView.swift in Sources */,
 				092663E92A6F2C1E0034296A /* ClearButton.swift in Sources */,
 				09B96D0B2A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld in Sources */,
+				0926640D2A6F4FC40034296A /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

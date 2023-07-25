@@ -61,12 +61,12 @@ struct ProfileView: View {
     }
 }
 
-/*
+
 struct ProfileView_Previews: PreviewProvider {
-    static let moc = PersistenceController.preview.container.viewContext
+    static let context = PersistenceController.preview.container.viewContext
     
     static var previews: some View {
-        let birthday = Birthday(context: moc)
+        let birthday = Birthday(context: context)
         birthday.name = "Name"
         birthday.date = Date()
         birthday.note = ""
@@ -74,4 +74,3 @@ struct ProfileView_Previews: PreviewProvider {
         return ProfileView(birthday: birthday)
     }
 }
-*/
