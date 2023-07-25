@@ -72,7 +72,7 @@ struct BirthdayCell: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text(dateString(date:nextBirthday(date: birthday.date!)))
+                Text("Turns \(calcAge(date: birthday.date!)) on \(getMonthDay(date: birthday.date!))")
                     .font(.system(size: 15))
                     .foregroundColor(.secondary)
 
