@@ -21,6 +21,7 @@ struct ProfileView: View {
                 .scaledToFit()
                 .frame(height: 150)
                 .clipShape(Circle())
+                .padding(15)
             Text(birthday.name ?? "")
                 .font(.system(size: 40))
                 .fontWeight(.semibold)
@@ -32,9 +33,12 @@ struct ProfileView: View {
                 .lineLimit(1)
                 .padding(.horizontal)
                 .foregroundColor(.secondary)
-            Text(String(calcAge(date: birthday.date ?? Date())))
+            Text("Turns \(calcAge(date: birthday.date ?? Date())) in "+String(calcCountdown(date: birthday.date!))+" Days")
+                .padding(40)
             Text(birthday.note ?? "")
-            // Custom Notifications */
+                .padding()
+                .background(.secondary)
+            Spacer()
             Button ("Delete", role: .destructive){
                 isPresentingConfirm = true
             }
@@ -51,7 +55,7 @@ struct ProfileView: View {
                 Button {
                     // TODO
                 } label: {
-                    NavigationLink(destination: EditView()) {
+                    NavigationLink(destination: EditView(birthday: birthday)) {
                         Text("Edit")
                     }
                 }
@@ -67,9 +71,9 @@ struct ProfileView_Previews: PreviewProvider {
     
     static var previews: some View {
         let birthday = Birthday(context: context)
-        birthday.name = "Name"
+        birthday.name = "Andrew Yang"
         birthday.date = Date()
-        birthday.note = ""
+        birthday.note = "Testing note"
         
         return ProfileView(birthday: birthday)
     }

@@ -16,13 +16,13 @@ func calcCountdown(date: Date) -> Int {
     return cal.dateComponents([.day], from: today, to: nextDate ?? today).day ?? -1
 }
 
-func nextBirthday(date: Date) -> String {
+func nextBirthday(date: Date) -> Date {
     let cal = Calendar.current
     let today = cal.startOfDay(for: Date())
     let birthday = cal.startOfDay(for: date)
     let components = cal.dateComponents([.day, .month], from: birthday)
     let nextDate = cal.nextDate(after: today, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
-    return dateString(date: nextDate!)
+    return nextDate!
 }
 
 func dateString(date: Date) -> String {
@@ -33,7 +33,7 @@ func dateString(date: Date) -> String {
 
 func calcAge(date: Date) -> Int {
     let cal = Calendar.current
-    let today = cal.startOfDay(for: Date())
     let birthday = cal.startOfDay(for: date)
-    return cal.dateComponents([.year], from: birthday, to: today).year ?? -1
+    let nextBirthday = cal.startOfDay(for: nextBirthday(date: date))
+    return cal.dateComponents([.year], from: birthday, to: nextBirthday).year ?? -1
 }

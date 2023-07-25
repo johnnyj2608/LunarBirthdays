@@ -12,15 +12,15 @@ struct EditView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
-    
-    @State private var avatarItem: PhotosPickerItem?
-    @State private var avatarImage = Image("andrewYang")
+    var birthday = Birthday()
     
     @State private var first = ""
     @State private var last = ""
-    
     @State private var date = Date()
     @State private var note = ""
+    
+    @State private var avatarItem: PhotosPickerItem?
+    @State private var avatarImage = Image("andrewYang")
     
     @State private var selectedCalendar = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
@@ -29,7 +29,7 @@ struct EditView: View {
         VStack {
             avatarImage
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .frame(height: 250)
                 .clipShape(Circle())
             PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
@@ -78,7 +78,12 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     let name = first.trimmingCharacters(in: .whitespaces)+" "+last.trimmingCharacters(in: .whitespaces)
-                    DataController().addBirthday(name: name, date: date, note: note, context: managedObjContext)
+                    if birthday == Birthday() {
+                        DataController().addBirthday(name: name, date: date, note: note, context: managedObjContext)
+                    } else {
+                        DataController().editBirthday(birthday: birthday, name: name, date: date, note: note, context: managedObjContext)
+                    }
+                    
                     dismiss()
                 }
                 .disabled((first+last).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
