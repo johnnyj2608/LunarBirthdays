@@ -37,3 +37,10 @@ func calcAge(date: Date) -> Int {
     let nextBirthday = cal.startOfDay(for: nextBirthday(date: date))
     return cal.dateComponents([.year], from: birthday, to: nextBirthday).year ?? -1
 }
+
+func getMonthDay(date: Date) -> String {
+    let cal = Calendar.current
+    let birthday = cal.startOfDay(for: date)
+    let birthdateString = dateString(date: birthday)
+    return birthdateString.components(separatedBy: ",")[0]
+}

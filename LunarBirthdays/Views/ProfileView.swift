@@ -33,7 +33,7 @@ struct ProfileView: View {
                 .lineLimit(1)
                 .padding(.horizontal)
                 .foregroundColor(.secondary)
-            Text("Turns \(calcAge(date: birthday.date ?? Date())) in "+String(calcCountdown(date: birthday.date!))+" Days")
+            Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(calcCountdown(date: birthday.date!)) Days")
                 .padding(40)
             Text(birthday.note ?? "")
                 .padding()
