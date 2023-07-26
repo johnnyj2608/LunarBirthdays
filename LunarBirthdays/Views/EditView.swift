@@ -12,12 +12,13 @@ struct EditView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
-    var birthday = Birthday()
     
-    @State private var first = ""
-    @State private var last = ""
-    @State private var date = Date()
-    @State private var note = ""
+    var birthday: Birthday?
+    
+    @State var first = ""
+    @State var last = ""
+    @State var date = Date()
+    @State var note = ""
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage = Image("andrewYang")
@@ -40,6 +41,12 @@ struct EditView: View {
                         .onReceive(first.publisher.collect()) {
                                 first = String($0.prefix(35))
                         }
+                        .onAppear {
+                            first = birthday?.first ?? ""
+                            last = birthday?.last ?? ""
+                            date = birthday?.date ?? Date()
+                            note = birthday?.note ?? ""
+                        }
                     TextField("Last Name", text: $last)
                         .modifier(TextFieldClearButton(text: $last))
                         .onReceive(last.publisher.collect()) {
@@ -56,9 +63,10 @@ struct EditView: View {
                 }
                 Section(header: Text("Note")) {
                     TextEditor(text: $note)
-                    .onReceive(note.publisher.collect()) {
-                            note = String($0.prefix(255))
-                    }
+                        .onReceive(note.publisher.collect()) {
+                                note = String($0.prefix(255))
+                        }
+                    
                 }
             }
         }
@@ -77,13 +85,11 @@ struct EditView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    let name = first.trimmingCharacters(in: .whitespaces)+" "+last.trimmingCharacters(in: .whitespaces)
-                    if birthday == Birthday() {
-                        DataController().addBirthday(name: name, date: date, note: note, context: managedObjContext)
+                    if birthday != nil {
+                        DataController().editBirthday(birthday: birthday!, first: first, last: last, date: date, note: note, context: managedObjContext)
                     } else {
-                        DataController().editBirthday(birthday: birthday, name: name, date: date, note: note, context: managedObjContext)
+                        DataController().addBirthday(first: first, last: last, date: date, note: note, context: managedObjContext)
                     }
-                    
                     dismiss()
                 }
                 .disabled((first+last).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)

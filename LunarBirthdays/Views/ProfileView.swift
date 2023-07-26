@@ -11,7 +11,7 @@ import CoreData
 struct ProfileView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
-    var birthday: Birthday
+    @ObservedObject var birthday: Birthday
     @State private var isPresentingConfirm: Bool = false
     
     var body: some View {
@@ -22,7 +22,7 @@ struct ProfileView: View {
                 .frame(height: 150)
                 .clipShape(Circle())
                 .padding(15)
-            Text(birthday.name ?? "")
+            Text("\(birthday.first ?? "") \(birthday.last ?? "")")
                 .font(.system(size: 40))
                 .fontWeight(.semibold)
                 .lineLimit(2)
@@ -33,7 +33,7 @@ struct ProfileView: View {
                 .lineLimit(1)
                 .padding(.horizontal)
                 .foregroundColor(.secondary)
-            Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(calcCountdown(date: birthday.date!)) Days")
+            Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(calcCountdown(date: birthday.date ?? Date())) Days")
                 .padding(40)
             Text(birthday.note ?? "")
                 .padding()
@@ -71,7 +71,8 @@ struct ProfileView_Previews: PreviewProvider {
     
     static var previews: some View {
         let birthday = Birthday(context: context)
-        birthday.name = "Andrew Yang"
+        birthday.first = "Yang"
+        birthday.last = "Yang"
         birthday.date = Date()
         birthday.note = "Testing note"
         

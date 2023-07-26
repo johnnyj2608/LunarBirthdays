@@ -57,7 +57,7 @@ struct ContentView: View {
 }
 
 struct BirthdayCell: View {
-    var birthday: Birthday
+    @ObservedObject var birthday: Birthday
     var body: some View {
         HStack {
             Image("andrewYang")
@@ -67,7 +67,7 @@ struct BirthdayCell: View {
                 .clipShape(Circle())
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
-                Text(birthday.name!)
+                Text("\(birthday.first ?? "") \(birthday.last ?? "")")
                     .font(.system(size: 20))
                     .fontWeight(.semibold)
                     .lineLimit(1)
