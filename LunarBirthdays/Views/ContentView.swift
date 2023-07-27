@@ -90,10 +90,19 @@ struct BirthdayCell: View {
             }
             Spacer()
             VStack(alignment: .center, spacing: 0) {
-                Text(String(calcCountdown(date: birthday.date ?? Date())))
-                    .font(.system(size: 35))
-                    .foregroundColor(calcCountdown(date: birthday.date ?? Date()) < 11 ? .red : .black)
-                Text("Days")
+                let countdown = calcCountdown(date: birthday.date ?? Date())
+                switch countdown {
+                case 0:
+                    Text("🎂")
+                        .font(.system(size: 35))
+                case 1..<11:
+                    Text("\(countdown)")
+                        .font(.system(size: 35))
+                        .foregroundColor(.red)
+                default:
+                    Text("\(countdown)")
+                        .font(.system(size: 35))
+                }
             }
         }
     }
