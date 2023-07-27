@@ -9,20 +9,22 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    
     @Environment(\.managedObjectContext) var managedObjContext
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date)]) var birthday: FetchedResults<Birthday>
-    
+    @FetchRequest(sortDescriptors: []) var birthday: FetchedResults<Birthday>
     @State private var searchText = ""
-    
+
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(birthday) { birthday in
-                        NavigationLink(destination: ProfileView(birthday: birthday), label: {
-                            BirthdayCell(birthday: birthday)
-                        })
+                    ForEach(getSortedMonths(birthdayMonths: birthdayMonths), id: \.self) { month in
+                        Section(header: Text(monthString(month: month))) {
+                            ForEach(birthdayMonths[month]!, id: \.self) { birthday in
+                                NavigationLink(destination: ProfileView(birthday: birthday), label: {
+                                    BirthdayCell(birthday: birthday)
+                                })
+                            }
+                        }
                     }
                 }
                 .searchable(text: $searchText)
@@ -32,31 +34,37 @@ struct ContentView: View {
                     let predicateFormat = "(firsts CONTAINS[c] %@ OR lasts CONTAINS[c] %@) OR (firsts CONTAINS[c] %@ AND lasts CONTAINS[c] %@)"
                     let predicateArgs = [trimmedValue, trimmedValue] + searchTerms + searchTerms
                     birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: predicateFormat, argumentArray: predicateArgs)
-}
+                }
             }
             .navigationTitle("Birthdays")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        
-                    } label: {
-                        NavigationLink(destination: SettingsView()) {
-                            Image(systemName: "gear")
-                        }
+                    NavigationLink(destination: SettingsView()) {
+                        Image(systemName: "gear")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-
-                    } label: {
-                        NavigationLink(destination: EditView()) {
-                            Image(systemName: "plus.circle")
-                        }
+                    NavigationLink(destination: EditView()) {
+                        Image(systemName: "plus.circle")
                     }
                 }
             }
         }
         .navigationViewStyle(.stack)
+    }
+    
+    var birthdayMonths: [Int: [Birthday]] {
+        let groupedBirthdays = Dictionary(grouping: birthday, by: { getMonth(date: $0.date ?? Date()) })
+        let sortedMonths = getSortedMonths(birthdayMonths: groupedBirthdays)
+        var result: [Int: [Birthday]] = [:]
+            for month in sortedMonths {
+                result[month] = groupedBirthdays[month]?.sorted { (birthday1, birthday2) -> Bool in
+                    let day1 = getDay(date: birthday1.date ?? Date())
+                    let day2 = getDay(date: birthday2.date ?? Date())
+                    return day1 < day2
+                }
+            }
+        return result
     }
 }
 
@@ -76,7 +84,7 @@ struct BirthdayCell: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(getMonthDay(date: birthday.date ?? Date()))")
+                Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(monthString(month: getMonth(date: birthday.date ?? Date()))) \(getDay(date: birthday.date ?? Date()))")
                     .font(.system(size: 15))
 
             }
