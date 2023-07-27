@@ -27,7 +27,7 @@ struct ContentView: View {
                 }
                 .searchable(text: $searchText)
                 .onChange(of: searchText) { newValue in
-                    birthday.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "name CONTAINS %@", newValue)
+                    birthday.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "firsts CONTAINS %@ || lasts CONTAINS %@", newValue, newValue)
                 }
             }
             .navigationTitle("Birthdays")
@@ -67,21 +67,20 @@ struct BirthdayCell: View {
                 .clipShape(Circle())
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
-                Text("\(birthday.first ?? "") \(birthday.last ?? "")")
+                Text("\(birthday.firsts ?? "") \(birthday.lasts ?? "")")
                     .font(.system(size: 20))
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text("Turns \(calcAge(date: birthday.date!)) on \(getMonthDay(date: birthday.date!))")
+                Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(getMonthDay(date: birthday.date ?? Date()))")
                     .font(.system(size: 15))
-                    .foregroundColor(.secondary)
 
             }
             Spacer()
             VStack(alignment: .center, spacing: 0) {
-                Text(String(calcCountdown(date: birthday.date!)))
+                Text(String(calcCountdown(date: birthday.date ?? Date())))
                     .font(.system(size: 35))
-                    .foregroundColor(calcCountdown(date: birthday.date!) < 11 ? .red : .black)
+                    .foregroundColor(calcCountdown(date: birthday.date ?? Date()) < 11 ? .red : .black)
                 Text("Days")
             }
         }
