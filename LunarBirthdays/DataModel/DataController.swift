@@ -31,19 +31,19 @@ class DataController: ObservableObject {
             print("Failed to save data")
         }
     }
-    func addBirthday(first: String, last: String, date: Date, note: String, context: NSManagedObjectContext) {
+    func addBirthday(firsts: String, lasts: String, date: Date, note: String, context: NSManagedObjectContext) {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
-        birthday.first = first
-        birthday.last = last
+        birthday.firsts = firsts
+        birthday.lasts = lasts
         birthday.date = date
         birthday.note = note
         
         save(context: context)
     }
-    func editBirthday(birthday: Birthday, first: String, last: String, date: Date, note: String, context: NSManagedObjectContext) {
-        birthday.first = first
-        birthday.last = last
+    func editBirthday(birthday: Birthday, firsts: String, lasts: String, date: Date, note: String, context: NSManagedObjectContext) {
+        birthday.firsts = firsts
+        birthday.lasts = lasts
         birthday.date = date
         birthday.note = note
         

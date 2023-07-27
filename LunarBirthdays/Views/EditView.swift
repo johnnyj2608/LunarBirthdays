@@ -15,8 +15,8 @@ struct EditView: View {
     
     var birthday: Birthday?
     
-    @State var first = ""
-    @State var last = ""
+    @State var firsts = ""
+    @State var lasts = ""
     @State var date = Date()
     @State var note = ""
     
@@ -25,6 +25,9 @@ struct EditView: View {
     
     @State private var selectedCalendar = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
+    
+    @State private var title = ""
+    @State private var pickerReset = UUID()
     
     var body: some View {
         VStack {
@@ -36,21 +39,21 @@ struct EditView: View {
             PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
             Form {
                 Section(header: Text("Name")) {
-                    TextField("First Name", text: $first)
-                        .modifier(TextFieldClearButton(text: $first))
-                        .onReceive(first.publisher.collect()) {
-                                first = String($0.prefix(35))
+                    TextField("First Name", text: $firsts)
+                        .modifier(TextFieldClearButton(text: $firsts))
+                        .onReceive(firsts.publisher.collect()) {
+                                firsts = String($0.prefix(35))
                         }
                         .onAppear {
-                            first = birthday?.first ?? ""
-                            last = birthday?.last ?? ""
+                            firsts = birthday?.firsts ?? ""
+                            lasts = birthday?.lasts ?? ""
                             date = birthday?.date ?? Date()
                             note = birthday?.note ?? ""
                         }
-                    TextField("Last Name", text: $last)
-                        .modifier(TextFieldClearButton(text: $last))
-                        .onReceive(last.publisher.collect()) {
-                                last = String($0.prefix(35))
+                    TextField("Last Name", text: $lasts)
+                        .modifier(TextFieldClearButton(text: $lasts))
+                        .onReceive(lasts.publisher.collect()) {
+                                lasts = String($0.prefix(35))
                         }
                 }
                 Section(header: Text("Birthday")) {
@@ -60,6 +63,8 @@ struct EditView: View {
                         }
                     }
                     DatePicker("Date", selection: $date, in: ...Date(), displayedComponents: .date)
+                        .datePickerStyle(.wheel)
+                    
                 }
                 Section(header: Text("Note")) {
                     TextEditor(text: $note)
@@ -86,13 +91,13 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController().editBirthday(birthday: birthday!, first: first, last: last, date: date, note: note, context: managedObjContext)
+                        DataController().editBirthday(birthday: birthday!, firsts: firsts, lasts: lasts, date: date, note: note, context: managedObjContext)
                     } else {
-                        DataController().addBirthday(first: first, last: last, date: date, note: note, context: managedObjContext)
+                        DataController().addBirthday(firsts: firsts, lasts: lasts, date: date, note: note, context: managedObjContext)
                     }
                     dismiss()
                 }
-                .disabled((first+last).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .disabled((firsts+lasts).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
     }
