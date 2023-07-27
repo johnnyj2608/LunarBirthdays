@@ -27,8 +27,12 @@ struct ContentView: View {
                 }
                 .searchable(text: $searchText)
                 .onChange(of: searchText) { newValue in
-                    birthday.nsPredicate = newValue.isEmpty ? nil : NSPredicate(format: "firsts CONTAINS %@ || lasts CONTAINS %@", newValue, newValue)
-                }
+                    let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let searchTerms = trimmedValue.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
+                    let predicateFormat = "(firsts CONTAINS[c] %@ OR lasts CONTAINS[c] %@) OR (firsts CONTAINS[c] %@ AND lasts CONTAINS[c] %@)"
+                    let predicateArgs = [trimmedValue, trimmedValue] + searchTerms + searchTerms
+                    birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: predicateFormat, argumentArray: predicateArgs)
+}
             }
             .navigationTitle("Birthdays")
             .toolbar {
