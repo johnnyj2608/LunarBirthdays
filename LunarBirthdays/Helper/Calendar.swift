@@ -11,14 +11,23 @@ func nextBirthday(date: Date) -> Date {
     let cal = Calendar.current
     let today = cal.startOfDay(for: Date())
     let birthday = cal.startOfDay(for: date)
+    
+    let birthdayComponents = cal.dateComponents([.month, .day], from: birthday)
+    let todayComponents = cal.dateComponents([.month, .day], from: today)
+
+    if birthdayComponents == todayComponents {
+        return today
+    }
+    
     let components = cal.dateComponents([.day, .month], from: birthday)
     let nextDate = cal.nextDate(after: today, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
     
     guard let unwrappedNextDate = nextDate else {
             fatalError("Next birthday date calculation failed.")
         }
+    print(today)
+    print(birthday)
     return unwrappedNextDate
-    
 }
 
 func calcCountdown(date: Date) -> Int {
@@ -26,8 +35,12 @@ func calcCountdown(date: Date) -> Int {
     let today = cal.startOfDay(for: Date())
     let nextBirthdayDate = nextBirthday(date: date)
     let nextBirthday = cal.startOfDay(for: nextBirthdayDate)
-    let components = cal.dateComponents([.day], from: today, to: nextBirthday)
     
+    if cal.isDate(today, inSameDayAs: nextBirthday) {
+        return 0
+    }
+    
+    let components = cal.dateComponents([.day], from: today, to: nextBirthday)
     guard let daysRemaining = components.day else {
         return -1
     }
