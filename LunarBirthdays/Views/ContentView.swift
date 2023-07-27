@@ -99,7 +99,7 @@ struct BirthdayCell: View {
                     Text("\(countdown)")
                         .font(.system(size: 35))
                         .foregroundColor(countdown < 11 ? .red : .black)
-                    Text("Days")
+                    Text(countdown == 1 ? "Day" : "Days")
                         .font(.system(size: 20))
                         .lineLimit(1)
                 }
