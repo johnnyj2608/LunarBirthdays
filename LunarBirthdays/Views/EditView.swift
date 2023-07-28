@@ -15,15 +15,14 @@ struct EditView: View {
     
     var birthday: Birthday?
     
-    @State var firsts = ""
-    @State var lasts = ""
+    @State var name = ""
     @State var date = Date()
     @State var note = ""
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage = Image("andrewYang")
     
-    @State private var selectedCalendar = "Lunar"
+    @State private var cal = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
     
     @State private var title = ""
@@ -43,25 +42,20 @@ struct EditView: View {
             }
             .frame(maxWidth: .infinity)
             Section(header: Text("Name")) {
-                TextField("First Name", text: $firsts)
-                    .modifier(TextFieldClearButton(text: $firsts))
-                    .onReceive(firsts.publisher.collect()) {
-                        firsts = String($0.prefix(35))
+                TextField("Name", text: $name)
+                    .modifier(TextFieldClearButton(text: $name))
+                    .onReceive(name.publisher.collect()) {
+                        name = String($0.prefix(70))
                     }
                     .onAppear {
-                        firsts = birthday?.firsts ?? ""
-                        lasts = birthday?.lasts ?? ""
+                        name = birthday?.name ?? ""
                         date = birthday?.date ?? Date()
                         note = birthday?.note ?? ""
-                    }
-                TextField("Last Name", text: $lasts)
-                    .modifier(TextFieldClearButton(text: $lasts))
-                    .onReceive(lasts.publisher.collect()) {
-                        lasts = String($0.prefix(35))
+                        cal = birthday?.cal ?? "Lunar"
                     }
             }
             Section(header: Text("Birthday")) {
-                Picker("Calendar", selection: $selectedCalendar) {
+                Picker("Calendar", selection: $cal) {
                     ForEach(calendars, id: \.self) {
                         Text($0)
                     }
@@ -108,13 +102,13 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController().editBirthday(birthday: birthday!, firsts: firsts, lasts: lasts, date: date, note: note, context: managedObjContext)
+                        DataController().editBirthday(birthday: birthday!, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        DataController().addBirthday(firsts: firsts, lasts: lasts, date: date, note: note, context: managedObjContext)
+                        DataController().addBirthday(name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
-                .disabled((firsts+lasts).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .disabled((name).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
     }
