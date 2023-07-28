@@ -31,10 +31,7 @@ struct ContentView: View {
                 .searchable(text: $searchText)
                 .onChange(of: searchText) { newValue in
                     let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                    let searchTerms = trimmedValue.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
-                    let predicateFormat = "(firsts CONTAINS[c] %@ OR lasts CONTAINS[c] %@) OR (firsts CONTAINS[c] %@ AND lasts CONTAINS[c] %@)"
-                    let predicateArgs = [trimmedValue, trimmedValue] + searchTerms + searchTerms
-                    birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: predicateFormat, argumentArray: predicateArgs)
+                    birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: "name BEGINSWITH[c] %@", trimmedValue)
                 }
             }
             .navigationTitle("Birthdays")
@@ -76,11 +73,11 @@ struct BirthdayCell: View {
             Image("andrewYang")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 65)
+                .frame(height: 70)
                 .clipShape(Circle())
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
-                Text("\(birthday.firsts ?? "") \(birthday.lasts ?? "")")
+                Text("\(birthday.name ?? "")")
                     .font(.system(size: 20))
                     .fontWeight(.semibold)
                     .lineLimit(1)

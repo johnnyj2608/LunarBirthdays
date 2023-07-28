@@ -14,14 +14,14 @@ struct ProfileView: View {
     @ObservedObject var birthday: Birthday
     
     var body: some View {
-        Form {
+        List {
             VStack(alignment: .center) {
                 Image("andrewYang")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 150)
                     .clipShape(Circle())
-                Text("\(birthday.firsts ?? "") \(birthday.lasts ?? "")")
+                Text("\(birthday.name ?? "")")
                     .font(.system(size: 40))
                     .fontWeight(.semibold)
                     .lineLimit(2)
@@ -30,7 +30,6 @@ struct ProfileView: View {
                     .font(.system(size: 25))
                     .lineLimit(1)
             }
-            
             .frame(maxWidth: .infinity)
             Section {
                 VStack {
@@ -51,7 +50,9 @@ struct ProfileView: View {
             Section(header: Text("Note")) {
                 Text(birthday.note ?? "")
             }
-            
+            Section(header: Text("Custom Notifications")) {
+                Text("Hi")
+            }
         }
         .navigationTitle("Profile")
         .toolbar {
@@ -75,8 +76,7 @@ struct ProfileView_Previews: PreviewProvider {
     
     static var previews: some View {
         let birthday = Birthday(context: context)
-        birthday.firsts = "Yang"
-        birthday.lasts = "Yang"
+        birthday.name = "Andrew Yang"
         birthday.date = Date()
         birthday.note = "Testing note"
         
