@@ -32,64 +32,65 @@ struct EditView: View {
     @State private var isPresentingConfirm: Bool = false
     
     var body: some View {
-        VStack {
-            avatarImage
-                .resizable()
-                .scaledToFit()
-                .frame(height: 250)
-                .clipShape(Circle())
-            PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
-            Form {
-                Section(header: Text("Name")) {
-                    TextField("First Name", text: $firsts)
-                        .modifier(TextFieldClearButton(text: $firsts))
-                        .onReceive(firsts.publisher.collect()) {
-                                firsts = String($0.prefix(35))
-                        }
-                        .onAppear {
-                            firsts = birthday?.firsts ?? ""
-                            lasts = birthday?.lasts ?? ""
-                            date = birthday?.date ?? Date()
-                            note = birthday?.note ?? ""
-                        }
-                    TextField("Last Name", text: $lasts)
-                        .modifier(TextFieldClearButton(text: $lasts))
-                        .onReceive(lasts.publisher.collect()) {
-                                lasts = String($0.prefix(35))
-                        }
-                }
-                Section(header: Text("Birthday")) {
-                    Picker("Calendar", selection: $selectedCalendar) {
-                        ForEach(calendars, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                    DatePicker("Date", selection: $date, in: ...Date(), displayedComponents: .date)
-                        .datePickerStyle(.wheel)
-                    
-                }
-                Section(header: Text("Note")) {
-                    TextField("Note", text: $note)
-                        .onReceive(note.publisher.collect()) {
-                                note = String($0.prefix(255))
-                        }
-                    
-                }
-                Section {
-                    if birthday != nil {
-                        Button ("Delete", role: .destructive){
-                            isPresentingConfirm = true
-                        }
-                        .confirmationDialog("Are you sure?",
-                                            isPresented: $isPresentingConfirm) {
-                            Button("Are you sure?", role: .destructive) {
-                                DataController().deleteBirthday(birthday: birthday!, context: managedObjContext)
-                            }
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity)
+        Form {
+            VStack {
+                avatarImage
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 150)
+                    .clipShape(Circle())
+                PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
             }
+            .frame(maxWidth: .infinity)
+            Section(header: Text("Name")) {
+                TextField("First Name", text: $firsts)
+                    .modifier(TextFieldClearButton(text: $firsts))
+                    .onReceive(firsts.publisher.collect()) {
+                        firsts = String($0.prefix(35))
+                    }
+                    .onAppear {
+                        firsts = birthday?.firsts ?? ""
+                        lasts = birthday?.lasts ?? ""
+                        date = birthday?.date ?? Date()
+                        note = birthday?.note ?? ""
+                    }
+                TextField("Last Name", text: $lasts)
+                    .modifier(TextFieldClearButton(text: $lasts))
+                    .onReceive(lasts.publisher.collect()) {
+                        lasts = String($0.prefix(35))
+                    }
+            }
+            Section(header: Text("Birthday")) {
+                Picker("Calendar", selection: $selectedCalendar) {
+                    ForEach(calendars, id: \.self) {
+                        Text($0)
+                    }
+                }
+                DatePicker("Date", selection: $date, in: ...Date(), displayedComponents: .date)
+                    .datePickerStyle(.wheel)
+                
+            }
+            Section(header: Text("Note")) {
+                TextField("Note", text: $note)
+                    .onReceive(note.publisher.collect()) {
+                        note = String($0.prefix(255))
+                    }
+                
+            }
+            Section {
+                if birthday != nil {
+                    Button ("Delete", role: .destructive){
+                        isPresentingConfirm = true
+                    }
+                    .confirmationDialog("Are you sure?",
+                                        isPresented: $isPresentingConfirm) {
+                        Button("Are you sure?", role: .destructive) {
+                            DataController().deleteBirthday(birthday: birthday!, context: managedObjContext)
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
         }
         .onChange(of: avatarItem) { _ in
             Task {
