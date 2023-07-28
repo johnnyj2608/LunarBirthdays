@@ -27,6 +27,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                .listStyle(PlainListStyle())
                 .searchable(text: $searchText)
                 .onChange(of: searchText) { newValue in
                     let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -75,7 +76,7 @@ struct BirthdayCell: View {
             Image("andrewYang")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 70)
+                .frame(height: 65)
                 .clipShape(Circle())
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
@@ -86,7 +87,7 @@ struct BirthdayCell: View {
                     .minimumScaleFactor(0.5)
                 Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(monthString(month: getMonth(date: birthday.date ?? Date()))) \(getDay(date: birthday.date ?? Date()))")
                     .font(.system(size: 15))
-
+                    .lineLimit(1)
             }
             Spacer()
             let countdown = calcCountdown(date: birthday.date ?? Date())
@@ -97,12 +98,13 @@ struct BirthdayCell: View {
             default:
                 VStack(alignment: .center, spacing: 0) {
                     Text("\(countdown)")
-                        .font(.system(size: 35))
+                        .font(.system(size: 25))
                         .foregroundColor(countdown < 11 ? .red : .black)
                     Text(countdown == 1 ? "Day" : "Days")
                         .font(.system(size: 20))
                         .lineLimit(1)
                 }
+                .frame(width: 50)
             }
         }
     }
