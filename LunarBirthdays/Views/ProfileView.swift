@@ -14,7 +14,7 @@ struct ProfileView: View {
     @ObservedObject var birthday: Birthday
     
     var body: some View {
-        VStack {
+        Form {
             VStack(alignment: .center) {
                 Image("andrewYang")
                     .resizable()
@@ -30,28 +30,28 @@ struct ProfileView: View {
                     .font(.system(size: 25))
                     .lineLimit(1)
             }
+            
             .frame(maxWidth: .infinity)
-            Form {
-                Section {
-                    VStack {
-                        Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
-                            .font(.system(size: 25))
-                        let countdown = calcCountdown(date: birthday.date ?? Date())
-                        switch countdown {
-                        case 0:
-                            Text("Today")
-                                .font(.system(size: 40))
-                        default:
-                            Text("\(countdown) \(countdown == 1 ? "Day" : "Days")")
-                                .font(.system(size: 40))
-                        }
+            Section {
+                VStack {
+                    Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
+                        .font(.system(size: 25))
+                    let countdown = calcCountdown(date: birthday.date ?? Date())
+                    switch countdown {
+                    case 0:
+                        Text("Today")
+                            .font(.system(size: 40))
+                    default:
+                        Text("\(countdown) \(countdown == 1 ? "Day" : "Days")")
+                            .font(.system(size: 40))
                     }
-                    .frame(maxWidth: .infinity)
                 }
-                Section(header: Text("Note")) {
-                    Text(birthday.note ?? "")
-                }
+                .frame(maxWidth: .infinity)
             }
+            Section(header: Text("Note")) {
+                Text(birthday.note ?? "")
+            }
+            
         }
         .navigationTitle("Profile")
         .toolbar {
