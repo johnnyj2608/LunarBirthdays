@@ -12,43 +12,44 @@ struct ProfileView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @ObservedObject var birthday: Birthday
-    @State private var isPresentingConfirm: Bool = false
     
     var body: some View {
         VStack {
-            Image("andrewYang")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 150)
-                .clipShape(Circle())
-                .padding(15)
-            Text("\(birthday.firsts ?? "") \(birthday.lasts ?? "")")
-                .font(.system(size: 40))
-                .fontWeight(.semibold)
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            Text(dateString(date: birthday.date ?? Date()))
-                .font(.system(size: 25))
-                .lineLimit(1)
-                .padding(.horizontal)
-            Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
-                .font(.system(size: 25))
-                .padding(.top, 40)
-            Text("\(calcCountdown(date: birthday.date ?? Date())) Days")
-                .font(.system(size: 40))
-                
-            Text(birthday.note ?? "")
-                .padding()
-                .background(.white)
-            Spacer()
-            Button ("Delete", role: .destructive){
-                isPresentingConfirm = true
+            VStack(alignment: .center) {
+                Image("andrewYang")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 150)
+                    .clipShape(Circle())
+                Text("\(birthday.firsts ?? "") \(birthday.lasts ?? "")")
+                    .font(.system(size: 40))
+                    .fontWeight(.semibold)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                Text(dateString(date: birthday.date ?? Date()))
+                    .font(.system(size: 25))
+                    .lineLimit(1)
             }
-            .confirmationDialog("Are you sure?",
-                                isPresented: $isPresentingConfirm) {
-                Button("Are you sure?", role: .destructive) {
-                    DataController().deleteBirthday(birthday: birthday, context: managedObjContext)
+            .frame(maxWidth: .infinity)
+            Form {
+                Section {
+                    VStack {
+                        Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
+                            .font(.system(size: 25))
+                        let countdown = calcCountdown(date: birthday.date ?? Date())
+                        switch countdown {
+                        case 0:
+                            Text("Today")
+                                .font(.system(size: 40))
+                        default:
+                            Text("\(countdown) \(countdown == 1 ? "Day" : "Days")")
+                                .font(.system(size: 40))
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                Section(header: Text("Note")) {
+                    Text(birthday.note ?? "")
                 }
             }
         }

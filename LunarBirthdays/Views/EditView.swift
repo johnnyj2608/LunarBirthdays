@@ -29,6 +29,8 @@ struct EditView: View {
     @State private var title = ""
     @State private var pickerReset = UUID()
     
+    @State private var isPresentingConfirm: Bool = false
+    
     var body: some View {
         VStack {
             avatarImage
@@ -67,12 +69,26 @@ struct EditView: View {
                     
                 }
                 Section(header: Text("Note")) {
-                    TextEditor(text: $note)
+                    TextField("Note", text: $note)
                         .onReceive(note.publisher.collect()) {
                                 note = String($0.prefix(255))
                         }
                     
                 }
+                Section {
+                    if birthday != nil {
+                        Button ("Delete", role: .destructive){
+                            isPresentingConfirm = true
+                        }
+                        .confirmationDialog("Are you sure?",
+                                            isPresented: $isPresentingConfirm) {
+                            Button("Are you sure?", role: .destructive) {
+                                DataController().deleteBirthday(birthday: birthday!, context: managedObjContext)
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity)
             }
         }
         .onChange(of: avatarItem) { _ in
