@@ -19,6 +19,12 @@ struct SettingsView: View {
             Section(header: Text("Notificaitons")) {
                 Text("When Bro")
             }
+            Section(header: Text("Default Calendar")) {
+                Text("Lunar")
+            }
+            Section(header: Text("Export")) {
+                Text("Google Calendar")
+            }
             Section(header: Text("Appearance")) {
                 Picker("Appearance", selection: $selectedTheme) {
                     ForEach(themes, id: \.self) {
