@@ -1,14 +1,14 @@
 //
-//  WheelPicker.swift
+//  Confetti.swift
 //  LunarBirthdays
 //
-//  Created by Johnny Jiang on 7/27/23.
+//  Created by Johnny Jiang on 7/29/23.
 //
 
 import SwiftUI
 
-struct WheelDatePicker: View {
-    
+struct Confetti: View {
+
     var body: some View {
         VStack {
             

@@ -5,6 +5,40 @@
 //  Created by Johnny Jiang on 7/21/23.
 //
 
+/*
+ import SwiftUI
+ 
+ struct ContentView: View {
+ @State private var countdown: (Int, Int, Int, Int) = (0, 0, 0, 0)
+ private var timer: Timer?
+ 
+ var body: some View {
+ VStack {
+ Text("Countdown:")
+ Text("\(countdown.0) days, \(countdown.1) hours, \(countdown.2) minutes, \(countdown.3) seconds")
+ }
+ .onAppear {
+ updateCountdown()
+ // Start the timer to update countdown every second
+ timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+ updateCountdown()
+ }
+ }
+ .onDisappear {
+ // Stop the timer when the view disappears
+ timer?.invalidate()
+ timer = nil
+ }
+ }
+ 
+ func updateCountdown() {
+ let nextBirthdayDate = // Calculate next birthday date
+ countdown = calcCountdown(date: nextBirthdayDate)
+ }
+ }
+ 
+ */
+
 import SwiftUI
 import CoreData
 
@@ -12,6 +46,9 @@ struct ProfileView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @ObservedObject var birthday: Birthday
+    
+    @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
+    @StateObject private var timerManager = TimerManager()
     
     var body: some View {
         List {
@@ -35,24 +72,58 @@ struct ProfileView: View {
                 VStack {
                     Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
                         .font(.system(size: 25))
-                    let countdown = calcCountdown(date: birthday.date ?? Date())
-                    switch countdown {
-                    case 0:
-                        Text("Today")
+                        .padding(.bottom, 5)
+                    if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 && countdown.secs == 0 {
+                        Text("Today!")
                             .font(.system(size: 40))
-                    default:
-                        Text("\(countdown) \(countdown == 1 ? "Day" : "Days")")
-                            .font(.system(size: 40))
+                    } else {
+                        HStack {
+                            VStack {
+                                Text("\(countdown.days)")
+                                    .font(.system(size: 30))
+                                Text(countdown.days == 1 ? "Day" : "Days")
+                                    .font(.system(size: 25))
+                            }
+                            Spacer()
+                            VStack {
+                                Text("\(countdown.hours)")
+                                    .font(.system(size: 30))
+                                Text(countdown.hours == 1 ? "Hour" : "Hours")
+                                    .font(.system(size: 25))
+                            }
+                            Spacer()
+                            VStack {
+                                Text("\(countdown.mins)")
+                                    .font(.system(size: 30))
+                                Text(countdown.mins == 1 ? "Min" : "Mins")
+                                    .font(.system(size: 25))
+                            }
+                            Spacer()
+                            VStack {
+                                Text("\(countdown.secs)")
+                                    .font(.system(size: 30))
+                                Text(countdown.secs == 1 ? "Sec" : "Secs")
+                                    .font(.system(size: 25))
+                            }
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity)
             }
-            Section(header: Text("Note")) {
-                Text(birthday.note ?? "")
+            Section {
+                Text(birthday.note?.isEmpty == true ? "Note" : birthday.note ?? "")
             }
-            Section(header: Text("Custom Notifications")) {
-                Text("Hi")
+            
+        }
+        .onAppear {
+            countdown = calcCountdown(date: birthday.date ?? Date())
+            timerManager.startTimer {
+                countdown = calcCountdown(date: birthday.date ?? Date())
+                
             }
+        }
+        .onDisappear {
+            timerManager.stopTimer()
         }
         .navigationTitle("Profile")
         .toolbar {
