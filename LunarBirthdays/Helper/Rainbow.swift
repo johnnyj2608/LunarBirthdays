@@ -22,7 +22,7 @@ struct RainbowText: ViewModifier {
                 .mask(content)
             )
             .font(.system(size: isScaled ? 40 * 1.2 : 40))
-            .scaleEffect(isScaled ? 1.2 : 1.0) // Use a constant scale factor of 1.2
+            .scaleEffect(isScaled ? 1.2 : 1.0)
             .onAppear {
                 withAnimation(Animation.easeInOut(duration: 1).repeatForever()) {
                     isScaled.toggle()

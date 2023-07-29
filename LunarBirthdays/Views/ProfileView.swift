@@ -82,6 +82,7 @@ struct ProfileView: View {
                             VStack {
                                 Text("\(countdown.days)")
                                     .font(.system(size: 30))
+                                    .foregroundColor(countdown.days == 0 ? .red : .black)
                                 Text(countdown.days == 1 ? "Day" : "Days")
                                     .font(.system(size: 25))
                             }
@@ -89,6 +90,7 @@ struct ProfileView: View {
                             VStack {
                                 Text("\(countdown.hours)")
                                     .font(.system(size: 30))
+                                    .foregroundColor(countdown.days == 0 ? .red : .black)
                                 Text(countdown.hours == 1 ? "Hour" : "Hours")
                                     .font(.system(size: 25))
                             }
@@ -96,6 +98,7 @@ struct ProfileView: View {
                             VStack {
                                 Text("\(countdown.mins)")
                                     .font(.system(size: 30))
+                                    .foregroundColor(countdown.days == 0 ? .red : .black)
                                 Text(countdown.mins == 1 ? "Min" : "Mins")
                                     .font(.system(size: 25))
                             }
@@ -103,6 +106,7 @@ struct ProfileView: View {
                             VStack {
                                 Text("\(countdown.secs)")
                                     .font(.system(size: 30))
+                                    .foregroundColor(countdown.days == 0 ? .red : .black)
                                 Text(countdown.secs == 1 ? "Sec" : "Secs")
                                     .font(.system(size: 25))
                             }
