@@ -11,7 +11,6 @@
 		0926640D2A6F4FC40034296A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926640C2A6F4FC40034296A /* Persistence.swift */; };
 		092664162A736FFF0034296A /* WheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664152A736FFF0034296A /* WheelPicker.swift */; };
 		0926641A2A74BF370034296A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664192A74BF370034296A /* Timer.swift */; };
-		0926641E2A74D1A60034296A /* Confetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926641D2A74D1A60034296A /* Confetti.swift */; };
 		092664242A74D88D0034296A /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664232A74D88D0034296A /* Rainbow.swift */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
 		09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */; };
@@ -30,7 +29,6 @@
 		0926640C2A6F4FC40034296A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		092664152A736FFF0034296A /* WheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelPicker.swift; sourceTree = "<group>"; };
 		092664192A74BF370034296A /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
-		0926641D2A74D1A60034296A /* Confetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Confetti.swift; sourceTree = "<group>"; };
 		092664232A74D88D0034296A /* Rainbow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 				09B96D0E2A6CFCBF00FC5AAA /* Calendar.swift */,
 				092664192A74BF370034296A /* Timer.swift */,
 				092664152A736FFF0034296A /* WheelPicker.swift */,
-				0926641D2A74D1A60034296A /* Confetti.swift */,
 				092664232A74D88D0034296A /* Rainbow.swift */,
 			);
 			path = Helper;
@@ -204,7 +201,6 @@
 				09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */,
 				09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */,
 				09B96D0D2A6CFA5500FC5AAA /* DataController.swift in Sources */,
-				0926641E2A74D1A60034296A /* Confetti.swift in Sources */,
 				09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */,
 				092664242A74D88D0034296A /* Rainbow.swift in Sources */,
 				09B96D132A6CFF2400FC5AAA /* EditView.swift in Sources */,
