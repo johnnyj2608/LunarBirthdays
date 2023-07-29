@@ -76,6 +76,7 @@ struct ProfileView: View {
                     if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 && countdown.secs == 0 {
                         Text("Today!")
                             .font(.system(size: 40))
+                            .rainbowStyle()
                     } else {
                         HStack {
                             VStack {

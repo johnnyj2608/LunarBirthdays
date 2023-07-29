@@ -7,14 +7,22 @@
 
 import SwiftUI
 
-struct Rainbow: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct RainbowText: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                LinearGradient(
+                    gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink, .red]),
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+                .mask(content)
+            )
     }
 }
 
-struct Rainbow_Previews: PreviewProvider {
-    static var previews: some View {
-        Rainbow()
+extension View {
+    func rainbowStyle() -> some View {
+        self.modifier(RainbowText())
     }
 }
