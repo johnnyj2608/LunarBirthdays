@@ -34,17 +34,17 @@ class DataController: ObservableObject {
     func addBirthday(name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
-        birthday.name = name
+        birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
-        birthday.note = note
+        birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
         
         save(context: context)
     }
     func editBirthday(birthday: Birthday, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
-        birthday.name = name
+        birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
-        birthday.note = note
+        birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
         
         save(context: context)

@@ -15,9 +15,9 @@ struct EditView: View {
     
     var birthday: Birthday?
     
-    @State var name = ""
-    @State var date = Date()
-    @State var note = ""
+    @State private var name = ""
+    @State private var date = Date()
+    @State private var note = ""
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage = Image("andrewYang")
@@ -69,7 +69,6 @@ struct EditView: View {
                     .onReceive(note.publisher.collect()) {
                         note = String($0.prefix(255))
                     }
-                
             }
             Section {
                 if birthday != nil {

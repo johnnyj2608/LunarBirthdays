@@ -30,21 +30,25 @@ func nextBirthday(date: Date) -> Date {
     return unwrappedNextDate
 }
 
-func calcCountdown(date: Date) -> Int {
+func calcCountdown(date: Date) -> (days: Int, hours: Int, mins: Int, secs: Int) {
     let cal = Calendar.current
-    let today = cal.startOfDay(for: Date())
-    let nextBirthdayDate = nextBirthday(date: date)
-    let nextBirthday = cal.startOfDay(for: nextBirthdayDate)
+    let today = Date()
+    let nextBirthday = cal.startOfDay(for: nextBirthday(date: date))
     
-    if cal.isDate(today, inSameDayAs: nextBirthday) {
-        return 0
+    if nextBirthday <= today {
+        return (0, 0, 0, 0)
     }
     
-    let components = cal.dateComponents([.day], from: today, to: nextBirthday)
-    guard let daysRemaining = components.day else {
-        return -1
+    let components = cal.dateComponents([.day, .hour, .minute, .second], from: today, to: nextBirthday)
+    
+    guard let daysRemaining = components.day,
+          let hoursRemaining = components.hour,
+          let minutesRemaining = components.minute,
+          let secondsRemaining = components.second else {
+        return (0, 0, 0, 0)
     }
-    return daysRemaining
+    
+    return (daysRemaining, hoursRemaining, minutesRemaining, secondsRemaining)
 }
 
 func calcAge(date: Date) -> Int {
