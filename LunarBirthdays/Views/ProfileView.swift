@@ -5,40 +5,6 @@
 //  Created by Johnny Jiang on 7/21/23.
 //
 
-/*
- import SwiftUI
- 
- struct ContentView: View {
- @State private var countdown: (Int, Int, Int, Int) = (0, 0, 0, 0)
- private var timer: Timer?
- 
- var body: some View {
- VStack {
- Text("Countdown:")
- Text("\(countdown.0) days, \(countdown.1) hours, \(countdown.2) minutes, \(countdown.3) seconds")
- }
- .onAppear {
- updateCountdown()
- // Start the timer to update countdown every second
- timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
- updateCountdown()
- }
- }
- .onDisappear {
- // Stop the timer when the view disappears
- timer?.invalidate()
- timer = nil
- }
- }
- 
- func updateCountdown() {
- let nextBirthdayDate = // Calculate next birthday date
- countdown = calcCountdown(date: nextBirthdayDate)
- }
- }
- 
- */
-
 import SwiftUI
 import CoreData
 
@@ -124,7 +90,6 @@ struct ProfileView: View {
             countdown = calcCountdown(date: birthday.date ?? Date())
             timerManager.startTimer {
                 countdown = calcCountdown(date: birthday.date ?? Date())
-                
             }
         }
         .onDisappear {
