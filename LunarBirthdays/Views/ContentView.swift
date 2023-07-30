@@ -89,31 +89,32 @@ struct BirthdayCell: View {
             }
             Spacer()
             VStack(alignment: .center, spacing: 0) {
-                if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 && countdown.secs == 0 {
+                switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
+                case (0, 0, 0, 0):
                     Text("🎂")
                         .font(.system(size: 35))
-                } else if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 {
+                case (0, 0, 0, _):
                     Text("\(countdown.secs)")
                         .font(.system(size: 25))
                         .foregroundColor(countdown.days < 11 ? .red : .black)
                     Text(countdown.secs == 1 ? "Sec" : "Secs")
                         .font(.system(size: 20))
                         .lineLimit(1)
-                } else if countdown.days == 0 && countdown.hours == 0 {
+                case (0, 0, _, _):
                     Text("\(countdown.mins)")
                         .font(.system(size: 25))
                         .foregroundColor(countdown.days < 11 ? .red : .black)
-                    Text(countdown.mins == 1 ? "Min" : "Min")
+                    Text(countdown.mins == 1 ? "Min" : "Mins")
                         .font(.system(size: 20))
                         .lineLimit(1)
-                } else if countdown.days == 0 {
+                case (0, _, _, _):
                     Text("\(countdown.hours)")
                         .font(.system(size: 25))
                         .foregroundColor(countdown.days < 11 ? .red : .black)
                     Text(countdown.hours == 1 ? "Hrs" : "Hrs")
                         .font(.system(size: 20))
                         .lineLimit(1)
-                } else {
+                default:
                     Text("\(countdown.days)")
                         .font(.system(size: 25))
                         .foregroundColor(countdown.days < 11 ? .red : .black)
