@@ -108,14 +108,3 @@ func dateString(date: Date) -> String {
     dateFormatter.dateFormat = "MMMM dd, yyyy"
     return dateFormatter.string(from: date)
 }
-
-func getSortedMonths(birthdayMonths: [Int: [Birthday]]) -> [Int] {
-    let currentMonth = getMonth(date: Date())
-    let months = Array(birthdayMonths.keys)
-    let sortedMonths = months.sorted { (month1, month2) -> Bool in
-        let distance1 = (month1 - currentMonth + 12) % 12
-        let distance2 = (month2 - currentMonth + 12) % 12
-        return distance1 < distance2
-    }
-    return sortedMonths
-}

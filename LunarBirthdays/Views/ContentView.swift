@@ -12,17 +12,28 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: []) var birthday: FetchedResults<Birthday>
     @State private var searchText = ""
-
+    
+    var groupedBirthday: [Date: [Birthday]] {
+        let sortedBirthdays = birthday.sorted { calcCountdown(date: $0.date ?? Date()) < calcCountdown(date: $1.date ?? Date()) }
+        
+        return Dictionary(grouping: sortedBirthdays) { birthday in
+            let nextBirthday = nextBirthday(date: birthday.date ?? Date())
+            let components = Calendar.current.dateComponents([.year, .month], from: nextBirthday)
+            return Calendar.current.date(from: components)!
+        }
+    }
+    
+    
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(getSortedMonths(birthdayMonths: birthdayMonths), id: \.self) { month in
-                        Section(header: Text(monthString(month: month))) {
-                            ForEach(birthdayMonths[month]!, id: \.self) { birthday in
-                                NavigationLink(destination: ProfileView(birthday: birthday), label: {
+                    ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
+                        Section(header: Text("\(monthString(month: getMonth(date: key))) \(yearString(year: getYear(date: key)))")) {
+                            ForEach(groupedBirthday[key]!, id: \.self) { birthday in
+                                NavigationLink(destination: ProfileView(birthday: birthday)) {
                                     BirthdayCell(birthday: birthday)
-                                })
+                                }
                             }
                         }
                     }
@@ -50,24 +61,14 @@ struct ContentView: View {
         }
         .navigationViewStyle(.stack)
     }
-    
-    var birthdayMonths: [Int: [Birthday]] {
-        let groupedBirthdays = Dictionary(grouping: birthday, by: { getMonth(date: $0.date ?? Date()) })
-        let sortedMonths = getSortedMonths(birthdayMonths: groupedBirthdays)
-        var result: [Int: [Birthday]] = [:]
-            for month in sortedMonths {
-                result[month] = groupedBirthdays[month]?.sorted { (birthday1, birthday2) -> Bool in
-                    let day1 = getDay(date: birthday1.date ?? Date())
-                    let day2 = getDay(date: birthday2.date ?? Date())
-                    return day1 < day2
-                }
-            }
-        return result
-    }
 }
 
 struct BirthdayCell: View {
     @ObservedObject var birthday: Birthday
+    
+    @StateObject private var timerManager = TimerManager()
+    @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
+    
     var body: some View {
         HStack {
             Image("andrewYang")
@@ -87,13 +88,32 @@ struct BirthdayCell: View {
                     .lineLimit(1)
             }
             Spacer()
-            let countdown = calcCountdown(date: birthday.date ?? Date())
-            switch countdown.days {
-            case 0:
-                Text("🎂")
-                    .font(.system(size: 35))
-            default:
-                VStack(alignment: .center, spacing: 0) {
+            VStack(alignment: .center, spacing: 0) {
+                if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 && countdown.secs == 0 {
+                    Text("🎂")
+                        .font(.system(size: 35))
+                } else if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 {
+                    Text("\(countdown.secs)")
+                        .font(.system(size: 25))
+                        .foregroundColor(countdown.days < 11 ? .red : .black)
+                    Text(countdown.secs == 1 ? "Sec" : "Secs")
+                        .font(.system(size: 20))
+                        .lineLimit(1)
+                } else if countdown.days == 0 && countdown.hours == 0 {
+                    Text("\(countdown.mins)")
+                        .font(.system(size: 25))
+                        .foregroundColor(countdown.days < 11 ? .red : .black)
+                    Text(countdown.mins == 1 ? "Min" : "Min")
+                        .font(.system(size: 20))
+                        .lineLimit(1)
+                } else if countdown.days == 0 {
+                    Text("\(countdown.hours)")
+                        .font(.system(size: 25))
+                        .foregroundColor(countdown.days < 11 ? .red : .black)
+                    Text(countdown.hours == 1 ? "Hrs" : "Hrs")
+                        .font(.system(size: 20))
+                        .lineLimit(1)
+                } else {
                     Text("\(countdown.days)")
                         .font(.system(size: 25))
                         .foregroundColor(countdown.days < 11 ? .red : .black)
@@ -101,14 +121,23 @@ struct BirthdayCell: View {
                         .font(.system(size: 20))
                         .lineLimit(1)
                 }
-                .frame(width: 50)
+            }
+            .frame(width: 50)
+            .onAppear {
+                countdown = calcCountdown(date: birthday.date ?? Date())
+                timerManager.startTimer {
+                    countdown = calcCountdown(date: birthday.date ?? Date())
+                }
+            }
+            .onDisappear {
+                timerManager.stopTimer()
             }
         }
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
-}
