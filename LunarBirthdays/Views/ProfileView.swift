@@ -72,7 +72,7 @@ struct ProfileView: View {
                 VStack {
                     Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
                         .font(.system(size: 25))
-                        .padding(.bottom, 5)
+                        .padding(.bottom, 1)
                     if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 && countdown.secs == 0 {
                         Text("Today!")
                             .font(.system(size: 50))

@@ -60,9 +60,7 @@ struct EditView: View {
                         Text($0)
                     }
                 }
-                DatePicker("Date", selection: $date, in: ...Date(), displayedComponents: .date)
-                    .datePickerStyle(.wheel)
-                
+                WheelDatePicker(selectedDate: $date)
             }
             Section(header: Text("Note")) {
                 TextField("Note", text: $note)
