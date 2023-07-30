@@ -39,12 +39,13 @@ struct ProfileView: View {
                     Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
                         .font(.system(size: 25))
                         .padding(.bottom, 1)
-                    if countdown.days == 0 && countdown.hours == 0 && countdown.mins == 0 && countdown.secs == 0 {
-                        Text("Today!")
-                            .font(.system(size: 50))
-                            .rainbowStyle()
-                    } else {
-                        HStack {
+                    HStack {
+                        switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
+                        case (0, 0, 0, 0):
+                            Text("Today!")
+                                .font(.system(size: 50))
+                                .rainbowStyle()
+                        default:
                             VStack {
                                 Text("\(countdown.days)")
                                     .font(.system(size: 30))
@@ -78,35 +79,34 @@ struct ProfileView: View {
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity)
             }
             Section {
                 Text(birthday.note?.isEmpty == true ? "Note" : birthday.note ?? "")
             }
-            
-        }
-        .onAppear {
-            countdown = calcCountdown(date: birthday.date ?? Date())
-            timerManager.startTimer {
+            .onAppear {
                 countdown = calcCountdown(date: birthday.date ?? Date())
-            }
-        }
-        .onDisappear {
-            timerManager.stopTimer()
-        }
-        .navigationTitle("Profile")
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
-                    // TODO
-                } label: {
-                    NavigationLink(destination: EditView(birthday: birthday)) {
-                        Text("Edit")
-                    }
+                timerManager.startTimer {
+                    countdown = calcCountdown(date: birthday.date ?? Date())
                 }
             }
-            
+            .onDisappear {
+                timerManager.stopTimer()
+            }
+            .navigationTitle("Profile")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        // TODO
+                    } label: {
+                        NavigationLink(destination: EditView(birthday: birthday)) {
+                            Text("Edit")
+                        }
+                    }
+                }
+                
+            }
         }
     }
 }
