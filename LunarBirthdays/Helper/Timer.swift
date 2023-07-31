@@ -12,7 +12,7 @@ class TimerManager: ObservableObject {
 
     func startTimer(withInterval interval: TimeInterval = 1.0, handler: @escaping () -> Void) {
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
-            handler()
+            //handler()
         }
     }
 
