@@ -29,6 +29,13 @@ struct EditView: View {
     @State private var pickerReset = UUID()
     
     @State private var isPresentingConfirm: Bool = false
+    @State private var isDiscardingConfirm: Bool = false
+    
+    @State private var originalImage = Data()
+    @State private var originalName = ""
+    @State private var originalDate = Date()
+    @State private var originalNote = ""
+    @State private var originalCal = "Lunar"
     
     var body: some View {
         Form {
@@ -48,13 +55,7 @@ struct EditView: View {
                     .onReceive(name.publisher.collect()) {
                         name = String($0.prefix(70))
                     }
-                    .onAppear {
-                        image = birthday?.img ?? Data()
-                        name = birthday?.name ?? ""
-                        date = birthday?.date ?? Date()
-                        note = birthday?.note ?? ""
-                        cal = birthday?.cal ?? "Lunar"
-                    }
+                
             }
             Section(header: Text("Birthday")) {
                 Picker("Calendar", selection: $cal) {
@@ -75,8 +76,7 @@ struct EditView: View {
                     Button ("Delete", role: .destructive){
                         isPresentingConfirm = true
                     }
-                    .confirmationDialog("Are you sure?",
-                                        isPresented: $isPresentingConfirm) {
+                    .confirmationDialog("Delete", isPresented: $isPresentingConfirm) {
                         Button("Are you sure?", role: .destructive) {
                             DataController().deleteBirthday(birthday: birthday!, context: managedObjContext)
                         }
@@ -99,8 +99,33 @@ struct EditView: View {
                 print("Failed")
             }
         }
+        .onAppear {
+            image = birthday?.img ?? Data()
+            name = birthday?.name ?? ""
+            date = birthday?.date ?? Date()
+            note = birthday?.note ?? ""
+            cal = birthday?.cal ?? "Lunar"
+            
+            originalImage = image
+            originalName = name
+            originalDate = date
+            originalNote = note
+            originalCal = cal
+        }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle("Profile")
         .toolbar {
+            ToolbarItemGroup(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                    if dataChange() {
+                        isDiscardingConfirm = true
+                        print("True")
+                    } else {
+                        dismiss()
+                        print("False")
+                    }
+                }
+            }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
@@ -113,6 +138,18 @@ struct EditView: View {
                 .disabled((name).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
+        .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
+            Button("Discard Changes?", role: .destructive) {
+                dismiss()
+            }
+        }
+    }
+    private func dataChange() -> Bool {
+        return !(image == originalImage &&
+                 name == originalName &&
+                 date == originalDate &&
+                 note == originalNote &&
+                 cal == originalCal)
     }
 }
 
