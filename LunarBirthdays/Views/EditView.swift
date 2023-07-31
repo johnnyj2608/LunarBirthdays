@@ -21,7 +21,6 @@ struct EditView: View {
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var image = Data()
-    @State private var avatarImage = Image("andrewYang")
     
     @State private var cal = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
@@ -34,7 +33,8 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                Image(uiImage: UIImage(data: image) ?? UIImage())
+                //Image(uiImage: UIImage(data: image) ?? UIImage())
+                Image("andrewYang")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)

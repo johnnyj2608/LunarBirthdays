@@ -19,7 +19,8 @@ struct ProfileView: View {
     var body: some View {
         List {
             VStack(alignment: .center) {
-                Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
+                //Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
+                Image("andrewYang")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 150, height: 150)

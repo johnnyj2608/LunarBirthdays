@@ -71,7 +71,8 @@ struct BirthdayCell: View {
     
     var body: some View {
         HStack {
-            Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
+            //Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
+            Image("andrewYang")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 70, height: 70)
