@@ -85,6 +85,9 @@ struct EditView: View {
             }
             .frame(maxWidth: .infinity)
         }
+        .gesture(DragGesture().onChanged { _ in
+            UIApplication.shared.dismissKeyboard()
+        })
         .onChange(of: avatarItem) { _ in
             Task {
                 if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
