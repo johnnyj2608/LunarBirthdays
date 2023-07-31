@@ -68,13 +68,14 @@ struct ContentView: View {
 
 struct BirthdayCell: View {
     @ObservedObject var birthday: Birthday
+    @StateObject private var dataController = DataController()
     
-    @StateObject private var timerManager = TimerManager()
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         HStack {
-            //Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
+            //Image(uiImage: dataController.loadImage(from: birthday.img))
             Image("andrewYang")
                 .resizable()
                 .scaledToFit()
@@ -130,12 +131,12 @@ struct BirthdayCell: View {
             .frame(width: 50)
             .onAppear {
                 countdown = calcCountdown(date: birthday.date ?? Date())
-                timerManager.startTimer {
-                    countdown = calcCountdown(date: birthday.date ?? Date())
-                }
+            }
+            .onReceive(timer) { _ in
+                countdown = calcCountdown(date: birthday.date ?? Date())
             }
             .onDisappear {
-                timerManager.stopTimer()
+                timer.upstream.connect().cancel()
             }
         }
     }

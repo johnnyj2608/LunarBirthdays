@@ -12,14 +12,15 @@ struct ProfileView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @ObservedObject var birthday: Birthday
+    @StateObject private var dataController = DataController()
     
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
-    @StateObject private var timerManager = TimerManager()
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         List {
             VStack(alignment: .center) {
-                //Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
+                //Image(uiImage: dataController.loadImage(from: birthday.img))
                 Image("andrewYang")
                     .resizable()
                     .scaledToFill()
@@ -88,12 +89,12 @@ struct ProfileView: View {
             }
             .onAppear {
                 countdown = calcCountdown(date: birthday.date ?? Date())
-                timerManager.startTimer {
-                    countdown = calcCountdown(date: birthday.date ?? Date())
-                }
+            }
+            .onReceive(timer) { _ in
+                countdown = calcCountdown(date: birthday.date ?? Date())
             }
             .onDisappear {
-                timerManager.stopTimer()
+                timer.upstream.connect().cancel()
             }
             .navigationTitle("Profile")
             .toolbar {

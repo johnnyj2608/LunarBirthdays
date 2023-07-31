@@ -4,7 +4,7 @@
         <attribute name="cal" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="img" optional="YES" attributeType="Binary" valueTransformerName="NSSecureUnarchiveFromData" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="img" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromData" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
     </entity>
