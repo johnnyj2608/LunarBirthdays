@@ -20,6 +20,7 @@ struct EditView: View {
     @State private var note = ""
     
     @State private var avatarItem: PhotosPickerItem?
+    @State private var image = Data()
     @State private var avatarImage = Image("andrewYang")
     
     @State private var cal = "Lunar"
@@ -33,10 +34,10 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                avatarImage
+                Image(uiImage: UIImage(data: image) ?? UIImage())
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 150)
+                    .frame(width: 150, height: 150)
                     .clipShape(Circle())
                 PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
             }
@@ -48,6 +49,7 @@ struct EditView: View {
                         name = String($0.prefix(70))
                     }
                     .onAppear {
+                        image = birthday?.img ?? Data()
                         name = birthday?.name ?? ""
                         date = birthday?.date ?? Date()
                         note = birthday?.note ?? ""
@@ -86,8 +88,8 @@ struct EditView: View {
         .onChange(of: avatarItem) { _ in
             Task {
                 if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
-                    if let uiImage = UIImage(data: data) {
-                        avatarImage = Image(uiImage: uiImage)
+                    if UIImage(data: data) != nil {
+                        image = data
                         return
                     }
                 }
@@ -99,9 +101,9 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController().editBirthday(birthday: birthday!, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().editBirthday(birthday: birthday!, img: image, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        DataController().addBirthday(name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().addBirthday(img: image, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
