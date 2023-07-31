@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
     @State private var selectedTheme = "Automatic"
     let themes = ["Automatic", "Dark", "Light"]
     
@@ -15,6 +16,7 @@ struct SettingsView: View {
         Form {
             Section(header: Text("Upgrade")) {
                 Text("Birthday Reminder Pro")
+                // Popup sheet
             }
             Section(header: Text("Notificaitons")) {
                 Text("When Bro")
@@ -37,6 +39,7 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+        .preferredColorScheme(.dark)
     }
 }
 

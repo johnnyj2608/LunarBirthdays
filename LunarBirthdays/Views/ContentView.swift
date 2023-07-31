@@ -59,6 +59,9 @@ struct ContentView: View {
                 }
             }
         }
+        .gesture(DragGesture().onChanged { _ in
+            UIApplication.shared.dismissKeyboard()
+        })
         .navigationViewStyle(.stack)
     }
 }
@@ -136,20 +139,6 @@ struct BirthdayCell: View {
             }
         }
     }
-    private func getCountdownTextAndUnit() -> (String, String) {
-            switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
-            case (0, 0, 0, 0):
-                return ("🎂", "")
-            case (0, 0, 0, _):
-                return (String(countdown.secs), countdown.secs == 1 ? "Sec" : "Secs")
-            case (0, 0, _, _):
-                return (String(countdown.mins), countdown.mins == 1 ? "Min" : "Mins")
-            case (0, _, _, _):
-                return (String(countdown.hours), countdown.hours == 1 ? "Hrs" : "Hrs")
-            default:
-                return (String(countdown.days), countdown.days == 1 ? "Day" : "Days")
-            }
-        }
 }
     
     struct ContentView_Previews: PreviewProvider {

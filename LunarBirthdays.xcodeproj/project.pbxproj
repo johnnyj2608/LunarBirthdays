@@ -12,6 +12,7 @@
 		092664162A736FFF0034296A /* WheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664152A736FFF0034296A /* WheelPicker.swift */; };
 		0926641A2A74BF370034296A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664192A74BF370034296A /* Timer.swift */; };
 		092664242A74D88D0034296A /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664232A74D88D0034296A /* Rainbow.swift */; };
+		092664282A7760370034296A /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664272A7760370034296A /* Keyboard.swift */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
 		09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */; };
 		09B96CFC2A6CF8BD00FC5AAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B96CFB2A6CF8BD00FC5AAA /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 		092664232A74D88D0034296A /* Rainbow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
 		092664252A772D650034296A /* BirthdayModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BirthdayModel 3.xcdatamodel"; sourceTree = "<group>"; };
 		092664262A772DC70034296A /* BirthdayModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BirthdayModel 4.xcdatamodel"; sourceTree = "<group>"; };
+		092664272A7760370034296A /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
 		09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				092664192A74BF370034296A /* Timer.swift */,
 				092664152A736FFF0034296A /* WheelPicker.swift */,
 				092664232A74D88D0034296A /* Rainbow.swift */,
+				092664272A7760370034296A /* Keyboard.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			files = (
 				09B96D0F2A6CFCBF00FC5AAA /* Calendar.swift in Sources */,
 				09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */,
+				092664282A7760370034296A /* Keyboard.swift in Sources */,
 				09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */,
 				09B96D0D2A6CFA5500FC5AAA /* DataController.swift in Sources */,
 				09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */,
