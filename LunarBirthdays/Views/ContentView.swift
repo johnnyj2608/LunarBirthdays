@@ -71,10 +71,10 @@ struct BirthdayCell: View {
     
     var body: some View {
         HStack {
-            Image("andrewYang")
+            Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
                 .resizable()
                 .scaledToFit()
-                .frame(height: 70)
+                .frame(width: 70, height: 70)
                 .clipShape(Circle())
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
@@ -135,6 +135,20 @@ struct BirthdayCell: View {
             }
         }
     }
+    private func getCountdownTextAndUnit() -> (String, String) {
+            switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
+            case (0, 0, 0, 0):
+                return ("🎂", "")
+            case (0, 0, 0, _):
+                return (String(countdown.secs), countdown.secs == 1 ? "Sec" : "Secs")
+            case (0, 0, _, _):
+                return (String(countdown.mins), countdown.mins == 1 ? "Min" : "Mins")
+            case (0, _, _, _):
+                return (String(countdown.hours), countdown.hours == 1 ? "Hrs" : "Hrs")
+            default:
+                return (String(countdown.days), countdown.days == 1 ? "Day" : "Days")
+            }
+        }
 }
     
     struct ContentView_Previews: PreviewProvider {

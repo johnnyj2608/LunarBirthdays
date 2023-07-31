@@ -19,10 +19,10 @@ struct ProfileView: View {
     var body: some View {
         List {
             VStack(alignment: .center) {
-                Image("andrewYang")
+                Image(uiImage: UIImage(data: birthday.img ?? Data()) ?? UIImage())
                     .resizable()
-                    .scaledToFit()
-                    .frame(height: 150)
+                    .scaledToFill()
+                    .frame(width: 150, height: 150)
                     .clipShape(Circle())
                 Text("\(birthday.name ?? "")")
                     .font(.system(size: 40))
