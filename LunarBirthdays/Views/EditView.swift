@@ -12,15 +12,16 @@ struct EditView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
+    @StateObject private var dataController = DataController()
     
     var birthday: Birthday?
     
+    @State private var img = UIImage()
     @State private var name = ""
     @State private var date = Date()
     @State private var note = ""
     
     @State private var avatarItem: PhotosPickerItem?
-    @State private var image = Data()
     
     @State private var cal = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
@@ -31,7 +32,7 @@ struct EditView: View {
     @State private var isPresentingConfirm: Bool = false
     @State private var isDiscardingConfirm: Bool = false
     
-    @State private var originalImage = Data()
+    @State private var originalImg = UIImage()
     @State private var originalName = ""
     @State private var originalDate = Date()
     @State private var originalNote = ""
@@ -40,7 +41,7 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                //Image(uiImage: UIImage(data: image) ?? UIImage())
+                //Image(uiImage: img)
                 Image("andrewYang")
                     .resizable()
                     .scaledToFit()
@@ -91,8 +92,8 @@ struct EditView: View {
         .onChange(of: avatarItem) { _ in
             Task {
                 if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
-                    if UIImage(data: data) != nil {
-                        image = data
+                    if let uiImage = UIImage(data: data) {
+                        img = uiImage
                         return
                     }
                 }
@@ -100,13 +101,13 @@ struct EditView: View {
             }
         }
         .onAppear {
-            image = birthday?.img ?? Data()
+            img = dataController.loadImage(from: birthday?.img ?? "")
             name = birthday?.name ?? ""
             date = birthday?.date ?? Date()
             note = birthday?.note ?? ""
             cal = birthday?.cal ?? "Lunar"
             
-            originalImage = image
+            originalImg = img
             originalName = name
             originalDate = date
             originalNote = note
@@ -129,9 +130,9 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController().editBirthday(birthday: birthday!, img: image, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        DataController().addBirthday(img: image, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().addBirthday(img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
@@ -145,7 +146,7 @@ struct EditView: View {
         }
     }
     private func dataChange() -> Bool {
-        return !(image == originalImage &&
+        return !(img == originalImg &&
                  name == originalName &&
                  date == originalDate &&
                  note == originalNote &&
