@@ -25,8 +25,6 @@ func nextBirthday(date: Date) -> Date {
     guard let unwrappedNextDate = nextDate else {
             fatalError("Next birthday date calculation failed.")
         }
-    print(today)
-    print(birthday)
     return unwrappedNextDate
 }
 
