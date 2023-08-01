@@ -41,8 +41,8 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                //Image(uiImage: img)
-                Image("andrewYang")
+                Image(uiImage: img)
+                //Image("andrewYang")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
@@ -101,7 +101,7 @@ struct EditView: View {
             }
         }
         .onAppear {
-            img = dataController.loadImage(from: birthday?.img ?? "")
+            img = loadImage(from: birthday?.img ?? "")
             name = birthday?.name ?? ""
             date = birthday?.date ?? Date()
             note = birthday?.note ?? ""
@@ -120,10 +120,8 @@ struct EditView: View {
                 Button("Cancel") {
                     if dataChange() {
                         isDiscardingConfirm = true
-                        print("True")
                     } else {
                         dismiss()
-                        print("False")
                     }
                 }
             }
@@ -152,6 +150,13 @@ struct EditView: View {
                  note == originalNote &&
                  cal == originalCal)
     }
+    func loadImage(from path: String?) -> UIImage {
+        guard let path = path, let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+            return UIImage()
+        }
+        return UIImage(data: data) ?? UIImage()
+    }
+
 }
 
 struct EditView_Previews: PreviewProvider {

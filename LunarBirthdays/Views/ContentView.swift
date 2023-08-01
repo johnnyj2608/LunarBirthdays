@@ -23,7 +23,6 @@ struct ContentView: View {
         }
     }
     
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -68,31 +67,22 @@ struct ContentView: View {
 
 struct BirthdayCell: View {
     @ObservedObject var birthday: Birthday
-    @StateObject private var dataController = DataController()
     
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         HStack {
-            /*
-             AsyncImage(url: URL(string: birthday.img ?? "")) { image in
+            AsyncImage(url: URL(fileURLWithPath: birthday.img ?? "")) { image in
                 image.resizable()
-                .scaledToFit()
-                .frame(width: 70, height: 70)
-                .clipShape(Circle())
-                .padding(.vertical, 4)
-             } placeholder: {
+                    .scaledToFit()
+                    .frame(width: 70, height: 70)
+                    .clipShape(Circle())
+                    .padding(.vertical, 4)
+            } placeholder: {
                 ProgressView()
-             }
-             */
-            //Image(uiImage: dataController.loadImage(from: birthday.img))
-            Image("andrewYang")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 70, height: 70)
-                .clipShape(Circle())
-                .padding(.vertical, 4)
+                    .frame(width: 70, height: 70)
+            }
             VStack(alignment: .leading, spacing: 5) {
                 Text("\(birthday.name ?? "")")
                     .font(.system(size: 20))
@@ -140,16 +130,16 @@ struct BirthdayCell: View {
                 }
             }
             .frame(width: 50)
-            .onAppear {
-                countdown = calcCountdown(date: birthday.date ?? Date())
-            }
-            
-            .onReceive(timer) { _ in
-                countdown = calcCountdown(date: birthday.date ?? Date())
-            }
-            .onDisappear {
-                timer.upstream.connect().cancel()
-            }
+        }
+        .onAppear {
+            countdown = calcCountdown(date: birthday.date ?? Date())
+        }
+        
+        .onReceive(timer) { _ in
+            countdown = calcCountdown(date: birthday.date ?? Date())
+        }
+        .onDisappear {
+            timer.upstream.connect().cancel()
         }
     }
 }
