@@ -87,11 +87,4 @@ class DataController: ObservableObject {
             print("Failed to delete image: \(error)")
         }
     }
-    
-    func loadImage(from path: String?) -> UIImage {
-        guard let path = path, let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
-            return UIImage()
-        }
-        return UIImage(data: data) ?? UIImage()
-    }
 }

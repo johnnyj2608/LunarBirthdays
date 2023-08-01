@@ -12,7 +12,6 @@ struct ProfileView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @ObservedObject var birthday: Birthday
-    @StateObject private var dataController = DataController()
     
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -20,12 +19,16 @@ struct ProfileView: View {
     var body: some View {
         List {
             VStack(alignment: .center) {
-                //Image(uiImage: dataController.loadImage(from: birthday.img))
-                Image("andrewYang")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 150, height: 150)
-                    .clipShape(Circle())
+                AsyncImage(url: URL(fileURLWithPath: birthday.img ?? "")) { image in
+                    image.resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
+                        .padding(.vertical, 4)
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: 150, height: 150)
+                }
                 Text("\(birthday.name ?? "")")
                     .font(.system(size: 40))
                     .fontWeight(.semibold)
@@ -112,7 +115,6 @@ struct ProfileView: View {
         }
     }
 }
-
 
 struct ProfileView_Previews: PreviewProvider {
     static let context = PersistenceController.preview.container.viewContext
