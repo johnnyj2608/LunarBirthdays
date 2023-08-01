@@ -75,6 +75,17 @@ struct BirthdayCell: View {
     
     var body: some View {
         HStack {
+            /*
+             AsyncImage(url: URL(string: birthday.img ?? "")) { image in
+                image.resizable()
+                .scaledToFit()
+                .frame(width: 70, height: 70)
+                .clipShape(Circle())
+                .padding(.vertical, 4)
+             } placeholder: {
+                ProgressView()
+             }
+             */
             //Image(uiImage: dataController.loadImage(from: birthday.img))
             Image("andrewYang")
                 .resizable()
@@ -132,6 +143,7 @@ struct BirthdayCell: View {
             .onAppear {
                 countdown = calcCountdown(date: birthday.date ?? Date())
             }
+            
             .onReceive(timer) { _ in
                 countdown = calcCountdown(date: birthday.date ?? Date())
             }
@@ -141,9 +153,9 @@ struct BirthdayCell: View {
         }
     }
 }
-    
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-        }
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
+}
