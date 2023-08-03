@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Kingfisher
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
@@ -73,16 +74,11 @@ struct BirthdayCell: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(fileURLWithPath: birthday.img ?? "")) { image in
-                image.resizable()
-                    .scaledToFit()
-                    .frame(width: 70, height: 70)
-                    .clipShape(Circle())
-                    .padding(.vertical, 4)
-            } placeholder: {
-                ProgressView()
-                    .frame(width: 70, height: 70)
-            }
+            KFImage(URL(fileURLWithPath: birthday.img ?? ""))
+                .scaledToFit()
+                .frame(width: 70, height: 70)
+                .clipShape(Circle())
+                .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
                 Text("\(birthday.name ?? "")")
                     .font(.system(size: 20))

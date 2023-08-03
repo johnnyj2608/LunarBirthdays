@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import Kingfisher
 
 struct EditView: View {
     
@@ -42,7 +43,6 @@ struct EditView: View {
         Form {
             VStack {
                 Image(uiImage: img)
-                //Image("andrewYang")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
