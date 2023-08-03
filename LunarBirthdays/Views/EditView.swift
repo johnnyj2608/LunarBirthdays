@@ -43,6 +43,7 @@ struct EditView: View {
         Form {
             VStack {
                 Image(uiImage: img)
+                //KFImage(URL(fileURLWithPath: birthday?.img ?? ""))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
