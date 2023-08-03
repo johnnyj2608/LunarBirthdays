@@ -75,6 +75,7 @@ struct BirthdayCell: View {
     var body: some View {
         HStack {
             KFImage(URL(fileURLWithPath: birthday.img ?? ""))
+                .resizable()
                 .scaledToFit()
                 .frame(width: 70, height: 70)
                 .clipShape(Circle())

@@ -21,8 +21,9 @@ struct ProfileView: View {
         List {
             VStack(alignment: .center) {
                 KFImage(URL(fileURLWithPath: birthday.img ?? ""))
+                    .resizable()
                     .scaledToFit()
-                    .frame(width: 70, height: 70)
+                    .frame(width: 150, height: 150)
                     .clipShape(Circle())
                     .padding(.vertical, 4)
                 Text("\(birthday.name ?? "")")
@@ -117,6 +118,7 @@ struct ProfileView_Previews: PreviewProvider {
     
     static var previews: some View {
         let birthday = Birthday(context: context)
+        birthday.img = "andrewYang"
         birthday.name = "Andrew Yang"
         birthday.date = Date()
         birthday.note = "Testing note"
