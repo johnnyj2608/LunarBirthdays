@@ -17,12 +17,13 @@ struct EditView: View {
     
     var birthday: Birthday?
     
-    @State private var img = UIImage()
+    @State private var img = ""
     @State private var name = ""
     @State private var date = Date()
     @State private var note = ""
     
     @State private var avatarItem: PhotosPickerItem?
+    @State private var imgUI = UIImage()
     
     @State private var cal = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
@@ -42,8 +43,7 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                Image(uiImage: img)
-                //KFImage(URL(fileURLWithPath: birthday?.img ?? ""))
+                KFImage(URL(fileURLWithPath: img))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
@@ -80,7 +80,7 @@ struct EditView: View {
                     }
                     .confirmationDialog("Delete", isPresented: $isPresentingConfirm) {
                         Button("Are you sure?", role: .destructive) {
-                            DataController().deleteBirthday(birthday: birthday!, context: managedObjContext)
+                            dataController.deleteBirthday(birthday: birthday!, context: managedObjContext)
                         }
                     }
                 }
@@ -92,27 +92,32 @@ struct EditView: View {
         })
         .onChange(of: avatarItem) { _ in
             Task {
-                if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
-                    if let uiImage = UIImage(data: data) {
-                        img = uiImage
-                        return
-                    }
+                if let data = try? await avatarItem?.loadTransferable(type: Data.self),
+                   let uiImage = UIImage(data: data),
+                   let imagePath = dataController.saveImage(uiImage, withFilename: "\(UUID()).jpg") {
+                    imgUI = uiImage
+                    img = imagePath
+                } else {
+                    print("Failed to load image")
                 }
-                print("Failed")
             }
         }
         .onAppear {
-            img = loadImage(from: birthday?.img ?? "")
+            img = birthday?.img ?? ""
             name = birthday?.name ?? ""
             date = birthday?.date ?? Date()
             note = birthday?.note ?? ""
             cal = birthday?.cal ?? "Lunar"
             
-            originalImg = img
+            imgUI = loadImage(from: img)
+            originalImg = imgUI
             originalName = name
             originalDate = date
             originalNote = note
             originalCal = cal
+        }
+        .onDisappear {
+            dataController.clearDocumentsDirectory()
         }
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Profile")
@@ -129,9 +134,9 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController().editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        dataController.editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        DataController().addBirthday(img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        dataController.addBirthday(img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
@@ -145,7 +150,7 @@ struct EditView: View {
         }
     }
     private func dataChange() -> Bool {
-        return !(img == originalImg &&
+        return !(imgUI == originalImg &&
                  name == originalName &&
                  date == originalDate &&
                  note == originalNote &&
@@ -157,7 +162,6 @@ struct EditView: View {
         }
         return UIImage(data: data) ?? UIImage()
     }
-
 }
 
 struct EditView_Previews: PreviewProvider {
