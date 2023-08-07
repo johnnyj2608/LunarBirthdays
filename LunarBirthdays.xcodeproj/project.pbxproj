@@ -180,6 +180,7 @@
 			mainGroup = 09B96CEB2A6CF8BB00FC5AAA;
 			packageReferences = (
 				0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				092664342A81A1410034296A /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */,
 			);
 			productRefGroup = 09B96CF52A6CF8BB00FC5AAA /* Products */;
 			projectDirPath = "";
@@ -439,6 +440,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.0.0;
+			};
+		};
+		092664342A81A1410034296A /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Rillieux/PhotoSelectAndCrop";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
