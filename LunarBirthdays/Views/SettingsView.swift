@@ -9,8 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @State private var selectedTheme = "Automatic"
-    let themes = ["Automatic", "Dark", "Light"]
+    @AppStorage("darkMode") private var darkMode = true
     
     var body: some View {
         Form {
@@ -28,18 +27,13 @@ struct SettingsView: View {
                 Text("Google Calendar")
             }
             Section(header: Text("Appearance")) {
-                Picker("Appearance", selection: $selectedTheme) {
-                    ForEach(themes, id: \.self) {
-                        Text($0)
-                    }
-                }
+                Toggle("Dark Mode", isOn: $darkMode)
             }
             Section(header: Text("Feedback")) {
                 Text("Rate this app")
             }
         }
         .navigationTitle("Settings")
-        .preferredColorScheme(.dark)
     }
 }
 

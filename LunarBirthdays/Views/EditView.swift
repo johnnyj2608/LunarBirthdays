@@ -162,6 +162,16 @@ struct EditView: View {
         }
         return UIImage(data: data) ?? UIImage()
     }
+    func listFilesInDirectory(_ directoryURL: URL) {
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil)
+            for fileURL in fileURLs {
+                print("File: \(fileURL.lastPathComponent)")
+            }
+        } catch {
+            print("Error listing files: \(error)")
+        }
+    }
 }
 
 struct EditView_Previews: PreviewProvider {

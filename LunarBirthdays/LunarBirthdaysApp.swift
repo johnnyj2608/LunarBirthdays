@@ -10,10 +10,12 @@ import SwiftUI
 @main
 struct LunarBirthdaysApp: App {
     @StateObject private var dataController = DataController()
+    @AppStorage("darkMode") private var darkMode = true
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .preferredColorScheme(darkMode ? .dark : .light)
         }
     }
 }
