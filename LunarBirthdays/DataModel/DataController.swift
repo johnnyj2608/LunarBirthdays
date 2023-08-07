@@ -32,29 +32,23 @@ class DataController: ObservableObject {
             print("Failed to save data")
         }
     }
-    func addBirthday(img: UIImage, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
+    func addBirthday(img: String, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
+        birthday.img = img
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
-        
-        if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
-            birthday.img = imagePath
-        }
         
         save(context: context)
     }
-    func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
+    func editBirthday(birthday: Birthday, img: String, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
+        birthday.img = img
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
-        
-        if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
-            birthday.img = imagePath
-        }
         
         save(context: context)
     }
@@ -62,14 +56,11 @@ class DataController: ObservableObject {
         context.delete(birthday)
         save(context: context)
     }
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
     
     func saveImage(_ image: UIImage, withFilename filename: String) -> String? {
         if let data = image.jpegData(compressionQuality: 0.8) {
-            let fileURL = getDocumentsDirectory().appendingPathComponent(filename)
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let fileURL = paths[0].appendingPathComponent(filename)
             do {
                 try data.write(to: fileURL)
                 return fileURL.path
@@ -80,11 +71,19 @@ class DataController: ObservableObject {
         return nil
     }
     
-    func deleteImage(atPath path: String) {
+    func clearDocumentsDirectory() {
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+
         do {
-            try FileManager.default.removeItem(atPath: path)
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: [])
+            
+            for fileURL in fileURLs {
+                try fileManager.removeItem(at: fileURL)
+            }
         } catch {
-            print("Failed to delete image: \(error)")
+            print("Error clearing Documents directory: \(error)")
         }
     }
+
 }
