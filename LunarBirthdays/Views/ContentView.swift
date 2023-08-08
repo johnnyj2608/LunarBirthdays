@@ -35,10 +35,10 @@ struct ContentView: View {
                                     BirthdayCell(birthday: birthday)
                                 }
                             }
+                            .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                         }
                     }
                 }
-                .listStyle(PlainListStyle())
                 .searchable(text: $searchText)
                 .onChange(of: searchText) { newValue in
                     let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -77,7 +77,7 @@ struct BirthdayCell: View {
             KFImage(URL(fileURLWithPath: birthday.img ?? ""))
                 .resizable()
                 .scaledToFit()
-                .frame(width: 70, height: 70)
+                .frame(width: 65, height: 65)
                 .clipShape(Circle())
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {

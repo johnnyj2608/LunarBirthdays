@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import Kingfisher
+import PhotoSelectAndCrop
 
 struct EditView: View {
     
@@ -25,7 +26,7 @@ struct EditView: View {
     @State private var avatarItem: PhotosPickerItem?
     @State private var imgUI = UIImage()
     
-    @State private var cal = "Lunar"
+    @State private var cal: String = UserDefaults.standard.string(forKey: "calendar") ?? "Lunar"
     let calendars = ["Lunar", "Gregorian"]
     
     @State private var title = ""
@@ -94,9 +95,9 @@ struct EditView: View {
             Task {
                 if let data = try? await avatarItem?.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data),
-                   let imagePath = dataController.saveImage(uiImage, withFilename: "\(UUID()).jpg") {
-                    imgUI = uiImage
+                   let imagePath = dataController.saveImage(imgUI, withFilename: "\(UUID()).jpg") {
                     img = imagePath
+                    imgUI = uiImage
                 } else {
                     print("Failed to load image")
                 }
@@ -107,7 +108,7 @@ struct EditView: View {
             name = birthday?.name ?? ""
             date = birthday?.date ?? Date()
             note = birthday?.note ?? ""
-            cal = birthday?.cal ?? "Lunar"
+            cal = birthday?.cal ?? cal
             
             imgUI = loadImage(from: img)
             originalImg = imgUI
