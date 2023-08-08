@@ -72,11 +72,19 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		092664372A81C1F80034296A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		09B96CEB2A6CF8BB00FC5AAA = {
 			isa = PBXGroup;
 			children = (
 				09B96CF62A6CF8BB00FC5AAA /* LunarBirthdays */,
 				09B96CF52A6CF8BB00FC5AAA /* Products */,
+				092664372A81C1F80034296A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
