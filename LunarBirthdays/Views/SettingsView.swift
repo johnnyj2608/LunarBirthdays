@@ -61,7 +61,7 @@ struct SettingsView: View {
             }
             Section(header: Text("Feedback")) {
                 Text("Rate this app")
-                // Must wait until published
+                Text("Tell a friend")
             }
         }
         .navigationTitle("Settings")
