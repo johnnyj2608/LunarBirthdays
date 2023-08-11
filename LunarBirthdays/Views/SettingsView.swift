@@ -31,7 +31,7 @@ struct SettingsView: View {
                             if getNotificationPermission() {
                                 notifications.toggle()
                             } else {
-                                // Send Alert
+                                // Send Alert!
                             }
                         } else {
                             notifications = newValue
