@@ -10,13 +10,12 @@ import SwiftUI
 struct SettingsView: View {
     
     @AppStorage("notifications") private var notifications = false
-    @AppStorage("notif_today") private var notif_today = true
-    @AppStorage("notif_tomorrow") private var notif_tomorrow = true
-    @AppStorage("notif_week") private var notif_week = true
     
     @AppStorage("darkMode") private var darkMode = true
     @AppStorage("calendar") private var calendar = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
+    
+    @State private var showPermissionAlert = false
     
     var body: some View {
         Form {
@@ -28,22 +27,19 @@ struct SettingsView: View {
                 Toggle("Enable Notifications", isOn: $notifications)
                     .onChange(of: notifications) { newValue in
                         if newValue {
-                            if getNotificationPermission() {
-                                notifications.toggle()
-                            } else {
-                                // Send Alert!
+                            getNotificationPermission { isAuthorized in
+                                if isAuthorized {
+                                    notifications = true
+                                } else {
+                                    notifications = false
+                                    showPermissionAlert = true
+                                }
                             }
                         } else {
                             notifications = newValue
                         }
                     }
-                
-                if notifications {
-                    Toggle("On Birthday", isOn: $notif_today)
-                    Toggle("1 Day Before", isOn: $notif_tomorrow)
-                    Toggle("1 Week Before", isOn: $notif_week)
-                    // Notification Time
-                }
+                // Notifications for birthday, 1 day before, 1 week before
             }
             Section(header: Text("Default Calendar")) {
                 Picker("Calendar", selection: $calendar) {
@@ -63,20 +59,27 @@ struct SettingsView: View {
                 Text("Rate this app")
                 Text("Tell a friend")
             }
-        }
-        .navigationTitle("Settings")
-        .onAppear {
-            notifications = getNotificationPermission()
-        }
-    }
-    private func getNotificationPermission() -> Bool {
-        var Authorization = false
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            DispatchQueue.main.async {
-                Authorization = settings.authorizationStatus == .authorized
+            .alert(isPresented: $showPermissionAlert) {
+                Alert(
+                    title: Text("Notification Permission"),
+                    message: Text("Please go to the notification settings and enable notifications for this app."),
+                    primaryButton: .default(Text("Settings"), action: {
+                        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                        UIApplication.shared.open(settingsURL)
+                    }),
+                    secondaryButton: .cancel()
+                )
             }
         }
-        return Authorization
+        .navigationTitle("Settings")
+        // If notification auth off, turn notification to false
+    }
+    private func getNotificationPermission(completion: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                completion(settings.authorizationStatus == .authorized)
+            }
+        }
     }
 }
 
