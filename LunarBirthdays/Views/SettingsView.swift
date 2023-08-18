@@ -10,6 +10,13 @@ import SwiftUI
 struct SettingsView: View {
     
     @AppStorage("notifications") private var notifications = false
+    @AppStorage("notif_time") private var notif_time = "00:00"
+    @State private var notif_date = Date()
+    
+    @AppStorage("notif_today") private var notif_today = true
+    @AppStorage("notif_tomorrow") private var notif_tomorrow = true
+    @AppStorage("notif_week") private var notif_week = true
+    @AppStorage("notif_toggle") private var notif_toggle = false
     
     @AppStorage("darkMode") private var darkMode = true
     @AppStorage("calendar") private var calendar = "Lunar"
@@ -29,17 +36,29 @@ struct SettingsView: View {
                         if newValue {
                             getNotificationPermission { isAuthorized in
                                 if isAuthorized {
-                                    notifications = true
+                                    notif_toggle = true
                                 } else {
                                     notifications = false
                                     showPermissionAlert = true
                                 }
                             }
                         } else {
-                            notifications = newValue
+                            notif_toggle = false
                         }
                     }
-                // Notifications for birthday, 1 day before, 1 week before
+                if notifications && notif_toggle {
+                    DatePicker(
+                        "Notification Time",
+                        selection: $notif_date,
+                        displayedComponents: [.hourAndMinute]
+                    )
+                    .onChange(of: notif_date) { newValue in
+                        notif_time = timeFormatter.string(from: newValue)
+                    }
+                    Toggle("On Birthday", isOn: $notif_today)
+                    Toggle("1 Day Before", isOn: $notif_tomorrow)
+                    Toggle("1 Week Before", isOn: $notif_week)
+                }
             }
             Section(header: Text("Default Calendar")) {
                 Picker("Calendar", selection: $calendar) {
@@ -79,6 +98,11 @@ struct SettingsView: View {
                 }
             }
         }
+        .onAppear {
+            if let dateFromTime = timeFormatter.date(from: notif_time) {
+                notif_date = dateFromTime
+            }
+        }
     }
     private func getNotificationPermission(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -87,6 +111,11 @@ struct SettingsView: View {
             }
         }
     }
+    private var timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
 }
 
 struct SettingsView_Previews: PreviewProvider {
