@@ -72,7 +72,13 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
-        // If notification auth off, turn notification to false
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            getNotificationPermission { isAuthorized in
+                if !isAuthorized {
+                    notifications = false
+                }
+            }
+        }
     }
     private func getNotificationPermission(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
