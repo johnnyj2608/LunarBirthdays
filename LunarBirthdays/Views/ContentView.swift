@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import Kingfisher
+import Combine
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
@@ -24,6 +25,8 @@ struct ContentView: View {
         }
     }
     
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     var body: some View {
         NavigationView {
             VStack {
@@ -32,7 +35,7 @@ struct ContentView: View {
                         Section(header: Text("\(monthString(month: getMonth(date: key))) \(yearString(year: getYear(date: key)))")) {
                             ForEach(groupedBirthday[key]!, id: \.self) { birthday in
                                 NavigationLink(destination: ProfileView(birthday: birthday)) {
-                                    BirthdayCell(birthday: birthday)
+                                    BirthdayCell(birthday: birthday, timer: timer)
                                 }
                             }
                             .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
@@ -63,14 +66,17 @@ struct ContentView: View {
             UIApplication.shared.dismissKeyboard()
         })
         .navigationViewStyle(.stack)
+        .onDisappear {
+            timer.upstream.connect().cancel()
+        }
     }
 }
 
 struct BirthdayCell: View {
     @ObservedObject var birthday: Birthday
+    var timer: Publishers.Autoconnect<Timer.TimerPublisher>
     
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         HStack {
@@ -134,9 +140,6 @@ struct BirthdayCell: View {
         
         .onReceive(timer) { _ in
             countdown = calcCountdown(date: birthday.date ?? Date())
-        }
-        .onDisappear {
-            timer.upstream.connect().cancel()
         }
     }
 }
