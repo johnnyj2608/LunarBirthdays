@@ -43,7 +43,9 @@ class DataController: ObservableObject {
         
         save(context: context)
         
-        Notifications.scheduleBirthday(birthday, offset: 0)
+        if UserDefaults.standard.bool(forKey: "notifications") {
+            Notifications.scheduleBirthday(birthday, offset: 0)
+        }
         if UserDefaults.standard.bool(forKey: "notif_day") {
             Notifications.scheduleBirthday(birthday, offset: 1)
         }
@@ -59,15 +61,17 @@ class DataController: ObservableObject {
         birthday.cal = cal
         
         save(context: context)
-        
-        Notifications.cancelBirthday(birthday, offset: 0)
-        Notifications.cancelBirthday(birthday, offset: 1)
-        Notifications.cancelBirthday(birthday, offset: 7)
-        Notifications.scheduleBirthday(birthday, offset: 0)
+
+        if UserDefaults.standard.bool(forKey: "notifications") {
+            Notifications.cancelBirthday(birthday, offset: 0)
+            Notifications.scheduleBirthday(birthday, offset: 0)
+        }
         if UserDefaults.standard.bool(forKey: "notif_day") {
+            Notifications.cancelBirthday(birthday, offset: 1)
             Notifications.scheduleBirthday(birthday, offset: 1)
         }
         if UserDefaults.standard.bool(forKey: "notif_week") {
+            Notifications.cancelBirthday(birthday, offset: 7)
             Notifications.scheduleBirthday(birthday, offset: 7)
         }
     }

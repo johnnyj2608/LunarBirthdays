@@ -42,19 +42,4 @@ class Notifications {
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
         return birthday.addingTimeInterval(notificationOffset)
     }
-    
-    static func getNotifications(completion: @escaping ([UNNotificationRequest]) -> Void) {
-        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-            DispatchQueue.main.async {
-                completion(requests)
-            }
-        }
-    }
-    static func printNotifications() {
-        getNotifications { requests in
-            for request in requests {
-                print("Pending Notification: \(request.identifier)")
-            }
-        }
-    }
 }

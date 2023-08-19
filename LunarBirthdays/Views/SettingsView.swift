@@ -73,7 +73,9 @@ struct SettingsView: View {
                         cancelAllBirthdays(offset: 1)
                         cancelAllBirthdays(offset: 7)
                         
-                        scheduleAllBirthdays(offset: 0)
+                        if notifications {
+                            scheduleAllBirthdays(offset: 0)
+                        }
                         if notif_day {
                             scheduleAllBirthdays(offset: 1)
                         }
