@@ -14,7 +14,6 @@ struct SettingsView: View {
     @AppStorage("notif_time") private var notif_time = "00:00"
     @State private var notif_date = Date()
     
-    @AppStorage("notif_today") private var notif_today = true
     @AppStorage("notif_tomorrow") private var notif_tomorrow = true
     @AppStorage("notif_week") private var notif_week = true
     @AppStorage("notif_toggle") private var notif_toggle = false
@@ -56,9 +55,11 @@ struct SettingsView: View {
                     .onChange(of: notif_date) { newValue in
                         notif_time = timeFormatter.string(from: newValue)
                     }
-                    Toggle("On Birthday", isOn: $notif_today)
+                    Toggle("On Birthday at \(twelveFormatter.string(from: notif_date))", isOn: .constant(true))
+                        .tint(Color.green.opacity(0.5))
                     Toggle("1 Day Before", isOn: $notif_tomorrow)
                     Toggle("1 Week Before", isOn: $notif_week)
+                    // Schedule all notifications here
                 }
             }
             Section(header: Text("Default Calendar")) {
@@ -115,6 +116,11 @@ struct SettingsView: View {
     private var timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+    private var twelveFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
         return formatter
     }()
 }
