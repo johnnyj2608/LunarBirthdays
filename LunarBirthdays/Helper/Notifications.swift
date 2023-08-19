@@ -9,35 +9,52 @@ import Foundation
 import UserNotifications
 
 class Notifications {
-    func askPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                print("success")
-            } else if let error = error {
-                print(error.localizedDescription)
+    
+    static func scheduleBirthday(_ birthday: Birthday, offset: Int = 0) {
+        let notificationDate = calculateNotificationDate(birthday: birthday.date!, offset: offset)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Birthday Reminder"
+        content.body = "\(birthday.name ?? "")'s birthday is coming up!"
+        
+        var triggerDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+
+        if let notifTime = UserDefaults.standard.string(forKey: "notif_time"),
+           let timeComponents = timeFormatter.date(from: notifTime) {
+            triggerDateComponents.hour = Calendar.current.component(.hour, from: timeComponents)
+            triggerDateComponents.minute = Calendar.current.component(.minute, from: timeComponents)
+        }
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "\(birthday.id!)_\(offset)", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+    static func cancelBirthday(_ birthday: Birthday, offset: Int = 0) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(birthday.id!)_\(offset)"])
+    }
+    
+    static func calculateNotificationDate(birthday: Date, offset: Int) -> Date {
+        let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
+        return birthday.addingTimeInterval(notificationOffset)
+    }
+    
+    static func getNotifications(completion: @escaping ([UNNotificationRequest]) -> Void) {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            DispatchQueue.main.async {
+                completion(requests)
             }
         }
     }
-    func sendNotification(date: Date, type: String, timeInterval: Double = 10, title: String, body: String) {
-        var trigger: UNNotificationTrigger?
-        
-        if type == "date" {
-            let dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date)
-            trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        } else if type == "time" {
-            trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+    static func printNotifications() {
+        getNotifications { requests in
+            for request in requests {
+                print("Pending Notification: \(request.identifier)")
+            }
         }
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
     }
-    // let notify = Notifications()
-    // notify.askPermissions()
-    // notify.sendNotification(date: Date(), type: "time", timeInterval: 5, title: "Hello", body: "content")
-    // notify.sendNotification(date: selectedDate, type: "date", title: "Hello", body: "content")
-    
 }

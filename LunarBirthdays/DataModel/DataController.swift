@@ -42,6 +42,14 @@ class DataController: ObservableObject {
         birthday.cal = cal
         
         save(context: context)
+        
+        Notifications.scheduleBirthday(birthday, offset: 0)
+        if UserDefaults.standard.bool(forKey: "notif_day") {
+            Notifications.scheduleBirthday(birthday, offset: 1)
+        }
+        if UserDefaults.standard.bool(forKey: "notif_week") {
+            Notifications.scheduleBirthday(birthday, offset: 7)
+        }
     }
     func editBirthday(birthday: Birthday, img: String, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
         birthday.img = img
@@ -51,6 +59,17 @@ class DataController: ObservableObject {
         birthday.cal = cal
         
         save(context: context)
+        
+        Notifications.cancelBirthday(birthday, offset: 0)
+        Notifications.cancelBirthday(birthday, offset: 1)
+        Notifications.cancelBirthday(birthday, offset: 7)
+        Notifications.scheduleBirthday(birthday, offset: 0)
+        if UserDefaults.standard.bool(forKey: "notif_day") {
+            Notifications.scheduleBirthday(birthday, offset: 1)
+        }
+        if UserDefaults.standard.bool(forKey: "notif_week") {
+            Notifications.scheduleBirthday(birthday, offset: 7)
+        }
     }
     func deleteBirthday(birthday: Birthday, context: NSManagedObjectContext) {
         context.delete(birthday)

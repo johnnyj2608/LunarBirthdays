@@ -24,6 +24,7 @@ struct ContentView: View {
             return Calendar.current.date(from: components)!
         }
     }
+    // Categorizes birthdays by upcoming months and sorts birthdays by upcoming day
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
