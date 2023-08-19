@@ -69,6 +69,8 @@ struct SettingsView: View {
                     )
                     .onChange(of: notif_date) { newValue in
                         notif_time = timeFormatter.string(from: newValue)
+                    }
+                    .onChange(of: notif_time) { newValue in
                         cancelAllBirthdays(offset: 0)
                         cancelAllBirthdays(offset: 1)
                         cancelAllBirthdays(offset: 7)

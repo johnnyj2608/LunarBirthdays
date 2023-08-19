@@ -11,7 +11,7 @@ import UserNotifications
 class Notifications {
     
     static func scheduleBirthday(_ birthday: Birthday, offset: Int = 0) {
-        let notificationDate = calculateNotificationDate(birthday: birthday.date!, offset: offset)
+        let notificationDate = calcNotification(birthday: birthday.date!, offset: offset)
         
         let content = UNMutableNotificationContent()
         content.title = "Birthday Reminder"
@@ -27,6 +27,7 @@ class Notifications {
             triggerDateComponents.hour = Calendar.current.component(.hour, from: timeComponents)
             triggerDateComponents.minute = Calendar.current.component(.minute, from: timeComponents)
         }
+        print("\(triggerDateComponents)")
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
         
@@ -38,8 +39,9 @@ class Notifications {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(birthday.id!)_\(offset)"])
     }
     
-    static func calculateNotificationDate(birthday: Date, offset: Int) -> Date {
+    static func calcNotification(birthday: Date, offset: Int) -> Date {
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
-        return birthday.addingTimeInterval(notificationOffset)
+        let nextBirthday = nextBirthday(date: birthday)
+        return nextBirthday.addingTimeInterval(notificationOffset)
     }
 }
