@@ -14,8 +14,14 @@ class Notifications {
         let notificationDate = calcNotification(birthday: birthday.date!, offset: offset)
         
         let content = UNMutableNotificationContent()
-        content.title = "Birthday Reminder"
-        content.body = "\(birthday.name ?? "")'s birthday is coming up!"
+        content.title = "Lunar Birthdays"
+        
+        if offset == 0 {
+               content.body = "\(birthday.name ?? "")'s birthday is today!"
+           } else {
+               let days = offset == 1 ? "day" : "days"
+               content.body = "\(birthday.name ?? "")'s birthday is in \(offset) \(days)!"
+           }
         
         var triggerDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
         

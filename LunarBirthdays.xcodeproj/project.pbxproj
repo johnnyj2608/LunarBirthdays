@@ -35,6 +35,7 @@
 		092664262A772DC70034296A /* BirthdayModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BirthdayModel 4.xcdatamodel"; sourceTree = "<group>"; };
 		092664272A7760370034296A /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		092664422A8F13E90034296A /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		092664442A9308ED0034296A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
 		09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		09B96CF62A6CF8BB00FC5AAA /* LunarBirthdays */ = {
 			isa = PBXGroup;
 			children = (
+				092664442A9308ED0034296A /* Info.plist */,
 				09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */,
 				09B96D062A6CF98C00FC5AAA /* Views */,
 				0926640E2A6F50740034296A /* Helper */,
@@ -359,6 +361,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LunarBirthdays/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LunarBirthdays/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Lunar Birthdays";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -396,6 +400,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LunarBirthdays/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LunarBirthdays/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Lunar Birthdays";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
