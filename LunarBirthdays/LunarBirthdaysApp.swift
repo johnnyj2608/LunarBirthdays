@@ -19,14 +19,24 @@ struct LunarBirthdaysApp: App {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .preferredColorScheme(darkMode ? .dark : .light)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    UIApplication.shared.applicationIconBadgeNumber = 0
+                    UserDefaults.standard.set(0, forKey: "badges")
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                    UIApplication.shared.applicationIconBadgeNumber = 0
+                    UserDefaults.standard.set(0, forKey: "badges")
+                }
         }
     }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    @AppStorage("badges") private var badges = 0
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        registerForLocalNotifications() 
+        registerForLocalNotifications()
         return true
     }
     
@@ -42,11 +52,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             }
         }
     }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-            completionHandler([.banner, .sound, .badge])
-        }
+        completionHandler([.banner, .sound, .badge])
+    }
 }
-
-
-
-

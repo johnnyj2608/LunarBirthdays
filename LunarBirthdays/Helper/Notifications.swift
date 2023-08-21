@@ -15,13 +15,16 @@ class Notifications {
         
         let content = UNMutableNotificationContent()
         content.title = "Lunar Birthdays"
-        
         if offset == 0 {
-               content.body = "\(birthday.name ?? "")'s birthday is today!"
-           } else {
-               let days = offset == 1 ? "day" : "days"
-               content.body = "\(birthday.name ?? "")'s birthday is in \(offset) \(days)!"
-           }
+            content.body = "\(birthday.name ?? "")'s birthday is today!"
+        } else {
+            let days = offset == 1 ? "day" : "days"
+            content.body = "\(birthday.name ?? "")'s birthday is in \(offset) \(days)!"
+        }
+        let badgeCount = UserDefaults.standard.value(forKey: "badges") as! Int + 1
+            UserDefaults.standard.set(badgeCount, forKey: "badges")
+            content.badge = badgeCount as NSNumber
+        content.sound = UNNotificationSound.default
         
         var triggerDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
         
