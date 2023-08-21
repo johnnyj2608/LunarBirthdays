@@ -23,25 +23,30 @@ struct LunarBirthdaysApp: App {
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        registerForNotification()
+        registerForLocalNotifications() 
         return true
     }
     
-    func registerForNotification() {
-        //For device token and push notifications.
-        UIApplication.shared.registerForRemoteNotifications()
+    func registerForLocalNotifications() {
+        let center = UNUserNotificationCenter.current()
         
-        let center : UNUserNotificationCenter = UNUserNotificationCenter.current()
-        //        center.delegate = self
+        center.delegate = self
         
-        center.requestAuthorization(options: [.sound , .alert , .badge ], completionHandler: { (granted, error) in
-            if ((error != nil)) { UIApplication.shared.registerForRemoteNotifications() }
-            else {
-                
+        center.requestAuthorization(options: [.sound, .alert, .badge]) { granted, error in
+            if granted {
+            } else if let error = error {
+                print("Notification authorization error: \(error.localizedDescription)")
             }
-        })
+        }
     }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            completionHandler([.banner, .sound, .badge])
+        }
 }
+
+
+
+
