@@ -11,7 +11,7 @@ import UserNotifications
 class Notifications {
     
     static func scheduleBirthday(_ birthday: Birthday, offset: Int = 0) {
-        let notificationDate = calcNotification(birthday: birthday.date!, offset: offset)
+        let notificationDate = calcNotification(birthday: birthday.date!, offset: offset, cal: birthday.cal!)
         
         let content = UNMutableNotificationContent()
         content.title = "Lunar Birthdays"
@@ -22,24 +22,25 @@ class Notifications {
             content.body = "\(birthday.name ?? "")'s birthday is in \(offset) \(days)!"
         }
         let badgeCount = UserDefaults.standard.value(forKey: "badges") as! Int + 1
-            UserDefaults.standard.set(badgeCount, forKey: "badges")
-            content.badge = badgeCount as NSNumber
+        UserDefaults.standard.set(badgeCount, forKey: "badges")
+        content.badge = badgeCount as NSNumber
         content.sound = UNNotificationSound.default
         
-        var triggerDateComponents = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: notificationDate)
+        var triggerDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
-
+        
         if let notifTime = UserDefaults.standard.string(forKey: "notif_time"),
            let timeComponents = timeFormatter.date(from: notifTime) {
             triggerDateComponents.hour = Calendar.current.component(.hour, from: timeComponents)
             triggerDateComponents.minute = Calendar.current.component(.minute, from: timeComponents)
         }
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
         
         let request = UNNotificationRequest(identifier: "\(birthday.id!)_\(offset)", content: content, trigger: trigger)
+        print(request)
         UNUserNotificationCenter.current().add(request)
     }
     
@@ -47,8 +48,17 @@ class Notifications {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(birthday.id!)_\(offset)"])
     }
     
-    static func calcNotification(birthday: Date, offset: Int) -> Date {
+    static func calcNotification(birthday: Date, offset: Int, cal: String) -> Date {
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
-        return birthday.addingTimeInterval(notificationOffset)
+        var newBirthday: Date = Date()
+
+        if cal == "Gregorian" {
+            newBirthday = nextBirthday(date: birthday)
+        } else if cal == "Lunar" {
+            // Need repeating notification based on formula
+        } else {
+            fatalError("Unsupported calendar type: \(cal)")
+        }
+        return newBirthday.addingTimeInterval(notificationOffset)
     }
 }
