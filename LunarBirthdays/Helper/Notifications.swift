@@ -26,7 +26,7 @@ class Notifications {
             content.badge = badgeCount as NSNumber
         content.sound = UNNotificationSound.default
         
-        var triggerDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
+        var triggerDateComponents = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: notificationDate)
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
@@ -37,7 +37,7 @@ class Notifications {
             triggerDateComponents.minute = Calendar.current.component(.minute, from: timeComponents)
         }
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: "\(birthday.id!)_\(offset)", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
@@ -49,7 +49,6 @@ class Notifications {
     
     static func calcNotification(birthday: Date, offset: Int) -> Date {
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
-        let nextBirthday = nextBirthday(date: birthday)
-        return nextBirthday.addingTimeInterval(notificationOffset)
+        return birthday.addingTimeInterval(notificationOffset)
     }
 }
