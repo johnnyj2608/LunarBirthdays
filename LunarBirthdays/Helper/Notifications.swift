@@ -39,8 +39,9 @@ class Notifications {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
         
+        print(trigger)
         let request = UNNotificationRequest(identifier: "\(birthday.id!)_\(offset)", content: content, trigger: trigger)
-        print(request)
+        
         UNUserNotificationCenter.current().add(request)
     }
     
@@ -55,7 +56,29 @@ class Notifications {
         if cal == "Gregorian" {
             newBirthday = nextBirthday(date: birthday)
         } else if cal == "Lunar" {
-            // Need repeating notification based on formula
+            let g_year = Calendar.current.component(.year, from: birthday)
+            let g_adj_year = g_year + 2697
+
+            let c_era = Int(g_adj_year / 60)
+            let c_year = g_adj_year - c_era * 60
+
+            var components = DateComponents()
+            components.era = c_era
+            components.year = c_year
+            components.month = Calendar.current.component(.month, from: birthday)
+            components.day = Calendar.current.component(.day, from: birthday)
+
+            var chineseCalendar = Calendar(identifier: .chinese)
+            let c_ny = chineseCalendar.date(from: components)!
+
+            var gregorianCalendar = Calendar(identifier: .gregorian)
+            gregorianCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy"
+            formatter.calendar = gregorianCalendar
+            
+            newBirthday = c_ny
         } else {
             fatalError("Unsupported calendar type: \(cal)")
         }
