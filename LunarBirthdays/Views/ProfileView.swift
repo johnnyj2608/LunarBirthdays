@@ -33,6 +33,7 @@ struct ProfileView: View {
                 Text(dateString(date: birthday.date ?? Date()))
                     .font(.system(size: 25))
                     .lineLimit(1)
+                Text("\(birthday.cal ?? "")")
             }
             .frame(maxWidth: .infinity)
             Section {

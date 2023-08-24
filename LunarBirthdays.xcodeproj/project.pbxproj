@@ -14,6 +14,7 @@
 		092664282A7760370034296A /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664272A7760370034296A /* Keyboard.swift */; };
 		092664312A7B58820034296A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 092664302A7B58820034296A /* Kingfisher */; };
 		092664432A8F13E90034296A /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664422A8F13E90034296A /* Notifications.swift */; };
+		092664462A9711740034296A /* LunarConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664452A9711740034296A /* LunarConverter.swift */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
 		09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */; };
 		09B96CFC2A6CF8BD00FC5AAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B96CFB2A6CF8BD00FC5AAA /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		092664272A7760370034296A /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		092664422A8F13E90034296A /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		092664442A9308ED0034296A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		092664452A9711740034296A /* LunarConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarConverter.swift; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
 		09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				092664232A74D88D0034296A /* Rainbow.swift */,
 				092664272A7760370034296A /* Keyboard.swift */,
 				092664422A8F13E90034296A /* Notifications.swift */,
+				092664452A9711740034296A /* LunarConverter.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				092664282A7760370034296A /* Keyboard.swift in Sources */,
 				09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */,
 				09B96D0D2A6CFA5500FC5AAA /* DataController.swift in Sources */,
+				092664462A9711740034296A /* LunarConverter.swift in Sources */,
 				09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */,
 				092664242A74D88D0034296A /* Rainbow.swift in Sources */,
 				09B96D132A6CFF2400FC5AAA /* EditView.swift in Sources */,
