@@ -30,15 +30,18 @@ struct ProfileView: View {
                     .fontWeight(.semibold)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
-                Text(dateString(date: birthday.date ?? Date()))
+                Text(dateString(birthday.date ?? Date()))
                     .font(.system(size: 25))
                     .lineLimit(1)
                 Text("\(birthday.cal ?? "")")
+                    .font(.system(size: 20))
+                    .lineLimit(1)
+                    .foregroundColor(Color.secondary)
             }
             .frame(maxWidth: .infinity)
             Section {
                 VStack {
-                    Text("Turns \(calcAge(date: birthday.date ?? Date())) in")
+                    Text("Turns \(calcAge(date: birthday.date ?? Date(), calendar: birthday.cal ?? "")) in")
                         .font(.system(size: 25))
                         .padding(.bottom, 1)
                     HStack {
@@ -88,10 +91,10 @@ struct ProfileView: View {
                 Text(birthday.note?.isEmpty == true ? "Note" : birthday.note ?? "")
             }
             .onAppear {
-                countdown = calcCountdown(date: birthday.date ?? Date())
+                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
             }
             .onReceive(timer) { _ in
-                countdown = calcCountdown(date: birthday.date ?? Date())
+                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
             }
             .onDisappear {
                 timer.upstream.connect().cancel()

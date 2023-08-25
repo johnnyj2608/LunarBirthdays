@@ -51,12 +51,12 @@ class Notifications {
     
     static func calcNotification(birthday: Date, offset: Int, cal: String) -> Date {
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
-        var newBirthday = nextBirthday(date: birthday)
+        var newBirthday = nextBirthday(birthday)
 
         if cal == "Gregorian" {
             
         } else if cal == "Lunar" {
-            newBirthday = lunarConverter(birthday: newBirthday)
+            newBirthday = lunarConverter(newBirthday)
         } else {
             fatalError("Unsupported calendar type: \(cal)")
         }

@@ -16,10 +16,10 @@ struct ContentView: View {
     @State private var searchText = ""
     
     var groupedBirthday: [Date: [Birthday]] {
-        let sortedBirthdays = birthday.sorted { calcCountdown(date: $0.date ?? Date()) < calcCountdown(date: $1.date ?? Date()) }
+        let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date()) < calcCountdown($1.date ?? Date()) }
         
         return Dictionary(grouping: sortedBirthdays) { birthday in
-            let nextBirthday = nextBirthday(date: birthday.date ?? Date())
+            let nextBirthday = nextBirthday(birthday.date ?? Date())
             let components = Calendar.current.dateComponents([.year, .month], from: nextBirthday)
             return Calendar.current.date(from: components)!
         }
@@ -33,7 +33,7 @@ struct ContentView: View {
             VStack {
                 List {
                     ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
-                        Section(header: Text("\(monthString(month: getMonth(date: key))) \(yearString(year: getYear(date: key)))")) {
+                        Section(header: Text("\(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                             ForEach(groupedBirthday[key]!, id: \.self) { birthday in
                                 NavigationLink(destination: ProfileView(birthday: birthday)) {
                                     BirthdayCell(birthday: birthday, timer: timer)
@@ -93,7 +93,7 @@ struct BirthdayCell: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(monthString(month: getMonth(date: birthday.date ?? Date()))) \(getDay(date: birthday.date ?? Date()))")
+                Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(monthString( getMonth(birthday.date ?? Date(), calendar: birthday.cal ?? ""))) \(getDay(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
                     .font(.system(size: 15))
                     .lineLimit(1)
             }
@@ -136,11 +136,11 @@ struct BirthdayCell: View {
             .frame(width: 50)
         }
         .onAppear {
-            countdown = calcCountdown(date: birthday.date ?? Date())
+            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
         }
         
         .onReceive(timer) { _ in
-            countdown = calcCountdown(date: birthday.date ?? Date())
+            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
         }
     }
 }
