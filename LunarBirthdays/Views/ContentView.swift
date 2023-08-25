@@ -16,10 +16,13 @@ struct ContentView: View {
     @State private var searchText = ""
     
     var groupedBirthday: [Date: [Birthday]] {
-        let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date()) < calcCountdown($1.date ?? Date()) }
+        let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), calendar: $0.cal ?? "") < calcCountdown($1.date ?? Date(), calendar: $1.cal ?? "") }
         
         return Dictionary(grouping: sortedBirthdays) { birthday in
-            let nextBirthday = nextBirthday(birthday.date ?? Date())
+            var nextBirthday = nextBirthday(birthday.date ?? Date())
+            if birthday.cal == "Lunar" {
+                nextBirthday = lunarConverter(nextBirthday)
+            }
             let components = Calendar.current.dateComponents([.year, .month], from: nextBirthday)
             return Calendar.current.date(from: components)!
         }
