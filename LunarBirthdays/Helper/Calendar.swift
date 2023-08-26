@@ -52,7 +52,7 @@ func calcCountdown(_ date: Date, calendar: String? = nil) -> (days: Int, hours: 
     return (daysRemaining, hoursRemaining, minutesRemaining, secondsRemaining)
 }
 
-func calcAge(date: Date, calendar: String? = nil) -> Int {
+func calcAge(_ date: Date, calendar: String? = nil) -> Int {
     let cal = Calendar.current
     let birthday = cal.startOfDay(for: date)
     var nextBirthdayDate = nextBirthday(date)

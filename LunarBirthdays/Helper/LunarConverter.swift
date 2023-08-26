@@ -23,8 +23,5 @@ func lunarConverter(_ birthday: Date) -> Date {
     let chineseCalendar = Calendar(identifier: .chinese)
     let c_ny = chineseCalendar.date(from: components)!
 
-    var gregorianCalendar = Calendar(identifier: .gregorian)
-    gregorianCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
-
     return c_ny
 }

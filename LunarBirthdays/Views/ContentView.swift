@@ -96,7 +96,7 @@ struct BirthdayCell: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text("Turns \(calcAge(date: birthday.date ?? Date())) on \(monthString( getMonth(birthday.date ?? Date(), calendar: birthday.cal ?? ""))) \(getDay(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
+                Text("Turns \(calcAge(birthday.date ?? Date())) on \(monthString( getMonth(birthday.date ?? Date(), calendar: birthday.cal ?? ""))) \(getDay(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
                     .font(.system(size: 15))
                     .lineLimit(1)
             }

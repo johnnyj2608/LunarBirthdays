@@ -41,7 +41,7 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity)
             Section {
                 VStack {
-                    Text("Turns \(calcAge(date: birthday.date ?? Date(), calendar: birthday.cal ?? "")) in")
+                    Text("Turns \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? "")) in")
                         .font(.system(size: 25))
                         .padding(.bottom, 1)
                     HStack {
