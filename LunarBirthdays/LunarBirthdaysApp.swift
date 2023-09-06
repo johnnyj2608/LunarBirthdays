@@ -13,6 +13,7 @@ struct LunarBirthdaysApp: App {
     @AppStorage("darkMode") private var darkMode = true
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State private var path = NavigationPath()
     
     var body: some Scene {
         WindowGroup {
@@ -33,6 +34,7 @@ struct LunarBirthdaysApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     @AppStorage("badges") private var badges = 0
+    @Environment(\.dismiss) var dismiss
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         

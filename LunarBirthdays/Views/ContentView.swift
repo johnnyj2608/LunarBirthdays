@@ -30,15 +30,17 @@ struct ContentView: View {
     // Categorizes birthdays by upcoming months and sorts birthdays by upcoming day
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+    
+    @State private var path = NavigationPath()
+    
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack {
                 List {
                     ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
                         Section(header: Text("\(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                             ForEach(groupedBirthday[key]!, id: \.self) { birthday in
-                                NavigationLink(destination: ProfileView(birthday: birthday)) {
+                                NavigationLink(value: birthday) {
                                     BirthdayCell(birthday: birthday, timer: timer)
                                 }
                             }
@@ -53,14 +55,30 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Birthdays")
+            .navigationDestination(for: Birthday.self) { birthday in
+                if path.count == 0 {
+                    ProfileView(birthday: birthday)
+                } else {
+                    EditView(birthday: birthday)
+                }
+                // Does not work
+            }
+            .navigationDestination(for: String.self) { str in
+                if str == "Settings" {
+                    SettingsView()
+                }
+                if str == "Edit" {
+                    EditView()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(destination: SettingsView()) {
+                    NavigationLink(value: "Settings") {
                         Image(systemName: "gear")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: EditView()) {
+                    NavigationLink(value: "Edit") {
                         Image(systemName: "plus.circle")
                     }
                 }
