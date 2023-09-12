@@ -102,19 +102,13 @@ struct ProfileView: View {
             .navigationTitle("Profile")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        //path.append(birthday)
-                    } label: {
-                        //NavigationLink(destination: EditView(birthday: birthday)) {
-                            Text("Edit")
-                        //}
-                    }
+                    NavigationLink("Edit", value: Route.editView(birthday: birthday))
                 }
             }
         }
     }
 }
-/*
+
 struct ProfileView_Previews: PreviewProvider {
     static let context = PersistenceController.preview.container.viewContext
     
@@ -128,4 +122,4 @@ struct ProfileView_Previews: PreviewProvider {
         return ProfileView(birthday: birthday)
     }
 }
-*/
+

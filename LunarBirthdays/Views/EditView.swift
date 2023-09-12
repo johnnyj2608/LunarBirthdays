@@ -17,6 +17,7 @@ struct EditView: View {
     @StateObject private var dataController = DataController()
     
     var birthday: Birthday?
+    var navTitle: String?
     
     @State private var img = ""
     @State private var name = ""
@@ -121,7 +122,7 @@ struct EditView: View {
             dataController.clearDocumentsDirectory()
         }
         .navigationBarBackButtonHidden(true)
-        .navigationTitle("Profile")
+        .navigationBarTitle(navTitle ?? "Edit")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button("Cancel") {
@@ -175,10 +176,10 @@ struct EditView: View {
     }
 }
 
-/*
+
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
         EditView()
     }
 }
-*/
+

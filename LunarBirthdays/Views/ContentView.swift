@@ -40,7 +40,7 @@ struct ContentView: View {
                     ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
                         Section(header: Text("\(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                             ForEach(groupedBirthday[key]!, id: \.self) { birthday in
-                                NavigationLink(value: birthday) {
+                                NavigationLink(value: Route.profileView(birthday: birthday)) {
                                     BirthdayCell(birthday: birthday, timer: timer)
                                 }
                             }
@@ -55,30 +55,17 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Birthdays")
-            .navigationDestination(for: Birthday.self) { birthday in
-                if path.count == 0 {
-                    ProfileView(birthday: birthday)
-                } else {
-                    EditView(birthday: birthday)
-                }
-                // Does not work
-            }
-            .navigationDestination(for: String.self) { str in
-                if str == "Settings" {
-                    SettingsView()
-                }
-                if str == "Edit" {
-                    EditView()
-                }
+            .navigationDestination(for: Route.self) { route in
+                route
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(value: "Settings") {
+                    NavigationLink(value: Route.settingsView) {
                         Image(systemName: "gear")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(value: "Edit") {
+                    NavigationLink(value: Route.addView) {
                         Image(systemName: "plus.circle")
                     }
                 }
