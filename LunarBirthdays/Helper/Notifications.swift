@@ -21,9 +21,8 @@ class Notifications {
             let days = offset == 1 ? "day" : "days"
             content.body = "\(birthday.name ?? "")'s birthday is in \(offset) \(days)!"
         }
-        let badgeCount = UserDefaults.standard.value(forKey: "badges") as! Int + 1
-        UserDefaults.standard.set(badgeCount, forKey: "badges")
-        content.badge = badgeCount as NSNumber
+        
+        content.badge = NSNumber (value: 1)
         content.sound = UNNotificationSound.default
         
         var triggerDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
@@ -39,7 +38,6 @@ class Notifications {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
         
-        print(trigger)
         let request = UNNotificationRequest(identifier: "\(birthday.id!)_\(offset)", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request)
@@ -52,7 +50,7 @@ class Notifications {
     static func calcNotification(birthday: Date, offset: Int, cal: String) -> Date {
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
         var newBirthday = nextBirthday(birthday)
-
+        
         if cal == "Gregorian" {
             
         } else if cal == "Lunar" {

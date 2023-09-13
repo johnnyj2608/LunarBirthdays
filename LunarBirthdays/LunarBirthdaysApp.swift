@@ -22,11 +22,9 @@ struct LunarBirthdaysApp: App {
                 .preferredColorScheme(darkMode ? .dark : .light)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                     UIApplication.shared.applicationIconBadgeNumber = 0
-                    UserDefaults.standard.set(0, forKey: "badges")
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                     UIApplication.shared.applicationIconBadgeNumber = 0
-                    UserDefaults.standard.set(0, forKey: "badges")
                 }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ClearPathNotification"))) { _ in
                     path.removeLast(path.count)
