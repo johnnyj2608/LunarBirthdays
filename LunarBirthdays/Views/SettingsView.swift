@@ -30,10 +30,11 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
+            /*
             Section(header: Text("Upgrade")) {
                 Text("Birthday Reminder Pro")
                 // Popup sheet
-            }
+            }*/
             Section(header: Text("Notifications")) {
                 Toggle("Enable Notifications", isOn: $notifications)
                     .onChange(of: notifications) { newValue in
@@ -175,11 +176,5 @@ struct SettingsView: View {
         for bday in birthday {
             Notifications.cancelBirthday(bday, offset: offset)
         }
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
     }
 }

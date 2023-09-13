@@ -108,18 +108,3 @@ struct ProfileView: View {
         }
     }
 }
-
-struct ProfileView_Previews: PreviewProvider {
-    static let context = PersistenceController.preview.container.viewContext
-    
-    static var previews: some View {
-        let birthday = Birthday(context: context)
-        birthday.img = "andrewYang"
-        birthday.name = "Andrew Yang"
-        birthday.date = Date()
-        birthday.note = "Testing note"
-        
-        return ProfileView(birthday: birthday)
-    }
-}
-

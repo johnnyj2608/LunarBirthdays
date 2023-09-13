@@ -31,7 +31,7 @@ struct ContentView: View {
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    @State private var path = NavigationPath()
+    @Binding var path: NavigationPath
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -150,11 +150,5 @@ struct BirthdayCell: View {
         .onReceive(timer) { _ in
             countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

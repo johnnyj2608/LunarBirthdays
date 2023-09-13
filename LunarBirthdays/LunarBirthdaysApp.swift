@@ -17,7 +17,7 @@ struct LunarBirthdaysApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(path: $path)
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .preferredColorScheme(darkMode ? .dark : .light)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
@@ -28,13 +28,14 @@ struct LunarBirthdaysApp: App {
                     UIApplication.shared.applicationIconBadgeNumber = 0
                     UserDefaults.standard.set(0, forKey: "badges")
                 }
+                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ClearPathNotification"))) { _ in
+                    path.removeLast(path.count)
+                }
         }
     }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    @AppStorage("badges") private var badges = 0
-    @Environment(\.dismiss) var dismiss
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -62,5 +63,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
+        NotificationCenter.default.post(name: Notification.Name("ClearPathNotification"), object: nil)
     }
 }
