@@ -25,18 +25,27 @@ class Notifications {
         content.badge = NSNumber (value: 1)
         content.sound = UNNotificationSound.default
         
-        var triggerDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: notificationDate)
+        var calendar: Calendar
+        if birthday.cal == "Gregorian" {
+            calendar = Calendar(identifier: .gregorian)
+        } else if birthday.cal == "Lunar" {
+            calendar = Calendar(identifier: .chinese)
+        } else {
+            fatalError("Unsupported calendar type: \(birthday.cal!)")
+        }
+        var components = calendar.dateComponents([.calendar, .day, .hour, .minute], from: notificationDate)
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
         
         if let notifTime = UserDefaults.standard.string(forKey: "notif_time"),
            let timeComponents = timeFormatter.date(from: notifTime) {
-            triggerDateComponents.hour = Calendar.current.component(.hour, from: timeComponents)
-            triggerDateComponents.minute = Calendar.current.component(.minute, from: timeComponents)
+            components.hour = Calendar.current.component(.hour, from: timeComponents)
+            components.minute = Calendar.current.component(.minute, from: timeComponents)
         }
+        print(components)
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDateComponents, repeats: false)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         
         let request = UNNotificationRequest(identifier: "\(birthday.id!)_\(offset)", content: content, trigger: trigger)
         
