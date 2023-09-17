@@ -9,15 +9,16 @@ import SwiftUI
 import CropViewController
 
 struct CropImageViewController: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
+    @Binding var image: UIImage
     @Binding var isPresented: Bool
 
     func makeUIViewController(context: Context) -> UINavigationController {
-        let image = image ?? UIImage()
-        
         let cropViewController = CropViewController(image: image)
         cropViewController.doneButtonTitle = "Done"
         cropViewController.cancelButtonTitle = "Cancel"
+        cropViewController.rotateButtonsHidden = true
+        cropViewController.rotateClockwiseButtonHidden = true
+        cropViewController.toolbarPosition = .top
         cropViewController.delegate = context.coordinator
         return UINavigationController(rootViewController: cropViewController)
     }

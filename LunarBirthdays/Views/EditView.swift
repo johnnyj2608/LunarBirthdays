@@ -24,7 +24,7 @@ struct EditView: View {
     @State private var note = ""
     
     @State private var selectedItem: PhotosPickerItem?
-    @State private var imgUI: UIImage?
+    @State private var imgUI: UIImage = UIImage()
     @State private var isShowingCropView = false
     
     @State private var cal: String = UserDefaults.standard.string(forKey: "calendar") ?? "Lunar"
@@ -45,14 +45,17 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                /*KFImage(URL(fileURLWithPath: img))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150, height: 150)*/
-                Image(uiImage: imgUI ?? UIImage())
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150, height: 150)
+                if imgUI != UIImage() {
+                    Image(uiImage: imgUI)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                } else {
+                    KFImage(URL(fileURLWithPath: img))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                }
                 PhotosPicker("Change Image", selection: $selectedItem, matching: .images)
             }
             .frame(maxWidth: .infinity)
@@ -115,11 +118,11 @@ struct EditView: View {
             note = birthday?.note ?? ""
             cal = birthday?.cal ?? cal
             /*
-            originalImg = imgUI ?? UIImage()
-            originalName = name
-            originalDate = date
-            originalNote = note
-            originalCal = cal */
+             originalImg = imgUI ?? UIImage()
+             originalName = name
+             originalDate = date
+             originalNote = note
+             originalCal = cal */
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle(navTitle ?? "Edit")
@@ -127,38 +130,38 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button("Cancel") {
                     /*if dataChange() {
-                        isDiscardingConfirm = true
-                    } else {*/
-                        dismiss()
+                     isDiscardingConfirm = true
+                     } else {*/
+                    dismiss()
                     //}
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController().editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().editBirthday(birthday: birthday!, img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        DataController().addBirthday(img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().addBirthday(img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
                 .disabled((name).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }/*
-        .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
-            Button("Discard Changes?", role: .destructive) {
-                dismiss()
-            }
-        }*/
+          .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
+          Button("Discard Changes?", role: .destructive) {
+          dismiss()
+          }
+          }*/
         .sheet(isPresented: $isShowingCropView) {
             CropImageViewController(image: $imgUI, isPresented: $isShowingCropView)
         }
     }/*
-    private func dataChange() -> Bool {
-        return !(imgUI == originalImg &&
-                 name == originalName &&
-                 date == originalDate &&
-                 note == originalNote &&
-                 cal == originalCal)
-    }*/
+      private func dataChange() -> Bool {
+      return !(imgUI == originalImg &&
+      name == originalName &&
+      date == originalDate &&
+      note == originalNote &&
+      cal == originalCal)
+      }*/
 }

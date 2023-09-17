@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		092663E92A6F2C1E0034296A /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092663E82A6F2C1E0034296A /* ClearButton.swift */; };
-		0926640D2A6F4FC40034296A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926640C2A6F4FC40034296A /* Persistence.swift */; };
 		092664162A736FFF0034296A /* WheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664152A736FFF0034296A /* WheelPicker.swift */; };
 		092664242A74D88D0034296A /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664232A74D88D0034296A /* Rainbow.swift */; };
 		092664282A7760370034296A /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664272A7760370034296A /* Keyboard.swift */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		092663E82A6F2C1E0034296A /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
-		0926640C2A6F4FC40034296A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		092664152A736FFF0034296A /* WheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelPicker.swift; sourceTree = "<group>"; };
 		092664232A74D88D0034296A /* Rainbow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
 		092664252A772D650034296A /* BirthdayModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BirthdayModel 3.xcdatamodel"; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 			children = (
 				09B96D092A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld */,
 				09B96D0C2A6CFA5500FC5AAA /* DataController.swift */,
-				0926640C2A6F4FC40034296A /* Persistence.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -250,7 +247,6 @@
 				092664162A736FFF0034296A /* WheelPicker.swift in Sources */,
 				092663E92A6F2C1E0034296A /* ClearButton.swift in Sources */,
 				09B96D0B2A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld in Sources */,
-				0926640D2A6F4FC40034296A /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

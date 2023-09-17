@@ -32,15 +32,18 @@ class DataController: ObservableObject {
             print("Failed to save data")
         }
     }
-    func addBirthday(img: String, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
+    func addBirthday(img: UIImage, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
-        birthday.img = img
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
         
+         if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+             birthday.img = imagePath
+         }
+         
         save(context: context)
         
         if UserDefaults.standard.bool(forKey: "notifications") {
@@ -53,12 +56,15 @@ class DataController: ObservableObject {
             Notifications.scheduleBirthday(birthday, offset: 7)
         }
     }
-    func editBirthday(birthday: Birthday, img: String, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
-        birthday.img = img
+    func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
+        
+        if let imagePath = saveImage(img, withFilename: "\(UUID()).jpg") {
+            birthday.img = imagePath
+        }
         
         save(context: context)
 
@@ -76,6 +82,7 @@ class DataController: ObservableObject {
         }
     }
     func deleteBirthday(birthday: Birthday, context: NSManagedObjectContext) {
+        deleteImage(atPath: birthday.img ?? "")
         context.delete(birthday)
         save(context: context)
     }
@@ -92,6 +99,15 @@ class DataController: ObservableObject {
             }
         }
         return nil
+    }
+    
+    func deleteImage(atPath filePath: String) {
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(atPath: filePath)
+        } catch {
+            print("Error deleting file at path \(filePath): \(error)")
+        }
     }
     
     func clearDocumentsDirectory() {
