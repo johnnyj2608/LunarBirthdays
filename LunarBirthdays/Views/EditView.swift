@@ -14,7 +14,6 @@ struct EditView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
-    @StateObject private var dataController = DataController()
     
     var birthday: Birthday?
     var navTitle: String?
@@ -24,7 +23,7 @@ struct EditView: View {
     @State private var date = Date()
     @State private var note = ""
     
-    @State private var avatarItem: PhotosPickerItem?
+    @State private var selectedItem: PhotosPickerItem?
     @State private var imgUI: UIImage?
     @State private var isShowingCropView = false
     
@@ -54,7 +53,7 @@ struct EditView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
-                PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
+                PhotosPicker("Change Image", selection: $selectedItem, matching: .images)
             }
             .frame(maxWidth: .infinity)
             Section(header: Text("Name")) {
@@ -86,7 +85,7 @@ struct EditView: View {
                     }
                     .confirmationDialog("Delete", isPresented: $isPresentingConfirm) {
                         Button("Are you sure?", role: .destructive) {
-                            dataController.deleteBirthday(birthday: birthday!, context: managedObjContext)
+                            DataController().deleteBirthday(birthday: birthday!, context: managedObjContext)
                         }
                     }
                 }
@@ -96,12 +95,13 @@ struct EditView: View {
         .gesture(DragGesture().onChanged { _ in
             UIApplication.shared.dismissKeyboard()
         })
-        .onChange(of: avatarItem) { _ in
+        .onChange(of: selectedItem) { _ in
             Task {
-                if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
+                if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
                     if let uiImage = UIImage(data: data) {
                         isShowingCropView.toggle()
                         imgUI = uiImage
+                        return
                     }
                 }
                 
@@ -114,51 +114,51 @@ struct EditView: View {
             date = birthday?.date ?? Date()
             note = birthday?.note ?? ""
             cal = birthday?.cal ?? cal
-            
+            /*
             originalImg = imgUI ?? UIImage()
             originalName = name
             originalDate = date
             originalNote = note
-            originalCal = cal
+            originalCal = cal */
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle(navTitle ?? "Edit")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button("Cancel") {
-                    if dataChange() {
+                    /*if dataChange() {
                         isDiscardingConfirm = true
-                    } else {
+                    } else {*/
                         dismiss()
-                    }
+                    //}
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        dataController.editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        dataController.addBirthday(img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController().addBirthday(img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
                 .disabled((name).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
-        }
+        }/*
         .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
             Button("Discard Changes?", role: .destructive) {
                 dismiss()
             }
-        }
+        }*/
         .sheet(isPresented: $isShowingCropView) {
             CropImageViewController(image: $imgUI, isPresented: $isShowingCropView)
         }
-    }
+    }/*
     private func dataChange() -> Bool {
         return !(imgUI == originalImg &&
                  name == originalName &&
                  date == originalDate &&
                  note == originalNote &&
                  cal == originalCal)
-    }
+    }*/
 }
