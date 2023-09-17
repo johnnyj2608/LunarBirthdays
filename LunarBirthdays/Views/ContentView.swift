@@ -93,7 +93,6 @@ struct BirthdayCell: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 65, height: 65)
-                .clipShape(Circle())
                 .padding(.vertical, 4)
             VStack(alignment: .leading, spacing: 5) {
                 Text("\(birthday.name ?? "")")

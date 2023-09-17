@@ -16,6 +16,8 @@
 		092664432A8F13E90034296A /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664422A8F13E90034296A /* Notifications.swift */; };
 		092664462A9711740034296A /* LunarConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664452A9711740034296A /* LunarConverter.swift */; };
 		0926644E2AB008960034296A /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926644D2AB008950034296A /* Navigation.swift */; };
+		09933A9E2AB77E2100B7420E /* CropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09933A9D2AB77E2100B7420E /* CropController.swift */; };
+		09933AA12AB77EB300B7420E /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 09933AA02AB77EB300B7420E /* CropViewController */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
 		09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */; };
 		09B96CFC2A6CF8BD00FC5AAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B96CFB2A6CF8BD00FC5AAA /* Assets.xcassets */; };
@@ -40,6 +42,7 @@
 		092664442A9308ED0034296A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		092664452A9711740034296A /* LunarConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarConverter.swift; sourceTree = "<group>"; };
 		0926644D2AB008950034296A /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		09933A9D2AB77E2100B7420E /* CropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropController.swift; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
 		09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				092664312A7B58820034296A /* Kingfisher in Frameworks */,
+				09933AA12AB77EB300B7420E /* CropViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +82,7 @@
 				092664422A8F13E90034296A /* Notifications.swift */,
 				092664452A9711740034296A /* LunarConverter.swift */,
 				0926644D2AB008950034296A /* Navigation.swift */,
+				09933A9D2AB77E2100B7420E /* CropController.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 			name = LunarBirthdays;
 			packageProductDependencies = (
 				092664302A7B58820034296A /* Kingfisher */,
+				09933AA02AB77EB300B7420E /* CropViewController */,
 			);
 			productName = LunarBirthdays;
 			productReference = 09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */;
@@ -200,6 +206,7 @@
 			packageReferences = (
 				0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				092664342A81A1410034296A /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */,
+				09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = 09B96CF52A6CF8BB00FC5AAA /* Products */;
 			projectDirPath = "";
@@ -228,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B96D0F2A6CFCBF00FC5AAA /* Calendar.swift in Sources */,
+				09933A9E2AB77E2100B7420E /* CropController.swift in Sources */,
 				09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */,
 				092664282A7760370034296A /* Keyboard.swift in Sources */,
 				09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */,
@@ -476,6 +484,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -483,6 +499,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		09933AA02AB77EB300B7420E /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
 		};
 /* End XCSwiftPackageProductDependency section */
 

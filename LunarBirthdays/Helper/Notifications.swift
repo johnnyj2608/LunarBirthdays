@@ -43,7 +43,6 @@ class Notifications {
             components.hour = Calendar.current.component(.hour, from: timeComponents)
             components.minute = Calendar.current.component(.minute, from: timeComponents)
         }
-        print(components)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         

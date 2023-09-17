@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 import Kingfisher
-import PhotoSelectAndCrop
+import CropViewController
 
 struct EditView: View {
     
@@ -25,7 +25,8 @@ struct EditView: View {
     @State private var note = ""
     
     @State private var avatarItem: PhotosPickerItem?
-    @State private var imgUI = UIImage()
+    @State private var imgUI: UIImage?
+    @State private var isShowingCropView = false
     
     @State private var cal: String = UserDefaults.standard.string(forKey: "calendar") ?? "Lunar"
     let calendars = ["Lunar", "Gregorian"]
@@ -45,11 +46,14 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                KFImage(URL(fileURLWithPath: img))
+                /*KFImage(URL(fileURLWithPath: img))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)*/
+                Image(uiImage: imgUI ?? UIImage())
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
-                    .clipShape(Circle())
                 PhotosPicker("Select Avatar", selection: $avatarItem, matching: .images)
             }
             .frame(maxWidth: .infinity)
@@ -94,14 +98,14 @@ struct EditView: View {
         })
         .onChange(of: avatarItem) { _ in
             Task {
-                if let data = try? await avatarItem?.loadTransferable(type: Data.self),
-                   let uiImage = UIImage(data: data),
-                   let imagePath = dataController.saveImage(imgUI, withFilename: "\(UUID()).jpg") {
-                    img = imagePath
-                    imgUI = uiImage
-                } else {
-                    print("Failed to load image")
+                if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
+                    if let uiImage = UIImage(data: data) {
+                        isShowingCropView.toggle()
+                        imgUI = uiImage
+                    }
                 }
+                
+                print("Failed")
             }
         }
         .onAppear {
@@ -111,15 +115,11 @@ struct EditView: View {
             note = birthday?.note ?? ""
             cal = birthday?.cal ?? cal
             
-            imgUI = loadImage(from: img)
-            originalImg = imgUI
+            originalImg = imgUI ?? UIImage()
             originalName = name
             originalDate = date
             originalNote = note
             originalCal = cal
-        }
-        .onDisappear {
-            dataController.clearDocumentsDirectory()
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle(navTitle ?? "Edit")
@@ -150,6 +150,9 @@ struct EditView: View {
                 dismiss()
             }
         }
+        .sheet(isPresented: $isShowingCropView) {
+            CropImageViewController(image: $imgUI, isPresented: $isShowingCropView)
+        }
     }
     private func dataChange() -> Bool {
         return !(imgUI == originalImg &&
@@ -157,21 +160,5 @@ struct EditView: View {
                  date == originalDate &&
                  note == originalNote &&
                  cal == originalCal)
-    }
-    func loadImage(from path: String?) -> UIImage {
-        guard let path = path, let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
-            return UIImage()
-        }
-        return UIImage(data: data) ?? UIImage()
-    }
-    func listFilesInDirectory(_ directoryURL: URL) {
-        do {
-            let fileURLs = try FileManager.default.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil)
-            for fileURL in fileURLs {
-                print("File: \(fileURL.lastPathComponent)")
-            }
-        } catch {
-            print("Error listing files: \(error)")
-        }
     }
 }

@@ -23,7 +23,6 @@ struct ProfileView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
-                    .clipShape(Circle())
                     .padding(.vertical, 4)
                 Text("\(birthday.name ?? "")")
                     .font(.system(size: 40))
