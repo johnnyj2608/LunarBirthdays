@@ -36,7 +36,6 @@ struct EditView: View {
     @State private var isPresentingConfirm: Bool = false
     @State private var isDiscardingConfirm: Bool = false
     
-    @State private var originalImg = UIImage()
     @State private var originalName = ""
     @State private var originalDate = Date()
     @State private var originalNote = ""
@@ -117,23 +116,22 @@ struct EditView: View {
             date = birthday?.date ?? Date()
             note = birthday?.note ?? ""
             cal = birthday?.cal ?? cal
-            /*
-             originalImg = imgUI ?? UIImage()
-             originalName = name
-             originalDate = date
-             originalNote = note
-             originalCal = cal */
+            
+            originalName = name
+            originalDate = date
+            originalNote = note
+            originalCal = cal
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle(navTitle ?? "Edit")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button("Cancel") {
-                    /*if dataChange() {
+                    if dataChange() {
                      isDiscardingConfirm = true
-                     } else {*/
+                     } else {
                     dismiss()
-                    //}
+                    }
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -147,21 +145,21 @@ struct EditView: View {
                 }
                 .disabled((name).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
-        }/*
+        }
           .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
           Button("Discard Changes?", role: .destructive) {
           dismiss()
           }
-          }*/
+          }
         .sheet(isPresented: $isShowingCropView) {
             CropImageViewController(image: $imgUI, isPresented: $isShowingCropView)
         }
-    }/*
+    }
       private func dataChange() -> Bool {
-      return !(imgUI == originalImg &&
+      return !(imgUI == UIImage() &&
       name == originalName &&
       date == originalDate &&
       note == originalNote &&
       cal == originalCal)
-      }*/
+      }
 }
