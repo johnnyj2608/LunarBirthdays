@@ -20,6 +20,10 @@ New Photo Picker
 <br>
 Default Profile Pictures
 <br>
+Pro Mode
+<br>
+Feedback Page
+<br>
 Preloader
 <br>
 Widgets
@@ -42,13 +46,13 @@ This is an ongoing project. In my work-in-progress section, I listed all of the 
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/dfb4b504-e746-4bab-9856-9614f3bb44d7" alt="Screenshot 1" width="200"/>
+      <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/3b3262cb-765b-4eb7-a17b-bd9184b9aeb5" alt="Screenshot 1" width="200"/>
     </td>
     <td align="center">
-      <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/06b0395f-920a-488d-9a49-332f11dcf358" alt="Screenshot 2" width="200"/>
+      <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/debc7841-5d5a-4b8b-9b23-b0c0edc13d4e" alt="Screenshot 2" width="200"/>
     </td>
     <td align="center">
-      <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/44768dcf-d58b-4ca9-996e-2492220050ac" alt="Screenshot 3" width="200"/>
+      <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/a43638b7-d96f-44db-9faa-69d82667a58e" alt="Screenshot 3" width="200"/>
     </td>
     <td align="center">
       <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/bc695ce2-69e6-4c4f-8910-c0ca9acd4484" alt="Screenshot 4" width="200"/>
