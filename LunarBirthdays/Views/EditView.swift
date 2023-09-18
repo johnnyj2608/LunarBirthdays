@@ -40,6 +40,7 @@ struct EditView: View {
     @State private var originalDate = Date()
     @State private var originalNote = ""
     @State private var originalCal = "Lunar"
+
     
     var body: some View {
         Form {
@@ -49,11 +50,13 @@ struct EditView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
+                        .cornerRadius(20)
                 } else {
                     KFImage(URL(fileURLWithPath: img))
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
+                        .cornerRadius(10)
                 }
                 PhotosPicker("Change Image", selection: $selectedItem, matching: .images)
             }
@@ -87,7 +90,8 @@ struct EditView: View {
                     }
                     .confirmationDialog("Delete", isPresented: $isPresentingConfirm) {
                         Button("Are you sure?", role: .destructive) {
-                            DataController().deleteBirthday(birthday: birthday!, context: managedObjContext)
+                            DataController.shared.deleteBirthday(birthday: birthday!, context: managedObjContext)
+                            dismiss()
                         }
                     }
                 }
@@ -137,9 +141,9 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController().editBirthday(birthday: birthday!, img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController.shared.editBirthday(birthday: birthday!, img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        DataController().addBirthday(img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController.shared.addBirthday(img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }

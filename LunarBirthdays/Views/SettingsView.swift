@@ -30,11 +30,10 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            /*
             Section(header: Text("Upgrade")) {
                 Text("Birthday Reminder Pro")
                 // Popup sheet
-            }*/
+            }
             Section(header: Text("Notifications")) {
                 Toggle("Enable Notifications", isOn: $notifications)
                     .onChange(of: notifications) { newValue in

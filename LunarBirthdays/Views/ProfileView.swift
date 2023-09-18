@@ -24,6 +24,7 @@ struct ProfileView: View {
                     .scaledToFit()
                     .frame(width: 150, height: 150)
                     .padding(.vertical, 4)
+                    .cornerRadius(20)
                 Text("\(birthday.name ?? "")")
                     .font(.system(size: 40))
                     .fontWeight(.semibold)
@@ -90,10 +91,10 @@ struct ProfileView: View {
                 Text(birthday.note?.isEmpty == true ? "Note" : birthday.note ?? "")
             }
             .onAppear {
-                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
+                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
             }
             .onReceive(timer) { _ in
-                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
+                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
             }
             .onDisappear {
                 timer.upstream.connect().cancel()

@@ -94,6 +94,7 @@ struct BirthdayCell: View {
                 .scaledToFit()
                 .frame(width: 65, height: 65)
                 .padding(.vertical, 4)
+                .cornerRadius(10)
             VStack(alignment: .leading, spacing: 5) {
                 Text("\(birthday.name ?? "")")
                     .font(.system(size: 20))
@@ -143,11 +144,11 @@ struct BirthdayCell: View {
             .frame(width: 50)
         }
         .onAppear {
-            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
+            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
         }
         
         .onReceive(timer) { _ in
-            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal!)
+            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
         }
     }
 }

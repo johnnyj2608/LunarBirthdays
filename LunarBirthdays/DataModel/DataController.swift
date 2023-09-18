@@ -11,11 +11,12 @@ import PhotosUI
 
 class DataController: ObservableObject {
     
-    let container = NSPersistentContainer(name: "BirthdayModel")
+    static let shared = DataController()
+    static let container = NSPersistentContainer(name: "BirthdayModel")
     
     
     init() {
-        container.loadPersistentStores { desc, error in
+        DataController.container.loadPersistentStores { desc, error in
             if let error = error {
                 print("Failed to load data \(error.localizedDescription)")
             } else {
@@ -40,9 +41,9 @@ class DataController: ObservableObject {
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
         
-         if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
-             birthday.img = imagePath
-         }
+        if let imagePath = saveImage(img, withFilename: "\(UUID()).jpg") {
+            birthday.img = imagePath
+        }
          
         save(context: context)
         
@@ -82,7 +83,6 @@ class DataController: ObservableObject {
         }
     }
     func deleteBirthday(birthday: Birthday, context: NSManagedObjectContext) {
-        deleteImage(atPath: birthday.img ?? "")
         context.delete(birthday)
         save(context: context)
     }
@@ -99,15 +99,6 @@ class DataController: ObservableObject {
             }
         }
         return nil
-    }
-    
-    func deleteImage(atPath filePath: String) {
-        let fileManager = FileManager.default
-        do {
-            try fileManager.removeItem(atPath: filePath)
-        } catch {
-            print("Error deleting file at path \(filePath): \(error)")
-        }
     }
     
     func clearDocumentsDirectory() {
