@@ -12,11 +12,10 @@ import PhotosUI
 class DataController: ObservableObject {
     
     static let shared = DataController()
-    static let container = NSPersistentContainer(name: "BirthdayModel")
-    
+    let container = NSPersistentContainer(name: "BirthdayModel")
     
     init() {
-        DataController.container.loadPersistentStores { desc, error in
+        container.loadPersistentStores { desc, error in
             if let error = error {
                 print("Failed to load data \(error.localizedDescription)")
             } else {
@@ -115,5 +114,4 @@ class DataController: ObservableObject {
             print("Error clearing Documents directory: \(error)")
         }
     }
-
 }

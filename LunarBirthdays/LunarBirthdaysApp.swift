@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct LunarBirthdaysApp: App {
-    @StateObject private var dataController = DataController()
+    @StateObject private var dataController = DataController.shared
     @AppStorage("darkMode") private var darkMode = true
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -18,7 +18,7 @@ struct LunarBirthdaysApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(path: $path)
-                .environment(\.managedObjectContext, DataController.container.viewContext)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .preferredColorScheme(darkMode ? .dark : .light)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                     UIApplication.shared.applicationIconBadgeNumber = 0
