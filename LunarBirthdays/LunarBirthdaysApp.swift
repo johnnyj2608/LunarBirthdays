@@ -26,11 +26,15 @@ struct LunarBirthdaysApp: App {
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                     UIApplication.shared.applicationIconBadgeNumber = 0
                 }
-                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ClearPathNotification"))) { _ in
+                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ClearPath"))) { _ in
                     path.removeLast(path.count)
                 }
         }
     }
+}
+
+func clearNavigationPath() {
+    NotificationCenter.default.post(name: Notification.Name("ClearPath"), object: nil)
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -61,6 +65,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
-        NotificationCenter.default.post(name: Notification.Name("ClearPathNotification"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("ClearPath"), object: nil)
     }
 }

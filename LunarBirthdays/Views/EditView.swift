@@ -91,7 +91,7 @@ struct EditView: View {
                     .confirmationDialog("Delete", isPresented: $isPresentingConfirm) {
                         Button("Are you sure?", role: .destructive) {
                             DataController.shared.deleteBirthday(birthday: birthday!, context: managedObjContext)
-                            dismiss()
+                            clearNavigationPath()
                         }
                     }
                 }
