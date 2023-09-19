@@ -10,27 +10,31 @@ Using 2 packages, Kingfisher and TOCropViewController
 
 ## Work In Progress
 
-Admob
-<br>
 Google Calendar API
 <br>
 App Icon
 <br>
-New Photo Picker
+New Photo Picker w/ cropping
 <br>
-Default Profile Pictures
+Extra whitespace at bottom in main list
+<br>
+Default Profile Pictures for each lunar month
 <br>
 Pro Mode
 <br>
-Feedback Page
+Feedback Redirect
 <br>
-Preloader
+Preloader Animation
 <br>
 Widgets
 
-## Bugs
+## Known Bugs
 
-None
+Print statements after Google Admob Implementation
+<br>
+Could not signal service com.apple.WebKit.WebContent: 113: Could not find specified service
+<br>
+This method should not be called on the main thread as it may lead to UI unresponsiveness.
 
 ## Reflection
 
