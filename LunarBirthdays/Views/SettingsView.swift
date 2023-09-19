@@ -30,10 +30,12 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
+            /*
             Section(header: Text("Upgrade")) {
                 Text("Birthday Reminder Pro")
                 // Popup sheet
             }
+             */
             Section(header: Text("Notifications")) {
                 Toggle("Enable Notifications", isOn: $notifications)
                     .onChange(of: notifications) { newValue in
@@ -115,6 +117,7 @@ struct SettingsView: View {
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $darkMode)
             }
+            /*
             Section(header: Text("Export")) {
                 Text("Google Calendar")
                 // OAuth Google
@@ -123,6 +126,7 @@ struct SettingsView: View {
                 Text("Rate this app")
                 Text("Tell a friend")
             }
+             */
             .alert(isPresented: $showPermissionAlert) {
                 Alert(
                     title: Text("Notification Permission"),
