@@ -8,25 +8,31 @@ Using 2 packages, Kingfisher and TOCropViewController
 
 ## Installation and Setup Instructions
 
+Clone and Admob
+
 ## Work In Progress
 
 Google Calendar API
 <br>
-App Icon
+App icon
 <br>
-New Photo Picker w/ cropping
+Force crop after photo picker
 <br>
-Extra whitespace at bottom in main list
+Remove bottom whitespace of main list
 <br>
-Default Profile Pictures for each lunar month
+Default profile pictures for each lunar month
 <br>
-Pro Mode
+Pro mode
 <br>
-Feedback Redirect
+Feedback redirect to app store
 <br>
-Preloader Animation
+Tell a friend initiates share function
+<br>
+Preloader animation
 <br>
 Widgets
+<br>
+Debug Admob logs
 
 ## Known Bugs
 
