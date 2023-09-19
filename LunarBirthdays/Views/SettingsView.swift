@@ -135,6 +135,9 @@ struct SettingsView: View {
                 )
             }
         }
+        Spacer()
+        AdBannerView()
+            .frame(height:50)
         .navigationTitle("Settings")
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             getNotificationPermission { isAuthorized in

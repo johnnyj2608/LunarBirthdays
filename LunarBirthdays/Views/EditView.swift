@@ -67,7 +67,6 @@ struct EditView: View {
                     .onReceive(name.publisher.collect()) {
                         name = String($0.prefix(70))
                     }
-                
             }
             Section(header: Text("Birthday")) {
                 Picker("Calendar", selection: $cal) {
@@ -98,6 +97,9 @@ struct EditView: View {
             }
             .frame(maxWidth: .infinity)
         }
+        Spacer()
+        AdBannerView()
+            .frame(height:50)
         .gesture(DragGesture().onChanged { _ in
             UIApplication.shared.dismissKeyboard()
         })

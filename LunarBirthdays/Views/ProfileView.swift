@@ -106,5 +106,8 @@ struct ProfileView: View {
                 }
             }
         }
+        Spacer()
+        AdBannerView()
+            .frame(height:50)
     }
 }
