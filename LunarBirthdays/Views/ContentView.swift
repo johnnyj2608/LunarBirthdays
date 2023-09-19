@@ -53,6 +53,9 @@ struct ContentView: View {
                     let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                     birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: "name BEGINSWITH[c] %@", trimmedValue)
                 }
+                Spacer()
+                AdBannerView()
+                    .frame(height:50)
             }
             .navigationTitle("Birthdays")
             .navigationDestination(for: Route.self) { route in

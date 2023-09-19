@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 @main
 struct LunarBirthdaysApp: App {
@@ -43,6 +44,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         registerForLocalNotifications()
         UNUserNotificationCenter.current().delegate = self
+        
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }
     

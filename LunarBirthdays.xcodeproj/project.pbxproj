@@ -27,6 +27,8 @@
 		09B96D112A6CFE7500FC5AAA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D102A6CFE7500FC5AAA /* ProfileView.swift */; };
 		09B96D132A6CFF2400FC5AAA /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D122A6CFF2400FC5AAA /* EditView.swift */; };
 		09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D152A6D076500FC5AAA /* SettingsView.swift */; };
+		09C9806E2AB92091000D53A2 /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806D2AB92091000D53A2 /* GoogleAds.swift */; };
+		4901EA319EC841EEA1B81B75 /* Pods_LunarBirthdays.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,10 @@
 		09B96D122A6CFF2400FC5AAA /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		09B96D142A6D04FA00FC5AAA /* BirthdayModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BirthdayModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		09B96D152A6D076500FC5AAA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		09C9806D2AB92091000D53A2 /* GoogleAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAds.swift; sourceTree = "<group>"; };
+		E07C43019A8906392DD77C38 /* Pods-LunarBirthdays.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LunarBirthdays.release.xcconfig"; path = "Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays.release.xcconfig"; sourceTree = "<group>"; };
+		E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LunarBirthdays.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F05BA68C590E23945554D1C0 /* Pods-LunarBirthdays.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LunarBirthdays.debug.xcconfig"; path = "Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,7 @@
 			files = (
 				092664312A7B58820034296A /* Kingfisher in Frameworks */,
 				09933AA12AB77EB300B7420E /* CropViewController in Frameworks */,
+				4901EA319EC841EEA1B81B75 /* Pods_LunarBirthdays.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +88,7 @@
 				092664452A9711740034296A /* LunarConverter.swift */,
 				0926644D2AB008950034296A /* Navigation.swift */,
 				09933A9D2AB77E2100B7420E /* CropController.swift */,
+				09C9806D2AB92091000D53A2 /* GoogleAds.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -88,6 +96,7 @@
 		092664372A81C1F80034296A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -98,6 +107,7 @@
 				09B96CF62A6CF8BB00FC5AAA /* LunarBirthdays */,
 				09B96CF52A6CF8BB00FC5AAA /* Products */,
 				092664372A81C1F80034296A /* Frameworks */,
+				DC9B8684E300CE14460F37A8 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +162,15 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
+		DC9B8684E300CE14460F37A8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F05BA68C590E23945554D1C0 /* Pods-LunarBirthdays.debug.xcconfig */,
+				E07C43019A8906392DD77C38 /* Pods-LunarBirthdays.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,9 +178,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09B96D032A6CF8BD00FC5AAA /* Build configuration list for PBXNativeTarget "LunarBirthdays" */;
 			buildPhases = (
+				DBC5012B22E9178EBBC6DDC7 /* [CP] Check Pods Manifest.lock */,
 				09B96CF02A6CF8BB00FC5AAA /* Sources */,
 				09B96CF12A6CF8BB00FC5AAA /* Frameworks */,
 				09B96CF22A6CF8BB00FC5AAA /* Resources */,
+				A63F95345FFF3EAFFBFAD016 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,7 +223,6 @@
 			mainGroup = 09B96CEB2A6CF8BB00FC5AAA;
 			packageReferences = (
 				0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				092664342A81A1410034296A /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */,
 				09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = 09B96CF52A6CF8BB00FC5AAA /* Products */;
@@ -226,6 +246,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A63F95345FFF3EAFFBFAD016 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBC5012B22E9178EBBC6DDC7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LunarBirthdays-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		09B96CF02A6CF8BB00FC5AAA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -239,6 +301,7 @@
 				09B96D0D2A6CFA5500FC5AAA /* DataController.swift in Sources */,
 				092664462A9711740034296A /* LunarConverter.swift in Sources */,
 				09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */,
+				09C9806E2AB92091000D53A2 /* GoogleAds.swift in Sources */,
 				0926644E2AB008960034296A /* Navigation.swift in Sources */,
 				092664242A74D88D0034296A /* Rainbow.swift in Sources */,
 				09B96D132A6CFF2400FC5AAA /* EditView.swift in Sources */,
@@ -364,6 +427,7 @@
 		};
 		09B96D042A6CF8BD00FC5AAA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F05BA68C590E23945554D1C0 /* Pods-LunarBirthdays.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -386,7 +450,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MARKETING_VERSION = 1.0;
@@ -403,6 +467,7 @@
 		};
 		09B96D052A6CF8BD00FC5AAA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E07C43019A8906392DD77C38 /* Pods-LunarBirthdays.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -425,7 +490,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MARKETING_VERSION = 1.0;
@@ -470,14 +535,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.0.0;
-			};
-		};
-		092664342A81A1410034296A /* XCRemoteSwiftPackageReference "PhotoSelectAndCrop" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Rillieux/PhotoSelectAndCrop";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
 			};
 		};
 		09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
