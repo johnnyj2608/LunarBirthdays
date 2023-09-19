@@ -15,8 +15,7 @@ struct WrapperView: View {
                 ContentView()
             }
             Spacer()
-            AdBannerView()
-                .frame(height: 50)
+            //AdBannerView().frame(height: 50)
         }
     }
 }

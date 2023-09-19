@@ -20,6 +20,12 @@ struct CropImageViewController: UIViewControllerRepresentable {
         cropViewController.rotateClockwiseButtonHidden = true
         cropViewController.toolbarPosition = .top
         cropViewController.delegate = context.coordinator
+        
+        cropViewController.aspectRatioPreset = .presetSquare
+        cropViewController.aspectRatioLockEnabled = true
+        cropViewController.aspectRatioLockDimensionSwapEnabled = false
+        cropViewController.resetAspectRatioEnabled = false
+        
         return UINavigationController(rootViewController: cropViewController)
     }
 

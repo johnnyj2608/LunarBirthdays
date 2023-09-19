@@ -88,7 +88,7 @@ struct BirthdayCell: View {
         HStack {
             KFImage(URL(fileURLWithPath: birthday.img ?? ""))
                 .resizable()
-                .scaledToFit()
+                .scaledToFill()
                 .frame(width: 65, height: 65)
                 .padding(.vertical, 4)
                 .cornerRadius(10)
