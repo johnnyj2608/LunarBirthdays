@@ -97,9 +97,6 @@ struct EditView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        Spacer()
-        AdBannerView()
-            .frame(height:50)
         .gesture(DragGesture().onChanged { _ in
             UIApplication.shared.dismissKeyboard()
         })

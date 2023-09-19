@@ -28,6 +28,7 @@
 		09B96D132A6CFF2400FC5AAA /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D122A6CFF2400FC5AAA /* EditView.swift */; };
 		09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D152A6D076500FC5AAA /* SettingsView.swift */; };
 		09C9806E2AB92091000D53A2 /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806D2AB92091000D53A2 /* GoogleAds.swift */; };
+		09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806F2AB944EA000D53A2 /* WrapperView.swift */; };
 		4901EA319EC841EEA1B81B75 /* Pods_LunarBirthdays.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		09B96D142A6D04FA00FC5AAA /* BirthdayModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BirthdayModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		09B96D152A6D076500FC5AAA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		09C9806D2AB92091000D53A2 /* GoogleAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAds.swift; sourceTree = "<group>"; };
+		09C9806F2AB944EA000D53A2 /* WrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperView.swift; sourceTree = "<group>"; };
 		E07C43019A8906392DD77C38 /* Pods-LunarBirthdays.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LunarBirthdays.release.xcconfig"; path = "Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays.release.xcconfig"; sourceTree = "<group>"; };
 		E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LunarBirthdays.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F05BA68C590E23945554D1C0 /* Pods-LunarBirthdays.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LunarBirthdays.debug.xcconfig"; path = "Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				09B96D102A6CFE7500FC5AAA /* ProfileView.swift */,
 				09B96D122A6CFF2400FC5AAA /* EditView.swift */,
 				09B96D152A6D076500FC5AAA /* SettingsView.swift */,
+				09C9806F2AB944EA000D53A2 /* WrapperView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				09B96D112A6CFE7500FC5AAA /* ProfileView.swift in Sources */,
 				092664162A736FFF0034296A /* WheelPicker.swift in Sources */,
 				092663E92A6F2C1E0034296A /* ClearButton.swift in Sources */,
+				09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */,
 				09B96D0B2A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

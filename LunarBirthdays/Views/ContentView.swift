@@ -31,46 +31,40 @@ struct ContentView: View {
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    @Binding var path: NavigationPath
     
     var body: some View {
-        NavigationStack(path: $path) {
-            VStack {
-                List {
-                    ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
-                        Section(header: Text("\(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
-                            ForEach(groupedBirthday[key]!, id: \.self) { birthday in
-                                NavigationLink(value: Route.profileView(birthday: birthday)) {
-                                    BirthdayCell(birthday: birthday, timer: timer)
-                                }
+        VStack {
+            List {
+                ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
+                    Section(header: Text("\(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
+                        ForEach(groupedBirthday[key]!, id: \.self) { birthday in
+                            NavigationLink(value: Route.profileView(birthday: birthday)) {
+                                BirthdayCell(birthday: birthday, timer: timer)
                             }
-                            .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                         }
+                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     }
                 }
-                .searchable(text: $searchText)
-                .onChange(of: searchText) { newValue in
-                    let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                    birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: "name BEGINSWITH[c] %@", trimmedValue)
-                }
-                Spacer()
-                AdBannerView()
-                    .frame(height:50)
             }
-            .navigationTitle("Birthdays")
-            .navigationDestination(for: Route.self) { route in
-                route
+            .searchable(text: $searchText)
+            .onChange(of: searchText) { newValue in
+                let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: "name BEGINSWITH[c] %@", trimmedValue)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(value: Route.settingsView) {
-                        Image(systemName: "gear")
-                    }
+        }
+        .navigationTitle("Birthdays")
+        .navigationDestination(for: Route.self) { route in
+            route
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                NavigationLink(value: Route.settingsView) {
+                    Image(systemName: "gear")
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(value: Route.addView) {
-                        Image(systemName: "plus.circle")
-                    }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(value: Route.addView) {
+                    Image(systemName: "plus.circle")
                 }
             }
         }

@@ -18,7 +18,7 @@ struct LunarBirthdaysApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(path: $path)
+            WrapperView(path: $path)
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .preferredColorScheme(darkMode ? .dark : .light)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
