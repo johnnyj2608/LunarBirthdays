@@ -27,6 +27,7 @@ struct SettingsView: View {
     let calendars = ["Lunar", "Gregorian"]
     
     @State private var showPermissionAlert = false
+    @State private var showExportAlert = false
     
     var body: some View {
         Form {
@@ -119,14 +120,7 @@ struct SettingsView: View {
             }
             Section(header: Text("Export")) {
                 Button(action: {
-                        let birthdayArray = Array(birthday)
-                        exportBirthdays(birthdayArray)
-                    }) {
-                        Text("Google Calendar")
-                    }
-                Button(action: {
-                        let birthdayArray = Array(birthday)
-                        deportBirthdays(birthdayArray)
+                        self.showExportAlert = true
                     }) {
                         Text("Google Calendar")
                     }
@@ -145,6 +139,17 @@ struct SettingsView: View {
                         guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
                         UIApplication.shared.open(settingsURL)
                     }),
+                    secondaryButton: .cancel()
+                )
+            }
+            .alert(isPresented: $showExportAlert) {
+                Alert(
+                    title: Text("Confirm Export"),
+                    message: Text("Are you sure you want to export? This will overwrite any existing birthdays."),
+                    primaryButton: .default(Text("Export")) {
+                        let birthdayArray = Array(birthday)
+                        exportBirthdays(birthdayArray) {}
+                    },
                     secondaryButton: .cancel()
                 )
             }

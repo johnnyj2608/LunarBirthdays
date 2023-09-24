@@ -8,39 +8,42 @@
 import Foundation
 import EventKit
 
-func exportBirthdays(_ birthdays: [Birthday]) {
-    deportBirthdays(birthdays)
-    let eventStore = EKEventStore()
-    eventStore.requestAccess(to: .event) { (granted, error) in
-        if granted && error == nil {
-            for birthday in birthdays {
-                if var date = birthday.date {
-                    date = nextBirthday(date)
-                    if birthday.cal == "Lunar" {
-                        date = lunarConverter(date)
-                    }
-                    let event = EKEvent(eventStore: eventStore)
-                    event.calendar = eventStore.defaultCalendarForNewEvents
-                    event.title = "Birthday: \(birthday.name ?? "")"
-                    event.startDate = date
-                    event.endDate = date
-                    event.isAllDay = true
-                    
-                    do {
-                        try eventStore.save(event, span: .thisEvent)
-                        print("Saved event for \(birthday.name ?? "")'s birthday.")
-                    } catch {
-                        print("Error saving event to calendar: \(error.localizedDescription)")
+func exportBirthdays(_ birthdays: [Birthday], completion: @escaping () -> Void) {
+    deportBirthdays(birthdays) {
+        let eventStore = EKEventStore()
+        eventStore.requestAccess(to: .event) { (granted, error) in
+            if granted && error == nil {
+                for birthday in birthdays {
+                    if var date = birthday.date {
+                        date = nextBirthday(date)
+                        if birthday.cal == "Lunar" {
+                            date = lunarConverter(date)
+                        }
+                        let event = EKEvent(eventStore: eventStore)
+                        event.calendar = eventStore.defaultCalendarForNewEvents
+                        event.title = "Birthday: \(birthday.name ?? "")"
+                        event.startDate = date
+                        event.endDate = date
+                        event.isAllDay = true
+                        
+                        do {
+                            try eventStore.save(event, span: .thisEvent)
+                            print("Saved event for \(birthday.name ?? "")'s birthday.")
+                        } catch {
+                            print("Error saving event to calendar: \(error.localizedDescription)")
+                        }
                     }
                 }
+                completion()
+            } else {
+                print("Access to calendar denied")
+                completion()
             }
-        } else {
-            print("Access to calendar denied")
         }
     }
 }
 
-func deportBirthdays(_ birthdays: [Birthday]) {
+func deportBirthdays(_ birthdays: [Birthday], completion: @escaping () -> Void) {
     let eventStore = EKEventStore()
     eventStore.requestAccess(to: .event) { (granted, error) in
         if granted && error == nil {
@@ -65,8 +68,10 @@ func deportBirthdays(_ birthdays: [Birthday]) {
                     }
                 }
             }
+            completion()
         } else {
             print("Access to calendar denied")
+            completion()
         }
     }
 }
