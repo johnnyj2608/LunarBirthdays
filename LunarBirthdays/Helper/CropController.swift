@@ -10,6 +10,7 @@ import CropViewController
 
 struct CropImageViewController: UIViewControllerRepresentable {
     @Binding var image: UIImage
+    @Binding var cropped: UIImage
     @Binding var isPresented: Bool
 
     func makeUIViewController(context: Context) -> UINavigationController {
@@ -45,7 +46,7 @@ struct CropImageViewController: UIViewControllerRepresentable {
         }
 
         func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-            parent.image = image
+            parent.cropped = image
             parent.isPresented = false
         }
 

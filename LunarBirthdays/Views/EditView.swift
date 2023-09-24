@@ -25,6 +25,7 @@ struct EditView: View {
     
     @State private var selectedItem: PhotosPickerItem?
     @State private var imgUI: UIImage = UIImage()
+    @State private var croppedImg: UIImage = UIImage()
     @State private var isShowingCropView = false
     
     @State private var cal: String = UserDefaults.standard.string(forKey: "calendar") ?? "Lunar"
@@ -45,8 +46,8 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                if imgUI != UIImage() {
-                    Image(uiImage: imgUI)
+                if croppedImg != UIImage() {
+                    Image(uiImage: croppedImg)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
@@ -140,9 +141,9 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
                     if birthday != nil {
-                        DataController.shared.editBirthday(birthday: birthday!, img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     } else {
-                        DataController.shared.addBirthday(img: imgUI, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        DataController.shared.addBirthday(img: croppedImg, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
@@ -155,7 +156,7 @@ struct EditView: View {
           }
           }
         .sheet(isPresented: $isShowingCropView) {
-            CropImageViewController(image: $imgUI, isPresented: $isShowingCropView)
+            CropImageViewController(image: $imgUI, cropped: $croppedImg, isPresented: $isShowingCropView)
         }
     }
       private func dataChange() -> Bool {
