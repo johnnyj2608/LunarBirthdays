@@ -26,6 +26,19 @@ func exportBirthdays(_ birthdays: [Birthday], completion: @escaping () -> Void) 
                         event.endDate = date
                         event.isAllDay = true
                         
+                        let recurrenceRule = EKRecurrenceRule(
+                            recurrenceWith: .yearly,
+                            interval: 1,
+                            daysOfTheWeek: nil,
+                            daysOfTheMonth: nil,
+                            monthsOfTheYear: nil,
+                            weeksOfTheYear: nil,
+                            daysOfTheYear: nil,
+                            setPositions: nil,
+                            end: nil
+                        )
+                        event.recurrenceRules = [recurrenceRule]
+                        
                         do {
                             try eventStore.save(event, span: .thisEvent)
                             print("Saved event for \(birthday.name ?? "")'s birthday.")
