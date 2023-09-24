@@ -1,126 +1,72 @@
 //
-//  TimeFormatting.swift
+//  Calendar.swift
 //  LunarBirthdays
 //
-//  Created by Johnny Jiang on 7/23/23.
+//  Created by Johnny Jiang on 9/24/23.
 //
 
 import Foundation
+import EventKit
 
-func nextBirthday(_ date: Date) -> Date {
-    let cal = Calendar.current
-    let today = cal.startOfDay(for: Date())
-    let birthday = cal.startOfDay(for: date)
-    
-    let birthdayComponents = cal.dateComponents([.month, .day], from: birthday)
-    let todayComponents = cal.dateComponents([.month, .day], from: today)
-
-    if birthdayComponents == todayComponents {
-        return today
-    }
-    
-    let components = cal.dateComponents([.day, .month], from: birthday)
-    let nextDate = cal.nextDate(after: today, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
-    
-    guard let unwrappedNextDate = nextDate else {
-            fatalError("Next birthday date calculation failed.")
+func exportBirthdays(_ birthdays: [Birthday]) {
+    deportBirthdays(birthdays)
+    let eventStore = EKEventStore()
+    eventStore.requestAccess(to: .event) { (granted, error) in
+        if granted && error == nil {
+            for birthday in birthdays {
+                if var date = birthday.date {
+                    date = nextBirthday(date)
+                    if birthday.cal == "Lunar" {
+                        date = lunarConverter(date)
+                    }
+                    let event = EKEvent(eventStore: eventStore)
+                    event.calendar = eventStore.defaultCalendarForNewEvents
+                    event.title = "Birthday: \(birthday.name ?? "")"
+                    event.startDate = date
+                    event.endDate = date
+                    event.isAllDay = true
+                    
+                    do {
+                        try eventStore.save(event, span: .thisEvent)
+                        print("Saved event for \(birthday.name ?? "")'s birthday.")
+                    } catch {
+                        print("Error saving event to calendar: \(error.localizedDescription)")
+                    }
+                }
+            }
+        } else {
+            print("Access to calendar denied")
         }
-    return unwrappedNextDate
-}
-
-func calcCountdown(_ date: Date, calendar: String? = nil) -> (days: Int, hours: Int, mins: Int, secs: Int) {
-    let cal = Calendar.current
-    let today = Date()
-    var nextBirthday = cal.startOfDay(for: nextBirthday(date))
-    if calendar == "Lunar" {
-        nextBirthday = lunarConverter(nextBirthday)
     }
-    
-    if nextBirthday <= today {
-        return (0, 0, 0, 0)
+}
+
+func deportBirthdays(_ birthdays: [Birthday]) {
+    let eventStore = EKEventStore()
+    eventStore.requestAccess(to: .event) { (granted, error) in
+        if granted && error == nil {
+            for birthday in birthdays {
+                if var date = birthday.date {
+                    date = nextBirthday(date)
+                    if birthday.cal == "Lunar" {
+                        date = lunarConverter(date)
+                    }
+                    let endDate = date.addingTimeInterval(86400)
+                    let predicate = eventStore.predicateForEvents(withStart: date, end: endDate, calendars: nil)
+                    let events = eventStore.events(matching: predicate)
+                    for event in events {
+                        if event.title == "Birthday: \(birthday.name ?? "")" {
+                            do {
+                                try eventStore.remove(event, span: .thisEvent)
+                                print("Deleted event for \(birthday.name ?? "")'s birthday.")
+                            } catch {
+                                print("Error deleting event for \(birthday.name ?? "")'s birthday: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            print("Access to calendar denied")
+        }
     }
-    
-    let components = cal.dateComponents([.day, .hour, .minute, .second], from: today, to: nextBirthday)
-    
-    guard let daysRemaining = components.day,
-          let hoursRemaining = components.hour,
-          let minutesRemaining = components.minute,
-          let secondsRemaining = components.second else {
-        return (0, 0, 0, 0)
-    }
-    
-    return (daysRemaining, hoursRemaining, minutesRemaining, secondsRemaining)
-}
-
-func calcAge(_ date: Date, calendar: String? = nil) -> Int {
-    let cal = Calendar.current
-    let birthday = cal.startOfDay(for: date)
-    var nextBirthdayDate = nextBirthday(date)
-    if calendar == "Lunar" {
-        nextBirthdayDate = lunarConverter(nextBirthdayDate)
-    }
-    let nextBirthday = cal.startOfDay(for: nextBirthdayDate)
-    let ageComponents = cal.dateComponents([.year], from: birthday, to: nextBirthday)
-    
-    guard let age = ageComponents.year else {
-        return -1
-    }
-    return age
-}
-
-func getDay(_ date: Date?, calendar: String? = nil) -> Int {
-    let cal = Calendar.current
-    guard let date = date else { return 1 }
-    var next = nextBirthday(date)
-    if calendar == "Lunar" {
-        next = lunarConverter(next)
-    }
-    return cal.component(.day, from: next)
-}
-
-func getMonth(_ date: Date?, calendar: String? = nil) -> Int {
-    let cal = Calendar.current
-    guard let date = date else { return 1 }
-    var next = nextBirthday(date)
-    if calendar == "Lunar" {
-        next = lunarConverter(next)
-    }
-    return cal.component(.month, from: next)
-}
-
-func getYear(_ date: Date?, calendar: String? = nil) -> Int {
-    let cal = Calendar.current
-    guard let date = date else { return 1 }
-    var next = nextBirthday(date)
-    if calendar == "Lunar" {
-        next = lunarConverter(next)
-    }
-    return cal.component(.year, from: next)
-}
-
-func monthString(_ month: Int) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MMMM"
-    let date = Calendar.current.date(from: DateComponents(month: month))!
-    return dateFormatter.string(from: date)
-}
-
-func dayString(_ day: Int) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd"
-    let date = Calendar.current.date(from: DateComponents(day: day))!
-    return dateFormatter.string(from: date)
-}
-
-func yearString(_ year: Int) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy"
-    let date = Calendar.current.date(from: DateComponents(year: year))!
-    return dateFormatter.string(from: date)
-}
-
-func dateString(_ date: Date) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MMMM dd, yyyy"
-    return dateFormatter.string(from: date)
 }

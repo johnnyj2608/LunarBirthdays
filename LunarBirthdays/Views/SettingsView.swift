@@ -117,11 +117,21 @@ struct SettingsView: View {
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $darkMode)
             }
-            /*
             Section(header: Text("Export")) {
-                Text("Google Calendar")
+                Button(action: {
+                        let birthdayArray = Array(birthday)
+                        exportBirthdays(birthdayArray)
+                    }) {
+                        Text("Google Calendar")
+                    }
+                Button(action: {
+                        let birthdayArray = Array(birthday)
+                        deportBirthdays(birthdayArray)
+                    }) {
+                        Text("Google Calendar")
+                    }
                 // OAuth Google
-            }
+            } /*
             Section(header: Text("Feedback")) {
                 Text("Rate this app")
                 Text("Tell a friend")
