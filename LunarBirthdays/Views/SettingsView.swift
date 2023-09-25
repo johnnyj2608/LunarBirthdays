@@ -28,14 +28,15 @@ struct SettingsView: View {
     
     @State private var showPermissionAlert = false
     @State private var showExportAlert = false
+    @State private var showDeleteAlert = false
     
     var body: some View {
         Form {
             /*
-            Section(header: Text("Upgrade")) {
-                Text("Birthday Reminder Pro")
-                // Popup sheet
-            }
+             Section(header: Text("Upgrade")) {
+             Text("Birthday Reminder Pro")
+             // Popup sheet
+             }
              */
             Section(header: Text("Notifications")) {
                 Toggle("Enable Notifications", isOn: $notifications)
@@ -108,51 +109,75 @@ struct SettingsView: View {
                         }
                 }
             }
-            Section(header: Text("Default Calendar")) {
-                Picker("Calendar", selection: $calendar) {
+            Section(header: Text("Appearance")) {
+                Toggle("Dark Mode", isOn: $darkMode)
+            }
+            Section(header: Text("Calendar"), footer: Text("Exports birthdays up to 50 years")) {
+                Picker("Default", selection: $calendar) {
                     ForEach(calendars, id: \.self) {
                         Text($0)
                     }
                 }
-            }
-            Section(header: Text("Appearance")) {
-                Toggle("Dark Mode", isOn: $darkMode)
-            }
-            Section(header: Text("Export")) {
                 Button(action: {
-                        self.showExportAlert = true
-                    }) {
-                        Text("Google Calendar")
-                    }
-                // OAuth Google
+                    self.showExportAlert = true
+                    print(self.showExportAlert)
+                }) {
+                    Text("Export Calendar")
+                }
+                Button(action: {
+                    self.showDeleteAlert = true
+                }) {
+                    Text("Delete Calendar")
+                }
             } /*
-            Section(header: Text("Feedback")) {
-                Text("Rate this app")
-                Text("Tell a friend")
+               Section(header: Text("Feedback")) {
+               Text("Rate this app")
+               Text("Tell a friend")
+               } */
+            .alert(isPresented: Binding<Bool>(
+                get: {
+                    showPermissionAlert || showExportAlert || showDeleteAlert
+                },
+                set: { newValue in
+                }
+            )) {
+                if showPermissionAlert {
+                    return Alert(
+                        title: Text("Notification Permission"),
+                        message: Text("Please go to the notification settings and enable notifications for this app."),
+                        primaryButton: .default(Text("Settings"), action: {
+                            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                            UIApplication.shared.open(settingsURL)
+                            self.showPermissionAlert = false
+                        }),
+                        secondaryButton: .cancel()
+                    )
+                } else if showExportAlert {
+                    return Alert(
+                        title: Text("Confirm Export"),
+                        message: Text("Are you sure you want to export? This will overwrite any existing birthdays."),
+                        primaryButton: .default(Text("Export")) {
+                            let birthdayArray = Array(birthday)
+                            exportBirthdays(birthdayArray) {}
+                            self.showExportAlert = false
+                        },
+                        secondaryButton: .cancel()
+                    )
+                } else if showDeleteAlert {
+                    return Alert(
+                        title: Text("Confirm Delete"),
+                        message: Text("Are you sure you want to delete? This will delete any existing birthdays."),
+                        primaryButton: .default(Text("Delete")) {
+                            deleteCalendar()
+                            self.showDeleteAlert = false
+                        },
+                        secondaryButton: .cancel()
+                    )
+                } else {
+                    return Alert(title: Text("Unknown Alert"))
+                }
             }
-             */
-            .alert(isPresented: $showPermissionAlert) {
-                Alert(
-                    title: Text("Notification Permission"),
-                    message: Text("Please go to the notification settings and enable notifications for this app."),
-                    primaryButton: .default(Text("Settings"), action: {
-                        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-                        UIApplication.shared.open(settingsURL)
-                    }),
-                    secondaryButton: .cancel()
-                )
-            }
-            .alert(isPresented: $showExportAlert) {
-                Alert(
-                    title: Text("Confirm Export"),
-                    message: Text("Are you sure you want to export? This will overwrite any existing birthdays."),
-                    primaryButton: .default(Text("Export")) {
-                        let birthdayArray = Array(birthday)
-                        exportBirthdays(birthdayArray) {}
-                    },
-                    secondaryButton: .cancel()
-                )
-            }
+            
         }
         .navigationTitle("Settings")
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
