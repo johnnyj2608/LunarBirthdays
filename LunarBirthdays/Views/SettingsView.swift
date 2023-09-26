@@ -29,7 +29,6 @@ struct SettingsView: View {
     
     @State private var showPermissionAlert = false
     @State private var showExportAlert = false
-    @State private var showDeleteAlert = false
     @AppStorage("exportValue")  private var exportValue: Double = 50
 
     @State private var exportProgress: CGFloat = 0.0
@@ -131,11 +130,6 @@ struct SettingsView: View {
                     }
                 }
                 Slider(value: $exportValue, in: 1...99, step: 1)
-                Button(action: {
-                    self.showDeleteAlert = true
-                }) {
-                    Text("Delete Calendar")
-                }
             } /*
             Section(header: Text("Feedback")) {
                 Text("Rate this app")
@@ -143,7 +137,7 @@ struct SettingsView: View {
             } */
             .alert(isPresented: Binding<Bool>(
                 get: {
-                    showPermissionAlert || showExportAlert || showDeleteAlert
+                    showPermissionAlert || showExportAlert
                 },
                 set: { newValue in
                 }
@@ -164,7 +158,7 @@ struct SettingsView: View {
                 } else if showExportAlert {
                     return Alert(
                         title: Text("Confirm Export"),
-                        message: Text("Are you sure you want to export? This will overwrite any existing birthdays."),
+                        message: Text("Are you sure you want to export? This will overwrite any existing birthdays and calendar settings."),
                         primaryButton: .default(Text("Export")) {
                             deleteCalendar()
                             showExportAlert = false
@@ -194,18 +188,6 @@ struct SettingsView: View {
                         },
                         secondaryButton: .cancel{
                             showExportAlert = false
-                        }
-                    )
-                } else if showDeleteAlert {
-                    return Alert(
-                        title: Text("Confirm Delete"),
-                        message: Text("Are you sure you want to delete? This will delete any existing birthdays."),
-                        primaryButton: .default(Text("Delete")) {
-                            deleteCalendar()
-                            showDeleteAlert = false
-                        },
-                        secondaryButton: .cancel {
-                            showDeleteAlert = false
                         }
                     )
                 } else {

@@ -16,8 +16,6 @@ Google Calendar API
 <br>
 App icon
 <br>
-Force crop after photo picker
-<br>
 Remove bottom whitespace of main list
 <br>
 Default profile pictures for each lunar month
@@ -31,8 +29,6 @@ Tell a friend initiates share function
 Preloader animation
 <br>
 Widgets
-<br>
-Debug Admob logs
 
 ## Known Bugs
 

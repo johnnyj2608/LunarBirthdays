@@ -5,9 +5,8 @@
 //  Created by Johnny Jiang on 9/24/23.
 //
 
-import Foundation
+import SwiftUI
 import EventKit
-import UIKit
 
 func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @escaping (CGFloat) -> Void, completion: @escaping () -> Void) {
     let eventStore = EKEventStore()
