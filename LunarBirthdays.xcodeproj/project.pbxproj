@@ -30,6 +30,7 @@
 		09C9806E2AB92091000D53A2 /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806D2AB92091000D53A2 /* GoogleAds.swift */; };
 		09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806F2AB944EA000D53A2 /* WrapperView.swift */; };
 		09C980722AC0CA8C000D53A2 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980712AC0CA8C000D53A2 /* Calendar.swift */; };
+		09C980752AC26429000D53A2 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 09C980742AC26429000D53A2 /* JGProgressHUD */; };
 		4901EA319EC841EEA1B81B75 /* Pods_LunarBirthdays.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C980752AC26429000D53A2 /* JGProgressHUD in Frameworks */,
 				092664312A7B58820034296A /* Kingfisher in Frameworks */,
 				09933AA12AB77EB300B7420E /* CropViewController in Frameworks */,
 				4901EA319EC841EEA1B81B75 /* Pods_LunarBirthdays.framework in Frameworks */,
@@ -198,6 +200,7 @@
 			packageProductDependencies = (
 				092664302A7B58820034296A /* Kingfisher */,
 				09933AA02AB77EB300B7420E /* CropViewController */,
+				09C980742AC26429000D53A2 /* JGProgressHUD */,
 			);
 			productName = LunarBirthdays;
 			productReference = 09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */;
@@ -230,6 +233,7 @@
 			packageReferences = (
 				0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				09C980732AC26429000D53A2 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 			);
 			productRefGroup = 09B96CF52A6CF8BB00FC5AAA /* Products */;
 			projectDirPath = "";
@@ -553,6 +557,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		09C980732AC26429000D53A2 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -565,6 +577,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = CropViewController;
+		};
+		09C980742AC26429000D53A2 /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09C980732AC26429000D53A2 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 

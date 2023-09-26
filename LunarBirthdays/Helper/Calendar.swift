@@ -92,7 +92,6 @@ func appCalendar() -> EKCalendar? {
     }
 }
 
-
 func deleteCalendar() {
     let eventStore = EKEventStore()
     let name = "Lunar Birthdays"

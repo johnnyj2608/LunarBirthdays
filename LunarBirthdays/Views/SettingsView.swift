@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import UserNotifications
+import JGProgressHUD
 
 struct SettingsView: View {
     
@@ -29,15 +30,18 @@ struct SettingsView: View {
     @State private var showPermissionAlert = false
     @State private var showExportAlert = false
     @State private var showDeleteAlert = false
+    @State private var exportValue = 50
+
+    @State private var exportProgress: CGFloat = 0.0
+    @State private var hud = JGProgressHUD(style: .dark)
+
     
     var body: some View {
-        Form {
-            /*
+        Form { /*
              Section(header: Text("Upgrade")) {
              Text("Birthday Reminder Pro")
              // Popup sheet
-             }
-             */
+             } */
             Section(header: Text("Notifications")) {
                 Toggle("Enable Notifications", isOn: $notifications)
                     .onChange(of: notifications) { newValue in
@@ -63,7 +67,6 @@ struct SettingsView: View {
                             cancelAllBirthdays(offset: 1)
                             cancelAllBirthdays(offset: 7)
                         }
-                        // Cancel notification on birthday
                     }
                 if notifications && notif_toggle {
                     DatePicker(
@@ -120,7 +123,6 @@ struct SettingsView: View {
                 }
                 Button(action: {
                     self.showExportAlert = true
-                    print(self.showExportAlert)
                 }) {
                     Text("Export Calendar")
                 }
@@ -130,10 +132,10 @@ struct SettingsView: View {
                     Text("Delete Calendar")
                 }
             } /*
-               Section(header: Text("Feedback")) {
-               Text("Rate this app")
-               Text("Tell a friend")
-               } */
+            Section(header: Text("Feedback")) {
+                Text("Rate this app")
+                Text("Tell a friend")
+            } */
             .alert(isPresented: Binding<Bool>(
                 get: {
                     showPermissionAlert || showExportAlert || showDeleteAlert
@@ -148,7 +150,7 @@ struct SettingsView: View {
                         primaryButton: .default(Text("Settings"), action: {
                             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
                             UIApplication.shared.open(settingsURL)
-                            self.showPermissionAlert = false
+                            showPermissionAlert = false
                         }),
                         secondaryButton: .cancel()
                     )
@@ -157,9 +159,20 @@ struct SettingsView: View {
                         title: Text("Confirm Export"),
                         message: Text("Are you sure you want to export? This will overwrite any existing birthdays."),
                         primaryButton: .default(Text("Export")) {
+                            showExportAlert = false
+                            hud.textLabel.text = "Exporting"
+                            hud.detailTextLabel.text = "0%"
+                            hud.indicatorView = JGProgressHUDRingIndicatorView()
+                            
+                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                               let window = windowScene.windows.first {
+                                hud.show(in: window)
+                            }
+                            
                             let birthdayArray = Array(birthday)
-                            exportBirthdays(birthdayArray) {}
-                            self.showExportAlert = false
+                            exportBirthdays(birthdayArray) {
+                                hud.dismiss(animated: true)
+                            }
                         },
                         secondaryButton: .cancel()
                     )
@@ -169,7 +182,7 @@ struct SettingsView: View {
                         message: Text("Are you sure you want to delete? This will delete any existing birthdays."),
                         primaryButton: .default(Text("Delete")) {
                             deleteCalendar()
-                            self.showDeleteAlert = false
+                            showDeleteAlert = false
                         },
                         secondaryButton: .cancel()
                     )
@@ -177,7 +190,6 @@ struct SettingsView: View {
                     return Alert(title: Text("Unknown Alert"))
                 }
             }
-            
         }
         .navigationTitle("Settings")
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
