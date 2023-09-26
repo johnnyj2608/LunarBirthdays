@@ -124,8 +124,13 @@ struct SettingsView: View {
                 Button(action: {
                     self.showExportAlert = true
                 }) {
-                    Text("Export Calendar")
+                    HStack {
+                        Text("Export Calendar")
+                        Spacer()
+                        Text("Years: \(Int(exportValue))")
+                    }
                 }
+                //Slider(value: $exportValue, in: 1...50, step: 1)
                 Button(action: {
                     self.showDeleteAlert = true
                 }) {
@@ -152,7 +157,9 @@ struct SettingsView: View {
                             UIApplication.shared.open(settingsURL)
                             showPermissionAlert = false
                         }),
-                        secondaryButton: .cancel()
+                        secondaryButton: .cancel{
+                            showPermissionAlert = false
+                        }
                     )
                 } else if showExportAlert {
                     return Alert(
@@ -175,7 +182,9 @@ struct SettingsView: View {
                                 hud.dismiss(animated: true)
                             }
                         },
-                        secondaryButton: .cancel()
+                        secondaryButton: .cancel{
+                            showExportAlert = false
+                        }
                     )
                 } else if showDeleteAlert {
                     return Alert(
@@ -185,7 +194,9 @@ struct SettingsView: View {
                             deleteCalendar()
                             showDeleteAlert = false
                         },
-                        secondaryButton: .cancel()
+                        secondaryButton: .cancel {
+                            showDeleteAlert = false
+                        }
                     )
                 } else {
                     return Alert(title: Text("Unknown Alert"))
