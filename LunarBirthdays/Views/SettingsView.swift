@@ -42,6 +42,9 @@ struct SettingsView: View {
              Text("Birthday Reminder Pro")
              // Popup sheet
              } */
+            Section(header: Text("Appearance")) {
+                Toggle("Dark Mode", isOn: $darkMode)
+            }
             Section(header: Text("Notifications")) {
                 Toggle("Enable Notifications", isOn: $notifications)
                     .onChange(of: notifications) { newValue in
@@ -111,9 +114,6 @@ struct SettingsView: View {
                             }
                         }
                 }
-            }
-            Section(header: Text("Appearance")) {
-                Toggle("Dark Mode", isOn: $darkMode)
             }
             Section(header: Text("Calendar"), footer: Text("Exports birthdays up to 99 years")) {
                 Picker("Default", selection: $calendar) {
