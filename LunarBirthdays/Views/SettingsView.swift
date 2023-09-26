@@ -30,7 +30,7 @@ struct SettingsView: View {
     @State private var showPermissionAlert = false
     @State private var showExportAlert = false
     @State private var showDeleteAlert = false
-    @State private var exportValue = 50
+    @AppStorage("exportValue")  private var exportValue: Double = 50
 
     @State private var exportProgress: CGFloat = 0.0
     @State private var hud = JGProgressHUD(style: .dark)
@@ -115,7 +115,7 @@ struct SettingsView: View {
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $darkMode)
             }
-            Section(header: Text("Calendar"), footer: Text("Exports birthdays up to 50 years")) {
+            Section(header: Text("Calendar"), footer: Text("Exports birthdays up to 99 years")) {
                 Picker("Default", selection: $calendar) {
                     ForEach(calendars, id: \.self) {
                         Text($0)
@@ -130,7 +130,7 @@ struct SettingsView: View {
                         Text("Years: \(Int(exportValue))")
                     }
                 }
-                //Slider(value: $exportValue, in: 1...50, step: 1)
+                Slider(value: $exportValue, in: 1...99, step: 1)
                 Button(action: {
                     self.showDeleteAlert = true
                 }) {
@@ -178,7 +178,7 @@ struct SettingsView: View {
                             }
                             
                             let birthdayArray = Array(birthday)
-                            exportBirthdays(birthdayArray) {
+                            exportBirthdays(birthdayArray, exportValue) {
                                 hud.dismiss(animated: true)
                             }
                         },
