@@ -9,15 +9,19 @@ import Foundation
 import EventKit
 import UIKit
 
-func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, completion: @escaping () -> Void) {
+func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @escaping (CGFloat) -> Void, completion: @escaping () -> Void) {
     let eventStore = EKEventStore()
     let appCalendar = appCalendar()
     let calendar = Calendar.current
     
+    let recurrence = Int(round(repeatYears))
+    let totalEvents = birthdays.count * recurrence
+    var eventsSaved = 0
+    
     eventStore.requestAccess(to: .event) { (granted, error) in
         if granted && error == nil {
             for birthday in birthdays {
-                for year in 0..<Int(round(repeatYears)) {
+                for year in 0..<recurrence {
                     if var date = birthday.date {
                         date = nextBirthday(date)
                         if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
@@ -38,6 +42,9 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, completion:
                         do {
                             try eventStore.save(event, span: .thisEvent)
                             print("Saved event for \(birthday.name ?? "")'s birthday for \(date)")
+                            eventsSaved += 1
+                            let progressPercentage = CGFloat(eventsSaved) / CGFloat(totalEvents)
+                            progress(progressPercentage)
                         } catch {
                             print("Error saving event to calendar: \(error.localizedDescription)")
                         }

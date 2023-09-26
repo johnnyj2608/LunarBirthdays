@@ -33,7 +33,7 @@ struct SettingsView: View {
     @AppStorage("exportValue")  private var exportValue: Double = 50
 
     @State private var exportProgress: CGFloat = 0.0
-    @State private var hud = JGProgressHUD(style: .dark)
+    @State private var hud = JGProgressHUD()
 
     
     var body: some View {
@@ -168,9 +168,11 @@ struct SettingsView: View {
                         primaryButton: .default(Text("Export")) {
                             deleteCalendar()
                             showExportAlert = false
+                            
                             hud.textLabel.text = "Exporting"
                             hud.detailTextLabel.text = "0%"
                             hud.indicatorView = JGProgressHUDRingIndicatorView()
+                            hud.style = darkMode ? .extraLight : .dark
                             
                             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                                let window = windowScene.windows.first {
@@ -178,8 +180,16 @@ struct SettingsView: View {
                             }
                             
                             let birthdayArray = Array(birthday)
-                            exportBirthdays(birthdayArray, exportValue) {
-                                hud.dismiss(animated: true)
+                            exportBirthdays(birthdayArray, exportValue, progress: { progressPercentage in
+                                DispatchQueue.main.async {
+                                    hud.detailTextLabel.text = String(format: "%.0f%%", progressPercentage * 100)
+                                }
+                            }) {
+                                DispatchQueue.main.async {
+                                    hud.dismiss(afterDelay: 1.5, animated: true)
+                                    hud.textLabel.text = "Success!"
+                                    hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                                }
                             }
                         },
                         secondaryButton: .cancel{
