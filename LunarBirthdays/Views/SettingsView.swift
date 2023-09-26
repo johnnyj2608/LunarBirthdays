@@ -159,6 +159,7 @@ struct SettingsView: View {
                         title: Text("Confirm Export"),
                         message: Text("Are you sure you want to export? This will overwrite any existing birthdays."),
                         primaryButton: .default(Text("Export")) {
+                            deleteCalendar()
                             showExportAlert = false
                             hud.textLabel.text = "Exporting"
                             hud.detailTextLabel.text = "0%"
