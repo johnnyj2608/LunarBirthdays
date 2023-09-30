@@ -4,29 +4,25 @@ Lunar Birthdays
 
 A SwiftUI mobile app that saves birthday profiles, converts Lunar calendar dates to Gregorian and sends reminders/notifications.
 
-Using 2 packages, Kingfisher and TOCropViewController
+Using 2 packages, Kingfisher, TOCropViewController, and JGProgressHUD
 
 ## Installation and Setup Instructions
 
-Clone and Admob
+WIP
 
 ## Work In Progress
 
 Google Calendar API
 <br>
-App icon
-<br>
-Remove bottom whitespace of main list
+Remove the bottom whitespace of the main list
 <br>
 Default profile pictures for each lunar month
 <br>
-Pro mode
-<br>
-Feedback redirect to app store
+Feedback is redirected to the app store
 <br>
 Tell a friend initiates share function
 <br>
-Preloader animation
+Pro mode
 <br>
 Widgets
 
@@ -62,6 +58,8 @@ This is an ongoing project. In my work-in-progress section, I listed all of the 
     <td align="center">
       <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/a43638b7-d96f-44db-9faa-69d82667a58e" alt="Screenshot 3" width="200"/>
     </td>
+  </tr>
+  <tr>
     <td align="center">
       <img src="https://github.com/johnnyj2608/LunarBirthdays/assets/54607786/bc695ce2-69e6-4c4f-8910-c0ca9acd4484" alt="Screenshot 4" width="200"/>
     </td>
@@ -70,3 +68,4 @@ This is an ongoing project. In my work-in-progress section, I listed all of the 
     </td>
   </tr>
 </table>
+
