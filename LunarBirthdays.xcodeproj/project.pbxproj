@@ -31,6 +31,8 @@
 		09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806F2AB944EA000D53A2 /* WrapperView.swift */; };
 		09C980722AC0CA8C000D53A2 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980712AC0CA8C000D53A2 /* Calendar.swift */; };
 		09C980752AC26429000D53A2 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 09C980742AC26429000D53A2 /* JGProgressHUD */; };
+		09C980812AC63AF7000D53A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980802AC63AF7000D53A2 /* AppDelegate.swift */; };
+		09C980852AC6474E000D53A2 /* GoogleAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09C980842AC6474D000D53A2 /* GoogleAPI.plist */; };
 		4901EA319EC841EEA1B81B75 /* Pods_LunarBirthdays.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,8 @@
 		09C9806D2AB92091000D53A2 /* GoogleAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAds.swift; sourceTree = "<group>"; };
 		09C9806F2AB944EA000D53A2 /* WrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperView.swift; sourceTree = "<group>"; };
 		09C980712AC0CA8C000D53A2 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		09C980802AC63AF7000D53A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		09C980842AC6474D000D53A2 /* GoogleAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GoogleAPI.plist; sourceTree = "<group>"; };
 		E07C43019A8906392DD77C38 /* Pods-LunarBirthdays.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LunarBirthdays.release.xcconfig"; path = "Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays.release.xcconfig"; sourceTree = "<group>"; };
 		E6964C5537087F3CF79B3351 /* Pods_LunarBirthdays.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LunarBirthdays.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F05BA68C590E23945554D1C0 /* Pods-LunarBirthdays.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LunarBirthdays.debug.xcconfig"; path = "Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,8 +133,10 @@
 		09B96CF62A6CF8BB00FC5AAA /* LunarBirthdays */ = {
 			isa = PBXGroup;
 			children = (
+				09C980842AC6474D000D53A2 /* GoogleAPI.plist */,
 				092664442A9308ED0034296A /* Info.plist */,
 				09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */,
+				09C980802AC63AF7000D53A2 /* AppDelegate.swift */,
 				09B96D062A6CF98C00FC5AAA /* Views */,
 				0926640E2A6F50740034296A /* Helper */,
 				09B96D082A6CF99A00FC5AAA /* DataModel */,
@@ -251,6 +257,7 @@
 			files = (
 				09B96D002A6CF8BD00FC5AAA /* Preview Assets.xcassets in Resources */,
 				09B96CFC2A6CF8BD00FC5AAA /* Assets.xcassets in Resources */,
+				09C980852AC6474E000D53A2 /* GoogleAPI.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +328,7 @@
 				092663E92A6F2C1E0034296A /* ClearButton.swift in Sources */,
 				09C980722AC0CA8C000D53A2 /* Calendar.swift in Sources */,
 				09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */,
+				09C980812AC63AF7000D53A2 /* AppDelegate.swift in Sources */,
 				09B96D0B2A6CF9F200FC5AAA /* BirthdayModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,21 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "jgprogresshud",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JonasGessner/JGProgressHUD",
+      "state" : {
+        "revision" : "78d7cd35f1d90ff74fd82e486f2cbe4b24be8cf9",
+        "version" : "2.2.0"
+      }
+    },
+    {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
         "revision" : "c75584ac759cbb16b204d0a7de3ebf53ea6b304d",
         "version" : "7.9.0"
-      }
-    },
-    {
-      "identity" : "photoselectandcrop",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Rillieux/PhotoSelectAndCrop",
-      "state" : {
-        "revision" : "26eec466026a99ebde07e653ea325d7492f949d9",
-        "version" : "2.0.4"
       }
     },
     {
