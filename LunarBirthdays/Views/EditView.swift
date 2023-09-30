@@ -25,7 +25,8 @@ struct EditView: View {
     
     @State private var selectedItem: PhotosPickerItem?
     @State private var imgUI: UIImage = UIImage()
-    @State private var croppedImg: UIImage = UIImage()
+    //@State private var croppedImg: UIImage = UIImage()
+    @State private var croppedImg: UIImage = UIImage(named: "Logo") ?? UIImage()
     @State private var isShowingCropView = false
     
     @State private var cal: String = UserDefaults.standard.string(forKey: "calendar") ?? "Lunar"
@@ -46,18 +47,18 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                if croppedImg != UIImage() {
-                    Image(uiImage: croppedImg)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 150)
-                        .cornerRadius(20)
-                } else {
+                if img != "" {
                     KFImage(URL(fileURLWithPath: img))
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
                         .cornerRadius(10)
+                } else {
+                    Image(uiImage: croppedImg)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .cornerRadius(20)
                 }
                 PhotosPicker("Change Image", selection: $selectedItem, matching: .images)
             }
