@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 import UserNotifications
 import JGProgressHUD
+//import GoogleSignIn
 
 struct SettingsView: View {
     

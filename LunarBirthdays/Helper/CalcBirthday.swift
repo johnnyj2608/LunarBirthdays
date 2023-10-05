@@ -65,6 +65,9 @@ func calcAge(_ date: Date, calendar: String? = nil) -> Int {
     guard let age = ageComponents.year else {
         return -1
     }
+    if calendar == "Lunar" {
+        return age + 1
+    }
     return age
 }
 

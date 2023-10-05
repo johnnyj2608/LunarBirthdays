@@ -8,6 +8,11 @@ PODS:
   - Google-Mobile-Ads-SDK (8.13.0):
     - GoogleAppMeasurement (< 9.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
+  - GoogleAPIClientForREST/Calendar (3.2.0):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher/Full (< 4.0, >= 1.6.1)
+  - GoogleAPIClientForREST/Core (3.2.0):
+    - GTMSessionFetcher/Full (< 4.0, >= 1.6.1)
   - GoogleAppMeasurement (8.15.0):
     - GoogleAppMeasurement/AdIdSupport (= 8.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
@@ -32,8 +37,6 @@ PODS:
     - AppAuth (~> 1.5)
     - GTMAppAuth (< 3.0, >= 1.3)
     - GTMSessionFetcher/Core (< 4.0, >= 1.1)
-  - GoogleSignInSwiftSupport (7.0.0):
-    - GoogleSignIn (~> 7.0)
   - GoogleUserMessagingPlatform (2.0.1)
   - GoogleUtilities/AppDelegateSwizzler (7.11.5):
     - GoogleUtilities/Environment
@@ -56,6 +59,8 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 4.0, >= 1.5)
   - GTMSessionFetcher/Core (3.1.1)
+  - GTMSessionFetcher/Full (3.1.1):
+    - GTMSessionFetcher/Core
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -65,16 +70,16 @@ PODS:
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
+  - GoogleAPIClientForREST/Calendar
   - GoogleSignIn
-  - GoogleSignInSwiftSupport
 
 SPEC REPOS:
   trunk:
     - AppAuth
     - Google-Mobile-Ads-SDK
+    - GoogleAPIClientForREST
     - GoogleAppMeasurement
     - GoogleSignIn
-    - GoogleSignInSwiftSupport
     - GoogleUserMessagingPlatform
     - GoogleUtilities
     - GTMAppAuth
@@ -85,9 +90,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   Google-Mobile-Ads-SDK: 05e5d68bb42a61b2e5bef336a52789785605aa22
+  GoogleAPIClientForREST: ef343d9d72c86973f33232a85db5193a238da3e1
   GoogleAppMeasurement: 4c19f031220c72464d460c9daa1fb5d1acce958e
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
-  GoogleSignInSwiftSupport: 6ca6e5a978faa4cd43451b6b9b38b96ab5db1734
   GoogleUserMessagingPlatform: 5f8b30daf181805317b6b985bb51c1ff3beca054
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
@@ -95,6 +100,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
 
-PODFILE CHECKSUM: 7bf96c0bb17f49fd593958a59b7212ad3bb4b4a7
+PODFILE CHECKSUM: ed72bd63cc9f84a981602372b5af25c088328511
 
 COCOAPODS: 1.12.1

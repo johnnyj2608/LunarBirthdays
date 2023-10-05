@@ -6,7 +6,7 @@ target 'LunarBirthdays' do
   use_frameworks!
   pod 'Google-Mobile-Ads-SDK'
   pod 'GoogleSignIn'
-  pod 'GoogleSignInSwiftSupport'
+  pod 'GoogleAPIClientForREST/Calendar'
   # Pods for LunarBirthdays
 
 end
