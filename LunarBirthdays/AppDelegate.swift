@@ -8,7 +8,7 @@
 import SwiftUI
 import GoogleMobileAds
 import UserNotifications
-//import GoogleSignIn
+import GoogleSignIn
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
@@ -18,10 +18,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         UNUserNotificationCenter.current().delegate = self
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-        
-        //let gIdConfiguration = GIDConfiguration(clientID: "602901638701-2hd6247vgkmeoe8629pmvmk1nvudkkoc.apps.googleusercontent.com", serverClientID: "602901638701-mpv6hkjaau5li8288dk60tqpcrqcuqlp.apps.googleusercontent.com")
-
-        //GIDSignIn.sharedInstance.configuration = gIdConfiguration
         return true
     }
     

@@ -163,11 +163,11 @@
 		09B96D062A6CF98C00FC5AAA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				09C9806F2AB944EA000D53A2 /* WrapperView.swift */,
 				09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */,
 				09B96D102A6CFE7500FC5AAA /* ProfileView.swift */,
 				09B96D122A6CFF2400FC5AAA /* EditView.swift */,
 				09B96D152A6D076500FC5AAA /* SettingsView.swift */,
-				09C9806F2AB944EA000D53A2 /* WrapperView.swift */,
 				09C980952AC877B9000D53A2 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -203,6 +203,7 @@
 				09B96CF12A6CF8BB00FC5AAA /* Frameworks */,
 				09B96CF22A6CF8BB00FC5AAA /* Resources */,
 				A63F95345FFF3EAFFBFAD016 /* [CP] Embed Pods Frameworks */,
+				CBD9C26C906AE6F118D4FA9E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -287,6 +288,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CBD9C26C906AE6F118D4FA9E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LunarBirthdays/Pods-LunarBirthdays-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DBC5012B22E9178EBBC6DDC7 /* [CP] Check Pods Manifest.lock */ = {

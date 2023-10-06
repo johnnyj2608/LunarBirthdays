@@ -210,5 +210,16 @@
 		<key>UISceneConfigurations</key>
 		<dict/>
 	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.602901638701-2hd6247vgkmeoe8629pmvmk1nvudkkoc</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

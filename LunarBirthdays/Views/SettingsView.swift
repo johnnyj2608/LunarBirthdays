@@ -9,7 +9,9 @@ import SwiftUI
 import CoreData
 import UserNotifications
 import JGProgressHUD
-//import GoogleSignIn
+import GoogleAPIClientForREST
+import GoogleSignIn
+import GTMSessionFetcher
 
 struct SettingsView: View {
     
@@ -31,17 +33,20 @@ struct SettingsView: View {
     @State private var showPermissionAlert = false
     @State private var showExportAlert = false
     @AppStorage("exportValue")  private var exportValue: Double = 50
-
+    
     @State private var exportProgress: CGFloat = 0.0
     @State private var hud = JGProgressHUD()
-
+    
+    @State private var showGoogleAuth = false
+    private let scopes = [kGTLRAuthScopeCalendar]
+    private let service = GTLRCalendarService()
     
     var body: some View {
         Form { /*
-             Section(header: Text("Upgrade")) {
-             Text("Birthday Reminder Pro")
-             // Popup sheet
-             } */
+                Section(header: Text("Upgrade")) {
+                Text("Birthday Reminder Pro")
+                // Popup sheet
+                } */
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $darkMode)
             }
@@ -122,20 +127,25 @@ struct SettingsView: View {
                     }
                 }
                 Button(action: {
+                    GIDSignIn.sharedInstance().signIn()
+                }) {
+                    Text("Export to Google Calendar")
+                }
+                Button(action: {
                     self.showExportAlert = true
                 }) {
                     HStack {
-                        Text("Export Calendar")
+                        Text("Export to iCalendar")
                         Spacer()
                         Text("Years: \(Int(exportValue))")
                     }
                 }
                 Slider(value: $exportValue, in: 1...99, step: 1)
             } /*
-            Section(header: Text("Feedback")) {
-                Text("Rate this app")
-                Text("Tell a friend")
-            } */
+               Section(header: Text("Feedback")) {
+               Text("Rate this app")
+               Text("Tell a friend")
+               } */
             .alert(isPresented: Binding<Bool>(
                 get: {
                     showPermissionAlert || showExportAlert
@@ -207,6 +217,12 @@ struct SettingsView: View {
         .onAppear {
             if let dateFromTime = timeFormatter.date(from: notif_time) {
                 notif_date = dateFromTime
+            }
+            GIDSignIn.sharedInstance().clientID = "602901638701-2hd6247vgkmeoe8629pmvmk1nvudkkoc.apps.googleusercontent.com"
+            GIDSignIn.sharedInstance().scopes = scopes
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let rootViewController = windowScene.windows.first?.rootViewController {
+                GIDSignIn.sharedInstance().presentingViewController = rootViewController
             }
         }
     }

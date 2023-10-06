@@ -30,14 +30,9 @@ struct LunarBirthdaysApp: App {
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ClearPath"))) { _ in
                     path.removeLast(path.count)
                 }
-                .onOpenURL { url in
-                    GIDSignIn.sharedInstance.handle(url)
-                }
-                .onAppear {
-                    GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-                        // Check if `user` exists; otherwise, do something with `error`
-                    }
-                }
+                //.onOpenURL { url in
+                //    GIDSignIn.sharedInstance().handle(url)
+                //}
         }
     }
 }
