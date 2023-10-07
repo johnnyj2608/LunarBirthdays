@@ -12,6 +12,7 @@ import GTMSessionFetcher
 
 class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
     @Published var isSignedIn: Bool = false
+    @Published var showExportAlert: Bool = false
     
     private let scopes = ["https://www.googleapis.com/auth/calendar"]
     private let service = GTLRCalendarService()
@@ -44,9 +45,10 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if error == nil {
             isSignedIn = true
-            exportBirthdays()
+            showExportAlert = true
         } else {
             isSignedIn = false
+            showExportAlert = false
         }
     }
     
@@ -56,7 +58,8 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
         }
     }
     
-    func exportBirthdays() {
+    // Birthday List, Repeat Years, Progress
+    func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @escaping (CGFloat) -> Void, completion: @escaping () -> Void) {
         guard let currentUser = GIDSignIn.sharedInstance().currentUser else {
             print("User not signed in.")
             return
@@ -66,38 +69,57 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
             return
         }
         
-        deleteCalendar { deleteError in
-            if let deleteError = deleteError {
-                print("Error deleting calendar: \(deleteError.localizedDescription)")
-                return
-            }
-            
-            self.createCalendar { calendarId in
-                if let myCalendarId = calendarId {
-                    let event = GTLRCalendar_Event()
-                    event.summary = "Birthday Party"
-                    event.descriptionProperty = "A birthday celebration"
-                    
-                    let startDate = GTLRDateTime(date: Date())
-                    let endDate = GTLRDateTime(date: Date(timeIntervalSinceNow: 3600))
-                    event.start = GTLRCalendar_EventDateTime()
-                    event.start?.dateTime = startDate
-                    event.end = GTLRCalendar_EventDateTime()
-                    event.end?.dateTime = endDate
-                    
-                    let query = GTLRCalendarQuery_EventsInsert.query(withObject: event, calendarId: myCalendarId)
-                    query.additionalHTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
-                    
-                    self.service.executeQuery(query) { (ticket, event, error) in
-                        if let error = error {
-                            print("Error creating event: \(error.localizedDescription)")
-                        } else {
-                            print("Event created successfully!")
+        let calendar = Calendar.current
+        let recurrence = Int(round(repeatYears))
+        let totalEvents = birthdays.count * recurrence
+        var eventsSaved = 0
+        
+        self.createCalendar { calendarId in
+            if let myCalendarId = calendarId {
+                for birthday in birthdays {
+                    for year in 0..<recurrence {
+                        let event = GTLRCalendar_Event()
+                        event.summary = "\(birthday.name ?? "")'s birthday!"
+                        event.descriptionProperty = birthday.note ?? ""
+                        
+                        var date = nextBirthday(birthday.date ?? Date())
+                        if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
+                            date = modifiedDate
+                        }
+                        if birthday.cal == "Lunar" {
+                            date = lunarConverter(date)
+                        }
+                        
+                        let startDate = GTLRDateTime(date: date)
+                        let endDate = GTLRDateTime(date: date.addingTimeInterval(24 * 3600))
+                        
+                        event.start = GTLRCalendar_EventDateTime()
+                        event.start?.dateTime = startDate
+                        event.end = GTLRCalendar_EventDateTime()
+                        event.end?.dateTime = endDate
+                        
+                        let query = GTLRCalendarQuery_EventsInsert.query(withObject: event, calendarId: myCalendarId)
+                        query.additionalHTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
+                        
+                        self.service.executeQuery(query) { (ticket, event, error) in
+                            if let error = error {
+                                print("Error creating event: \(error.localizedDescription)")
+                            } else {
+                                print("Event created successfully!")
+                                eventsSaved += 1
+                                let progressPercentage = CGFloat(eventsSaved) / CGFloat(totalEvents)
+                                progress(progressPercentage)
+                                if progressPercentage >= 1.0 {
+                                    DispatchQueue.main.async {
+                                        completion()
+                                    }
+                                }
+                            }
                         }
                     }
-                } else {
-                    print("Failed to get the calendar ID.")
                 }
+            } else {
+                print("Failed to get the calendar ID.")
             }
         }
     }
@@ -192,7 +214,6 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
             }
         }
     }
-    
     
     func getCalendarList(completion: @escaping (GTLRCalendar_CalendarList?) -> Void) {
         guard let currentUser = GIDSignIn.sharedInstance().currentUser else {

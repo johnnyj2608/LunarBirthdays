@@ -124,7 +124,8 @@ struct SettingsView: View {
                 }
                 Button(action: {
                     if googleCalendar.isSignedIn {
-                        googleCalendar.exportBirthdays()
+                        //googleCalendar.exportBirthdays()
+                        googleCalendar.showExportAlert = true
                     } else {
                         googleCalendar.signIn()
                     }
@@ -147,7 +148,7 @@ struct SettingsView: View {
                } */
             .alert(isPresented: Binding<Bool>(
                 get: {
-                    showPermissionAlert || showExportAlert || showSignOutAlert
+                    showPermissionAlert || showExportAlert || showSignOutAlert || googleCalendar.showExportAlert
                 },
                 set: { newValue in
                 }
@@ -208,7 +209,48 @@ struct SettingsView: View {
                             showSignOutAlert = false
                         }
                     )
-                } else {
+                } else if googleCalendar.showExportAlert {
+                    return Alert(
+                        title: Text("Confirm Export"),
+                        message: Text("Are you sure you want to export? This will overwrite any existing birthdays and calendar settings."),
+                        primaryButton: .default(Text("Export")) {
+                            /*googleCalendar.deleteCalendar { error in
+                                if let error = error {
+                                    print("Error deleting calendar: \(error.localizedDescription)")
+                                } else {
+                                    print("Calendar deleted successfully!")
+                                }
+                            }*/
+                            googleCalendar.showExportAlert = false
+                            
+                            hud.textLabel.text = "Exporting"
+                            hud.detailTextLabel.text = "0%"
+                            hud.indicatorView = JGProgressHUDRingIndicatorView()
+                            hud.style = darkMode ? .extraLight : .dark
+                            
+                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                               let window = windowScene.windows.first {
+                                hud.show(in: window)
+                            }
+                            
+                            let birthdayArray = Array(birthday)
+                            googleCalendar.exportBirthdays(birthdayArray, exportValue, progress: { progressPercentage in
+                                DispatchQueue.main.async {
+                                    hud.detailTextLabel.text = String(format: "%.0f%%", progressPercentage * 100)
+                                }
+                            }) {
+                                DispatchQueue.main.async {
+                                    hud.dismiss(afterDelay: 1.5, animated: true)
+                                    hud.textLabel.text = "Success!"
+                                    hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                                }
+                            }
+                        },
+                        secondaryButton: .cancel{
+                            showExportAlert = false
+                        }
+                    )
+                }else {
                     return Alert(title: Text("Unknown Alert"))
                 }
             }

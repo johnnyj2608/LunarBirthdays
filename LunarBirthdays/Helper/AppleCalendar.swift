@@ -31,7 +31,7 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @
                         }
                         let event = EKEvent(eventStore: eventStore)
                         event.calendar = appCalendar
-                        event.title = "Birthday: \(birthday.name ?? "")"
+                        event.title = "\(birthday.name ?? "")'s birthday!"
                         event.startDate = date
                         event.endDate = date
                         event.notes = birthday.note ?? ""
