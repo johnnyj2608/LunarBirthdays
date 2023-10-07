@@ -9,9 +9,6 @@ import SwiftUI
 import CoreData
 import UserNotifications
 import JGProgressHUD
-import GoogleAPIClientForREST
-import GoogleSignIn
-import GTMSessionFetcher
 
 struct SettingsView: View {
     
@@ -38,9 +35,8 @@ struct SettingsView: View {
     @State private var exportProgress: CGFloat = 0.0
     @State private var hud = JGProgressHUD()
     
-    private let scopes = [kGTLRAuthScopeCalendar]
-    private let service = GTLRCalendarService()
-    
+    @StateObject var googleCalendar = GoogleCalendar()
+
     var body: some View {
         Form { /*
                 Section(header: Text("Upgrade")) {
@@ -127,7 +123,7 @@ struct SettingsView: View {
                     }
                 }
                 Button(action: {
-                    GIDSignIn.sharedInstance().signIn()
+                    googleCalendar.signIn()
                     // Export to Google Calendar after login
                     // Show sign out button after login
                 }) {
@@ -218,14 +214,14 @@ struct SettingsView: View {
         .navigationTitle("Settings")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                //if signedIn { // Need to refresh this when signed in
+                if googleCalendar.isSignedIn {
                     Button(action: {
-                        GIDSignIn.sharedInstance().signOut()
+                        googleCalendar.signOut()
                         showSignOutAlert = true
                     }) {
                         Text("Sign Out")
                     }
-                //}
+                }
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
@@ -238,12 +234,6 @@ struct SettingsView: View {
         .onAppear {
             if let dateFromTime = timeFormatter.date(from: notif_time) {
                 notif_date = dateFromTime
-            }
-            GIDSignIn.sharedInstance().clientID = "602901638701-2hd6247vgkmeoe8629pmvmk1nvudkkoc.apps.googleusercontent.com"
-            GIDSignIn.sharedInstance().scopes = scopes
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let rootViewController = windowScene.windows.first?.rootViewController {
-                GIDSignIn.sharedInstance().presentingViewController = rootViewController
             }
         }
     }
