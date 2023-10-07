@@ -32,12 +32,12 @@ struct SettingsView: View {
     
     @State private var showPermissionAlert = false
     @State private var showExportAlert = false
+    @State private var showSignOutAlert = false
     @AppStorage("exportValue")  private var exportValue: Double = 50
     
     @State private var exportProgress: CGFloat = 0.0
     @State private var hud = JGProgressHUD()
     
-    @State private var showGoogleAuth = false
     private let scopes = [kGTLRAuthScopeCalendar]
     private let service = GTLRCalendarService()
     
@@ -128,19 +128,20 @@ struct SettingsView: View {
                 }
                 Button(action: {
                     GIDSignIn.sharedInstance().signIn()
+                    // Export to Google Calendar after login
+                    // Show sign out button after login
                 }) {
                     Text("Export to Google Calendar")
                 }
                 Button(action: {
                     self.showExportAlert = true
                 }) {
-                    HStack {
-                        Text("Export to iCalendar")
-                        Spacer()
-                        Text("Years: \(Int(exportValue))")
-                    }
+                    Text("Export to iCalendar")
                 }
-                Slider(value: $exportValue, in: 1...99, step: 1)
+                VStack {
+                    Text("Export up to: \(Int(exportValue)) years")
+                    Slider(value: $exportValue, in: 1...99, step: 1)
+                }
             } /*
                Section(header: Text("Feedback")) {
                Text("Rate this app")
@@ -148,7 +149,7 @@ struct SettingsView: View {
                } */
             .alert(isPresented: Binding<Bool>(
                 get: {
-                    showPermissionAlert || showExportAlert
+                    showPermissionAlert || showExportAlert || showSignOutAlert
                 },
                 set: { newValue in
                 }
@@ -201,12 +202,32 @@ struct SettingsView: View {
                             showExportAlert = false
                         }
                     )
+                } else if showSignOutAlert {
+                    return Alert(
+                        title: Text("Google Calendar"),
+                        message: Text("Successfully logged out of Google."),
+                        dismissButton: .default(Text("OK")) {
+                            showSignOutAlert = false
+                        }
+                    )
                 } else {
                     return Alert(title: Text("Unknown Alert"))
                 }
             }
         }
         .navigationTitle("Settings")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                //if signedIn { // Need to refresh this when signed in
+                    Button(action: {
+                        GIDSignIn.sharedInstance().signOut()
+                        showSignOutAlert = true
+                    }) {
+                        Text("Sign Out")
+                    }
+                //}
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             getNotificationPermission { isAuthorized in
                 if !isAuthorized {

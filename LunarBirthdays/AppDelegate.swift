@@ -8,7 +8,6 @@
 import SwiftUI
 import GoogleMobileAds
 import UserNotifications
-import GoogleSignIn
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
