@@ -123,16 +123,18 @@ struct SettingsView: View {
                     }
                 }
                 Button(action: {
-                    googleCalendar.signIn()
-                    // Export to Google Calendar after login
-                    // Show sign out button after login
+                    if googleCalendar.isSignedIn {
+                        googleCalendar.exportBirthdays()
+                    } else {
+                        googleCalendar.signIn()
+                    }
                 }) {
                     Text("Export to Google Calendar")
                 }
                 Button(action: {
                     self.showExportAlert = true
                 }) {
-                    Text("Export to iCalendar")
+                    Text("Export to Apple Calendar")
                 }
                 VStack {
                     Text("Export up to: \(Int(exportValue)) years")

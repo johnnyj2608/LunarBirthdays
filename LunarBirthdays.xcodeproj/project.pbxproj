@@ -28,7 +28,7 @@
 		09B96D162A6D076500FC5AAA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96D152A6D076500FC5AAA /* SettingsView.swift */; };
 		09C9806E2AB92091000D53A2 /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806D2AB92091000D53A2 /* GoogleAds.swift */; };
 		09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806F2AB944EA000D53A2 /* WrapperView.swift */; };
-		09C980722AC0CA8C000D53A2 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980712AC0CA8C000D53A2 /* Calendar.swift */; };
+		09C980722AC0CA8C000D53A2 /* AppleCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980712AC0CA8C000D53A2 /* AppleCalendar.swift */; };
 		09C980752AC26429000D53A2 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 09C980742AC26429000D53A2 /* JGProgressHUD */; };
 		09C980812AC63AF7000D53A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980802AC63AF7000D53A2 /* AppDelegate.swift */; };
 		09C980852AC6474E000D53A2 /* GoogleAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09C980842AC6474D000D53A2 /* GoogleAPI.plist */; };
@@ -65,7 +65,7 @@
 		09B96D152A6D076500FC5AAA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		09C9806D2AB92091000D53A2 /* GoogleAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAds.swift; sourceTree = "<group>"; };
 		09C9806F2AB944EA000D53A2 /* WrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperView.swift; sourceTree = "<group>"; };
-		09C980712AC0CA8C000D53A2 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		09C980712AC0CA8C000D53A2 /* AppleCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCalendar.swift; sourceTree = "<group>"; };
 		09C980802AC63AF7000D53A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09C980842AC6474D000D53A2 /* GoogleAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GoogleAPI.plist; sourceTree = "<group>"; };
 		09C980912AC87511000D53A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 				0926644D2AB008950034296A /* Navigation.swift */,
 				09933A9D2AB77E2100B7420E /* CropController.swift */,
 				09C9806D2AB92091000D53A2 /* GoogleAds.swift */,
-				09C980712AC0CA8C000D53A2 /* Calendar.swift */,
+				09C980712AC0CA8C000D53A2 /* AppleCalendar.swift */,
 				09C9809F2AD1B96B000D53A2 /* GoogleCalendar.swift */,
 			);
 			path = Helper;
@@ -355,7 +355,7 @@
 				09B96D112A6CFE7500FC5AAA /* ProfileView.swift in Sources */,
 				092664162A736FFF0034296A /* WheelPicker.swift in Sources */,
 				092663E92A6F2C1E0034296A /* ClearButton.swift in Sources */,
-				09C980722AC0CA8C000D53A2 /* Calendar.swift in Sources */,
+				09C980722AC0CA8C000D53A2 /* AppleCalendar.swift in Sources */,
 				09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */,
 				09C980812AC63AF7000D53A2 /* AppDelegate.swift in Sources */,
 				09C980A02AD1B96B000D53A2 /* GoogleCalendar.swift in Sources */,
@@ -509,7 +509,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MARKETING_VERSION = 1.0;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Google.LunarBirthdays;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bachi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -554,7 +554,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MARKETING_VERSION = 1.0;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Google.LunarBirthdays;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bachi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
