@@ -170,7 +170,6 @@ struct SettingsView: View {
                         title: Text("Confirm Export"),
                         message: Text("Are you sure you want to export? This will overwrite any existing birthdays and calendar settings."),
                         primaryButton: .default(Text("Export")) {
-                            deleteCalendar()
                             showExportAlert = false
                             
                             hud.textLabel.text = "Exporting"
@@ -213,13 +212,6 @@ struct SettingsView: View {
                         title: Text("Confirm Export"),
                         message: Text("Are you sure you want to export? This will overwrite any existing birthdays and calendar settings."),
                         primaryButton: .default(Text("Export")) {
-                            /*googleCalendar.deleteCalendar { error in
-                                if let error = error {
-                                    print("Error deleting calendar: \(error.localizedDescription)")
-                                } else {
-                                    print("Calendar deleted successfully!")
-                                }
-                            }*/
                             googleCalendar.showExportAlert = false
                             
                             hud.textLabel.text = "Exporting"

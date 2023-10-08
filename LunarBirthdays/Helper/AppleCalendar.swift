@@ -9,6 +9,7 @@ import SwiftUI
 import EventKit
 
 func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @escaping (CGFloat) -> Void, completion: @escaping () -> Void) {
+    deleteCalendar()
     let eventStore = EKEventStore()
     let appCalendar = appCalendar()
     let calendar = Calendar.current
