@@ -140,11 +140,13 @@ struct SettingsView: View {
                     Text("Export up to: \(Int(exportValue)) years")
                     Slider(value: $exportValue, in: 1...99, step: 1)
                 }
-            } /*
-               Section(header: Text("Feedback")) {
-               Text("Rate this app")
-               Text("Tell a friend")
-               } */
+            }
+            /*
+             Section(header: Text("Feedback")) {
+                 Text("Rate this app")
+                 Text("Tell a friend")
+             }
+             */
             .alert(isPresented: Binding<Bool>(
                 get: {
                     showPermissionAlert || showExportAlert || showSignOutAlert || googleCalendar.showExportAlert
@@ -165,7 +167,7 @@ struct SettingsView: View {
                             showPermissionAlert = false
                         }
                     )
-                } else if showExportAlert {
+                } else if showExportAlert || googleCalendar.showExportAlert{
                     return Alert(
                         title: Text("Confirm Export"),
                         message: Text("Are you sure you want to export? This will overwrite any existing birthdays and calendar settings."),
@@ -183,15 +185,31 @@ struct SettingsView: View {
                             }
                             
                             let birthdayArray = Array(birthday)
-                            exportBirthdays(birthdayArray, exportValue, progress: { progressPercentage in
-                                DispatchQueue.main.async {
-                                    hud.detailTextLabel.text = String(format: "%.0f%%", progressPercentage * 100)
+                            if googleCalendar.showExportAlert {
+                                googleCalendar.showExportAlert = false
+                                googleCalendar.exportBirthdays(birthdayArray, exportValue, progress: { progressPercentage in
+                                    DispatchQueue.main.async {
+                                        hud.detailTextLabel.text = String(format: "%.0f%%", progressPercentage * 100)
+                                    }
+                                }) {
+                                    DispatchQueue.main.async {
+                                        hud.dismiss(afterDelay: 1.5, animated: true)
+                                        hud.textLabel.text = "Success!"
+                                        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                                    }
                                 }
-                            }) {
-                                DispatchQueue.main.async {
-                                    hud.dismiss(afterDelay: 1.5, animated: true)
-                                    hud.textLabel.text = "Success!"
-                                    hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                            } else {
+                                showExportAlert = false
+                                exportBirthdays(birthdayArray, exportValue, progress: { progressPercentage in
+                                    DispatchQueue.main.async {
+                                        hud.detailTextLabel.text = String(format: "%.0f%%", progressPercentage * 100)
+                                    }
+                                }) {
+                                    DispatchQueue.main.async {
+                                        hud.dismiss(afterDelay: 1.5, animated: true)
+                                        hud.textLabel.text = "Success!"
+                                        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                                    }
                                 }
                             }
                         },
@@ -207,41 +225,7 @@ struct SettingsView: View {
                             showSignOutAlert = false
                         }
                     )
-                } else if googleCalendar.showExportAlert {
-                    return Alert(
-                        title: Text("Confirm Export"),
-                        message: Text("Are you sure you want to export? This will overwrite any existing birthdays and calendar settings."),
-                        primaryButton: .default(Text("Export")) {
-                            googleCalendar.showExportAlert = false
-                            
-                            hud.textLabel.text = "Exporting"
-                            hud.detailTextLabel.text = "0%"
-                            hud.indicatorView = JGProgressHUDRingIndicatorView()
-                            hud.style = darkMode ? .extraLight : .dark
-                            
-                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                               let window = windowScene.windows.first {
-                                hud.show(in: window)
-                            }
-                            
-                            let birthdayArray = Array(birthday)
-                            googleCalendar.exportBirthdays(birthdayArray, exportValue, progress: { progressPercentage in
-                                DispatchQueue.main.async {
-                                    hud.detailTextLabel.text = String(format: "%.0f%%", progressPercentage * 100)
-                                }
-                            }) {
-                                DispatchQueue.main.async {
-                                    hud.dismiss(afterDelay: 1.5, animated: true)
-                                    hud.textLabel.text = "Success!"
-                                    hud.indicatorView = JGProgressHUDSuccessIndicatorView()
-                                }
-                            }
-                        },
-                        secondaryButton: .cancel{
-                            showExportAlert = false
-                        }
-                    )
-                }else {
+                } else {
                     return Alert(title: Text("Unknown Alert"))
                 }
             }

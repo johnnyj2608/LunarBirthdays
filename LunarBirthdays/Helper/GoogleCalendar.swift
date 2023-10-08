@@ -13,6 +13,7 @@ import GTMSessionFetcher
 class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
     @Published var isSignedIn: Bool = false
     @Published var showExportAlert: Bool = false
+    private var currentUserAccessToken: String?
     
     private let scopes = ["https://www.googleapis.com/auth/calendar"]
     private let service = GTLRCalendarService()
@@ -35,15 +36,19 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
     func signOut() {
         GIDSignIn.sharedInstance().signOut()
         isSignedIn = false
+        showExportAlert = false
+        currentUserAccessToken = nil
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if error == nil {
             isSignedIn = true
             showExportAlert = true
+            currentUserAccessToken = user.authentication.accessToken
         } else {
             isSignedIn = false
             showExportAlert = false
+            currentUserAccessToken = nil
         }
     }
     
@@ -54,12 +59,8 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
     }
     
     func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @escaping (CGFloat) -> Void, completion: @escaping () -> Void) {
-        guard let currentUser = GIDSignIn.sharedInstance().currentUser else {
+        guard let accessToken = currentUserAccessToken else {
             print("User not signed in.")
-            return
-        }
-        guard let accessToken = currentUser.authentication.accessToken else {
-            print("Access token not available.")
             return
         }
         
@@ -70,6 +71,7 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
         removeCalendar { error in
             if let error = error {
                 print("Error removing calendar: \(error.localizedDescription)")
+                completion()
             } else {
                 createCalendar { calendarId in
                     if let myCalendarId = calendarId {
@@ -125,13 +127,8 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
         }
         
         func createCalendar(completion: @escaping (String?) -> Void) {
-            guard let currentUser = GIDSignIn.sharedInstance().currentUser else {
+            guard let accessToken = currentUserAccessToken else {
                 print("User not signed in.")
-                completion(nil)
-                return
-            }
-            guard let accessToken = currentUser.authentication.accessToken else {
-                print("Access token not available.")
                 completion(nil)
                 return
             }
@@ -173,13 +170,8 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
         }
         
         func removeCalendar(completion: @escaping (Error?) -> Void) {
-            guard let currentUser = GIDSignIn.sharedInstance().currentUser else {
+            guard let accessToken = currentUserAccessToken else {
                 print("User not signed in.")
-                completion(nil)
-                return
-            }
-            guard let accessToken = currentUser.authentication.accessToken else {
-                print("Access token not available.")
                 completion(nil)
                 return
             }
@@ -215,13 +207,8 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
         }
         
         func getCalendarList(completion: @escaping (GTLRCalendar_CalendarList?) -> Void) {
-            guard let currentUser = GIDSignIn.sharedInstance().currentUser else {
+            guard let accessToken = currentUserAccessToken else {
                 print("User not signed in.")
-                completion(nil)
-                return
-            }
-            guard let accessToken = currentUser.authentication.accessToken else {
-                print("Access token not available.")
                 completion(nil)
                 return
             }
