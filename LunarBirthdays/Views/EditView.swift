@@ -24,9 +24,8 @@ struct EditView: View {
     @State private var note = ""
     
     @State private var selectedItem: PhotosPickerItem?
-    @State private var imgUI: UIImage = UIImage()
-    //@State private var croppedImg: UIImage = UIImage()
-    @State private var croppedImg: UIImage = UIImage(named: "Logo") ?? UIImage()
+    @State private var imgUI = UIImage()
+    @State private var croppedImg = UIImage(named: "Logo") ?? UIImage()
     @State private var isShowingCropView = false
     
     @State private var cal: String = UserDefaults.standard.string(forKey: "calendar") ?? "Lunar"
@@ -42,12 +41,11 @@ struct EditView: View {
     @State private var originalDate = Date()
     @State private var originalNote = ""
     @State private var originalCal = "Lunar"
-
     
     var body: some View {
         Form {
             VStack {
-                if img != "" {
+                if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
                     KFImage(URL(fileURLWithPath: img))
                         .resizable()
                         .scaledToFit()
@@ -133,38 +131,45 @@ struct EditView: View {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button("Cancel") {
                     if dataChange() {
-                     isDiscardingConfirm = true
-                     } else {
-                    dismiss()
+                        isDiscardingConfirm = true
+                    } else {
+                        dismiss()
                     }
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    if birthday != nil {
-                        DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                    if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
+                        
                     } else {
-                        DataController.shared.addBirthday(img: croppedImg, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                        if let imagePath = DataController.shared.saveImage(croppedImg, withFilename: "\(UUID()).jpg") {
+                            img = imagePath
+                        }
+                    }
+                    if birthday != nil {
+                        DataController.shared.editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
+                    } else {
+                        DataController.shared.addBirthday(img: img, name: name, date: date, note: note, cal: cal, context: managedObjContext)
                     }
                     dismiss()
                 }
                 .disabled((name).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
-          .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
-          Button("Discard Changes?", role: .destructive) {
-          dismiss()
-          }
-          }
+        .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
+            Button("Discard Changes?", role: .destructive) {
+                dismiss()
+            }
+        }
         .sheet(isPresented: $isShowingCropView) {
             CropImageViewController(image: $imgUI, cropped: $croppedImg, isPresented: $isShowingCropView)
         }
     }
-      private func dataChange() -> Bool {
-      return !(imgUI == UIImage() &&
-      name == originalName &&
-      date == originalDate &&
-      note == originalNote &&
-      cal == originalCal)
-      }
+    private func dataChange() -> Bool {
+        return !(imgUI == UIImage() &&
+                 name == originalName &&
+                 date == originalDate &&
+                 note == originalNote &&
+                 cal == originalCal)
+    }
 }

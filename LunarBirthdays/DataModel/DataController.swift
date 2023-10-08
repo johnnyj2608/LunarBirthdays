@@ -32,17 +32,14 @@ class DataController: ObservableObject {
             print("Failed to save data")
         }
     }
-    func addBirthday(img: UIImage, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
+    func addBirthday(img: String, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
+        birthday.img = img
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
-        
-        if let imagePath = saveImage(img, withFilename: "\(UUID()).jpg") {
-            birthday.img = imagePath
-        }
          
         save(context: context)
         
@@ -56,15 +53,12 @@ class DataController: ObservableObject {
             Notifications.scheduleBirthday(birthday, offset: 7)
         }
     }
-    func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
+    func editBirthday(birthday: Birthday, img: String, name: String, date: Date, note: String, cal: String, context: NSManagedObjectContext) {
+        birthday.img = img
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.cal = cal
-        
-        if let imagePath = saveImage(img, withFilename: "\(UUID()).jpg") {
-            birthday.img = imagePath
-        }
         
         save(context: context)
 
