@@ -124,7 +124,6 @@ struct SettingsView: View {
                 }
                 Button(action: {
                     if googleCalendar.isSignedIn {
-                        //googleCalendar.exportBirthdays()
                         googleCalendar.showExportAlert = true
                     } else {
                         googleCalendar.signIn()

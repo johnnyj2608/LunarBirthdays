@@ -26,7 +26,6 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
             GIDSignIn.sharedInstance().presentingViewController = rootViewController
         }
         GIDSignIn.sharedInstance().delegate = self
-        isSignedIn = isUserSignedIn()
     }
     
     func signIn() {
@@ -36,10 +35,6 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
     func signOut() {
         GIDSignIn.sharedInstance().signOut()
         isSignedIn = false
-    }
-    
-    func isUserSignedIn() -> Bool {
-        return GIDSignIn.sharedInstance().currentUser != nil
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -58,7 +53,6 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
         }
     }
     
-    // Birthday List, Repeat Years, Progress
     func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @escaping (CGFloat) -> Void, completion: @escaping () -> Void) {
         guard let currentUser = GIDSignIn.sharedInstance().currentUser else {
             print("User not signed in.")
@@ -123,7 +117,6 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
             }
         }
     }
-    
     
     func createCalendar(completion: @escaping (String?) -> Void) {
         guard let currentUser = GIDSignIn.sharedInstance().currentUser else {

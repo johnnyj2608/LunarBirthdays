@@ -84,6 +84,7 @@ func appCalendar() -> EKCalendar? {
     calendar.source = source
     do {
         try eventStore.saveCalendar(calendar, commit: true)
+        print("Success creating calendar!")
         return calendar
     } catch {
         print("Error creating calendar: \(error.localizedDescription)")
