@@ -14,6 +14,8 @@ WIP
 
 Default profile pictures for each lunar month
 <br>
+Privacy & Terms of Service Page
+<br>
 Feedback is redirected to the app store
 <br>
 Tell a friend initiates share function
