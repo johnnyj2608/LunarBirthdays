@@ -45,16 +45,22 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @
                             eventsSaved += 1
                             let progressPercentage = CGFloat(eventsSaved) / CGFloat(totalEvents)
                             progress(progressPercentage)
+                            if progressPercentage >= 1.0 {
+                                DispatchQueue.main.async {
+                                    completion()
+                                }
+                            }
                         } catch {
                             print("Error saving event to calendar: \(error.localizedDescription)")
+                            completion()
                         }
                     }
                 }
             }
         } else {
             print("Access to calendar denied")
+            completion()
         }
-        completion()
     }
 }
 

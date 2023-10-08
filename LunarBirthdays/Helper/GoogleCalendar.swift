@@ -101,6 +101,7 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
                                 self.service.executeQuery(query) { (ticket, event, error) in
                                     if let error = error {
                                         print("Error creating event: \(error.localizedDescription)")
+                                        completion()
                                     } else {
                                         print("Event created successfully!")
                                         eventsSaved += 1
@@ -117,6 +118,7 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
                         }
                     } else {
                         print("Failed to get the calendar ID.")
+                        completion()
                     }
                 }
             }
