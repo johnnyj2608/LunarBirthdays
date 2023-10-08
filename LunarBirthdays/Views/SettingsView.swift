@@ -122,6 +122,7 @@ struct SettingsView: View {
                         Text($0)
                     }
                 }
+                /*
                 Button(action: {
                     if googleCalendar.isSignedIn {
                         googleCalendar.showExportAlert = true
@@ -131,6 +132,7 @@ struct SettingsView: View {
                 }) {
                     Text("Export to Google Calendar")
                 }
+                 */
                 Button(action: {
                     self.showExportAlert = true
                 }) {
