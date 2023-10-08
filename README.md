@@ -12,10 +12,6 @@ WIP
 
 ## Work In Progress
 
-Google Calendar API
-<br>
-Remove the bottom whitespace of the main list
-<br>
 Default profile pictures for each lunar month
 <br>
 Feedback is redirected to the app store
@@ -26,15 +22,6 @@ Pro mode
 <br>
 Widgets
 
-## Known Bugs
-
-Print statements after Google Admob Implementation:
-<br>
-Could not signal service com.apple.WebKit.WebContent: 113: Could not find specified service
-<br>
-This method should not be called on the main thread as it may lead to UI unresponsiveness.
-<br>
-Unable to list voice folder
 
 ## Reflection
 
