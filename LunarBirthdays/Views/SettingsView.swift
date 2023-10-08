@@ -215,6 +215,7 @@ struct SettingsView: View {
                         },
                         secondaryButton: .cancel{
                             showExportAlert = false
+                            googleCalendar.showExportAlert = false
                         }
                     )
                 } else if showSignOutAlert {
