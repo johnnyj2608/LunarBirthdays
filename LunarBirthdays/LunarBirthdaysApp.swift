@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import GoogleSignIn
 
 @main
 struct LunarBirthdaysApp: App {
@@ -30,9 +29,6 @@ struct LunarBirthdaysApp: App {
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ClearPath"))) { _ in
                     path.removeLast(path.count)
                 }
-                //.onOpenURL { url in
-                //    GIDSignIn.sharedInstance().handle(url)
-                //}
         }
     }
 }

@@ -11,6 +11,12 @@ struct WheelDatePicker: View {
     @Binding var selectedDate: Date
     @State private var isPickerVisible = false
     
+    private let start: Date = {
+            var components = DateComponents()
+            components.year = 1900
+            return Calendar.current.date(from: components)!
+        }()
+    
     var body: some View {
         HStack {
             Text("Date")
@@ -46,7 +52,7 @@ struct WheelDatePicker: View {
                 .padding(.top, 3)
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.blue)
-                DatePicker("", selection: $selectedDate, in: ...Date(), displayedComponents: .date)
+                DatePicker("", selection: $selectedDate, in: start...Date(), displayedComponents: .date)
                     .datePickerStyle(WheelDatePickerStyle())
                     .labelsHidden()
                     .frame(maxHeight: 300)
