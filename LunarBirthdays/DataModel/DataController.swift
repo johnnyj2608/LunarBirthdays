@@ -80,6 +80,19 @@ class DataController: ObservableObject {
         save(context: context)
     }
     
+    func deleteAllBirthdays() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Birthday")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try container.viewContext.execute(batchDeleteRequest)
+            try container.viewContext.save()
+            print("All data deleted")
+        } catch {
+            print("Failed to delete all data: \(error)")
+        }
+    }
+    
     func saveImage(_ image: UIImage, withFilename filename: String) -> String? {
         if let data = image.jpegData(compressionQuality: 0.8) {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
