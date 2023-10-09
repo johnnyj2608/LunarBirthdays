@@ -150,9 +150,9 @@ struct SettingsView: View {
                 }) {
                     Text("Rate this app")
                 }
-                Button(action: {
-                    
-                }) {
+                ShareLink(item: URL(string: "https://apps.apple.com/us/app/lunar-birthdays/id6468920519")!,
+                          subject: Text("Lunar Birthdays"),
+                          message: Text("Track your birthdays! Download now: https://apps.apple.com/us/app/lunar-birthdays/id6468920519")) {
                     Text("Share with others")
                 }
             }
