@@ -2,19 +2,19 @@
 
 Lunar Birthdays
 
-A SwiftUI mobile app that saves birthday profiles, converts Lunar calendar dates to Gregorian and sends reminders/notifications.
+A SwiftUI mobile app that saves birthday profiles, converts Lunar calendar dates to Gregorian, and sends reminders/notifications.
 
 Using 2 packages, Kingfisher, TOCropViewController, and JGProgressHUD
 
 ## Installation and Setup Instructions
 
-WIP
+https://apps.apple.com/us/app/lunar-birthdays/id6468920519
 
 ## Work In Progress
 
 Default profile pictures for each lunar month
 <br>
-Privacy & Terms of Service Page
+Chinese Language setting
 <br>
 Feedback is redirected to the app store
 <br>
