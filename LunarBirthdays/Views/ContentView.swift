@@ -89,7 +89,7 @@ struct BirthdayCell: View {
             KFImage(URL(fileURLWithPath: birthday.img ?? ""))
                 .resizable()
                 .scaledToFill()
-                .frame(width: 65, height: 65)
+                .frame(width: 55, height: 55)
                 .padding(.vertical, 4)
                 .cornerRadius(10)
             VStack(alignment: .leading, spacing: 5) {
@@ -107,7 +107,7 @@ struct BirthdayCell: View {
                 switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
                 case (0, 0, 0, 0):
                     Text("🎂")
-                        .font(.system(size: 35))
+                        .font(.system(size: 20))
                 case (0, 0, 0, _):
                     Text("\(countdown.secs)")
                         .font(.system(size: 25))
