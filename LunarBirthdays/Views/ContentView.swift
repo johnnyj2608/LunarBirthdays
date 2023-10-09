@@ -100,7 +100,7 @@ struct BirthdayCell: View {
                     .minimumScaleFactor(0.5)
                 Text("Turns \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? "")) on \(monthString( getMonth(birthday.date ?? Date(), calendar: birthday.cal ?? ""))) \(getDay(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
                     .font(.system(size: 15))
-                    .lineLimit(1)
+                    .lineLimit(2)
             }
             Spacer()
             VStack(alignment: .center, spacing: 0) {

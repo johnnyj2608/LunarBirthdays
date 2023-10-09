@@ -142,12 +142,20 @@ struct SettingsView: View {
                     Slider(value: $exportValue, in: 1...99, step: 1)
                 }
             }
-            /*
-             Section(header: Text("Feedback")) {
-                 Text("Rate this app")
-                 Text("Tell a friend")
-             }
-             */
+            Section(header: Text("Feedback")) {
+                Button(action: {
+                    if let url = URL(string: "https://apps.apple.com/us/app/lunar-birthdays/id6468920519?action=write-review") {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                }) {
+                    Text("Rate this app")
+                }
+                Button(action: {
+                    
+                }) {
+                    Text("Share with others")
+                }
+            }
             .alert(isPresented: Binding<Bool>(
                 get: {
                     showPermissionAlert || showExportAlert || showSignOutAlert || googleCalendar.showExportAlert

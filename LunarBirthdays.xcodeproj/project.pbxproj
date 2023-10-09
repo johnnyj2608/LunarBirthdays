@@ -499,6 +499,7 @@
 				INFOPLIST_FILE = LunarBirthdays/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lunar Birthdays";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to schedule and manage events for Lunar Birthdays.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -548,6 +549,7 @@
 				INFOPLIST_FILE = LunarBirthdays/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lunar Birthdays";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to schedule and manage events for Lunar Birthdays.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
