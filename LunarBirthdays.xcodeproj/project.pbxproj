@@ -15,6 +15,7 @@
 		092664432A8F13E90034296A /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664422A8F13E90034296A /* Notifications.swift */; };
 		092664462A9711740034296A /* LunarConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664452A9711740034296A /* LunarConverter.swift */; };
 		0926644E2AB008960034296A /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926644D2AB008950034296A /* Navigation.swift */; };
+		094822ED2AD4979B006F667A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 094822EF2AD4979B006F667A /* Localizable.strings */; };
 		09933A9E2AB77E2100B7420E /* CropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09933A9D2AB77E2100B7420E /* CropController.swift */; };
 		09933AA12AB77EB300B7420E /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 09933AA02AB77EB300B7420E /* CropViewController */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
@@ -51,6 +52,8 @@
 		092664442A9308ED0034296A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		092664452A9711740034296A /* LunarConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarConverter.swift; sourceTree = "<group>"; };
 		0926644D2AB008950034296A /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		094822EE2AD4979B006F667A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		094822F02AD497FB006F667A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		09933A9D2AB77E2100B7420E /* CropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropController.swift; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
@@ -145,6 +148,7 @@
 			children = (
 				09C980842AC6474D000D53A2 /* GoogleAPI.plist */,
 				092664442A9308ED0034296A /* Info.plist */,
+				094822EF2AD4979B006F667A /* Localizable.strings */,
 				09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */,
 				09C980802AC63AF7000D53A2 /* AppDelegate.swift */,
 				09B96D062A6CF98C00FC5AAA /* Views */,
@@ -247,6 +251,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 09B96CEB2A6CF8BB00FC5AAA;
 			packageReferences = (
@@ -269,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B96D002A6CF8BD00FC5AAA /* Preview Assets.xcassets in Resources */,
+				094822ED2AD4979B006F667A /* Localizable.strings in Resources */,
 				09C980962AC877B9000D53A2 /* LaunchScreen.storyboard in Resources */,
 				09C980982AC87B2A000D53A2 /* Logo.png in Resources */,
 				09C980922AC87511000D53A2 /* Assets.xcassets in Resources */,
@@ -369,11 +375,24 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		094822EF2AD4979B006F667A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				094822EE2AD4979B006F667A /* en */,
+				094822F02AD497FB006F667A /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		09B96D012A6CF8BD00FC5AAA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -432,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -499,7 +519,7 @@
 				INFOPLIST_FILE = LunarBirthdays/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lunar Birthdays";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to schedule and manage events for Lunar Birthdays.";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -549,7 +569,7 @@
 				INFOPLIST_FILE = LunarBirthdays/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lunar Birthdays";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need access to your calendar to schedule and manage events for Lunar Birthdays.";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

@@ -30,6 +30,7 @@ struct SettingsView: View {
     @State private var showPermissionAlert = false
     @State private var showExportAlert = false
     @State private var showSignOutAlert = false
+    @State private var showEmptyAlert = false
     @AppStorage("exportValue")  private var exportValue: Double = 50
     
     @State private var exportProgress: CGFloat = 0.0
@@ -44,10 +45,10 @@ struct SettingsView: View {
                 // Popup sheet
                 } */
             Section(header: Text("Appearance")) {
-                Toggle("Dark Mode", isOn: $darkMode)
+                Toggle("Dark-Mode", isOn: $darkMode)
             }
             Section(header: Text("Notifications")) {
-                Toggle("Enable Notifications", isOn: $notifications)
+                Toggle("Enable-Notifications", isOn: $notifications)
                     .onChange(of: notifications) { newValue in
                         if newValue {
                             getNotificationPermission { isAuthorized in
@@ -74,7 +75,7 @@ struct SettingsView: View {
                     }
                 if notifications && notif_toggle {
                     DatePicker(
-                        "Notification Time",
+                        "Notification-Time",
                         selection: $notif_date,
                         displayedComponents: [.hourAndMinute]
                     )
@@ -96,9 +97,15 @@ struct SettingsView: View {
                             scheduleAllBirthdays(offset: 7)
                         }
                     }
-                    Toggle("On Birthday at \(twelveFormatter.string(from: notif_date))", isOn: .constant(true))
-                        .tint(Color.green.opacity(0.5))
-                    Toggle("1 Day Before", isOn: $notif_day)
+                    
+                    if Locale.current.identifier == "en" {
+                        Toggle("On-Birthday-At \(twelveFormatter.string(from: notif_date))", isOn: .constant(true))
+                            .tint(Color.green.opacity(0.5))
+                    } else {
+                        Toggle("On-Birthday-At \(timeFormatter.string(from: notif_date))", isOn: .constant(true))
+                            .tint(Color.green.opacity(0.5))
+                    }
+                    Toggle("1-Day-Before", isOn: $notif_day)
                         .onChange(of: notif_day) { newValue in
                             if newValue {
                                 scheduleAllBirthdays(offset: 1)
@@ -106,7 +113,7 @@ struct SettingsView: View {
                                 cancelAllBirthdays(offset: 1)
                             }
                         }
-                    Toggle("1 Week Before", isOn: $notif_week)
+                    Toggle("1-Week-Before", isOn: $notif_week)
                         .onChange(of: notif_week) { newValue in
                             if newValue {
                                 scheduleAllBirthdays(offset: 7)
@@ -116,29 +123,41 @@ struct SettingsView: View {
                         }
                 }
             }
-            Section(header: Text("Calendar"), footer: Text("Exports birthdays up to 99 years")) {
+            Section(header: Text("Calendar"), footer: Text("Export-99")) {
                 Picker("Default", selection: $calendar) {
-                    ForEach(calendars, id: \.self) {
-                        Text($0)
+                    ForEach(calendars, id: \.self) { calendarType in
+                        Text(LocalizedStringKey(calendarType))
                     }
                 }
                 
                 Button(action: {
+                    if DataController.shared.countBirthdays() == 0 {
+                        showEmptyAlert = true
+                        return
+                    }
                     if googleCalendar.isSignedIn {
                         googleCalendar.showExportAlert = true
                     } else {
                         googleCalendar.signIn()
                     }
                 }) {
-                    Text("Export to Google Calendar")
+                    Text("Export-To-Google-Cal")
                 }
                 Button(action: {
+                    if DataController.shared.countBirthdays() == 0 {
+                        showEmptyAlert = true
+                        return
+                    }
                     self.showExportAlert = true
                 }) {
-                    Text("Export to Apple Calendar")
+                    Text("Export-To-Apple-Cal")
                 }
                 VStack {
-                    Text("Export up to: \(Int(exportValue)) years")
+                    if exportValue == 1 {
+                        Text("Export-Up-To: \(Int(exportValue))")
+                    } else {
+                        Text("Export-Up-To: \(Int(exportValue))s")
+                    }
                     Slider(value: $exportValue, in: 1...99, step: 1)
                 }
             }
@@ -148,26 +167,26 @@ struct SettingsView: View {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     }
                 }) {
-                    Text("Rate this app")
+                    Text("Rate-This-App")
                 }
                 ShareLink(item: URL(string: "https://apps.apple.com/us/app/lunar-birthdays/id6468920519")!,
                           subject: Text("Lunar Birthdays"),
-                          message: Text("Track your birthdays! Download now: https://apps.apple.com/us/app/lunar-birthdays/id6468920519")) {
-                    Text("Share with others")
+                          message: Text("Track-Download \("https://apps.apple.com/us/app/lunar-birthdays/id6468920519")")) {
+                    Text("Share-With-Others")
                 }
             }
             .alert(isPresented: Binding<Bool>(
                 get: {
-                    showPermissionAlert || showExportAlert || showSignOutAlert || googleCalendar.showExportAlert
+                    showPermissionAlert || showExportAlert || showEmptyAlert || showSignOutAlert || googleCalendar.showExportAlert
                 },
                 set: { newValue in
                 }
             )) {
                 if showPermissionAlert {
                     return Alert(
-                        title: Text("Notification Permission"),
-                        message: Text("Please go to the notification settings and enable notifications for this app."),
-                        primaryButton: .default(Text("Settings"), action: {
+                        title: Text("Notification-Permission"),
+                        message: Text("Confirm-Notification"),
+                        primaryButton: .default(Text("Settings-Title"), action: {
                             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
                             UIApplication.shared.open(settingsURL)
                             showPermissionAlert = false
@@ -178,8 +197,8 @@ struct SettingsView: View {
                     )
                 } else if showExportAlert || googleCalendar.showExportAlert{
                     return Alert(
-                        title: Text("Confirm Export"),
-                        message: Text("Are you sure you want to export? This will overwrite any existing birthdays and calendar settings."),
+                        title: Text("Export"),
+                        message: Text("Confirm-Export"),
                         primaryButton: .default(Text("Export")) {
                             showExportAlert = false
                             
@@ -203,7 +222,7 @@ struct SettingsView: View {
                                 }) {
                                     DispatchQueue.main.async {
                                         hud.dismiss(afterDelay: 1.5, animated: true)
-                                        hud.textLabel.text = "Success!"
+                                        hud.textLabel.text = "Success"
                                         hud.indicatorView = JGProgressHUDSuccessIndicatorView()
                                     }
                                 }
@@ -216,7 +235,7 @@ struct SettingsView: View {
                                 }) {
                                     DispatchQueue.main.async {
                                         hud.dismiss(afterDelay: 1.5, animated: true)
-                                        hud.textLabel.text = "Success!"
+                                        hud.textLabel.text = "Sucess"
                                         hud.indicatorView = JGProgressHUDSuccessIndicatorView()
                                     }
                                 }
@@ -229,18 +248,25 @@ struct SettingsView: View {
                     )
                 } else if showSignOutAlert {
                     return Alert(
-                        title: Text("Google Calendar"),
-                        message: Text("Successfully logged out of Google."),
-                        dismissButton: .default(Text("OK")) {
+                        title: Text("Google-Calendar"),
+                        message: Text("Sign-Out-Success"),
+                        dismissButton: .default(Text("Ok")) {
+                            showSignOutAlert = false
+                        }
+                    )
+                } else if showEmptyAlert {
+                    return Alert(
+                        title: Text("Export"),
+                        message: Text("No-Birthdays"),
+                        dismissButton: .default(Text("Ok")) {
                             showSignOutAlert = false
                         }
                     )
                 } else {
-                    return Alert(title: Text("Unknown Alert"))
+                    return Alert(title: Text("Unknown-Alert"))
                 }
             }
         }
-        .navigationTitle("Settings")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if googleCalendar.isSignedIn {
@@ -248,7 +274,7 @@ struct SettingsView: View {
                         googleCalendar.signOut()
                         showSignOutAlert = true
                     }) {
-                        Text("Sign Out")
+                        Text("Sign-Out")
                     }
                 }
             }

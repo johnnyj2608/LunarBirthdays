@@ -94,6 +94,16 @@ func getMonth(_ date: Date?, calendar: String? = nil) -> Int {
 func getYear(_ date: Date?, calendar: String? = nil) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
+    var next = date
+    if calendar == "Lunar" {
+        next = lunarConverter(next)
+    }
+    return cal.component(.year, from: next)
+}
+
+func getNextYear(_ date: Date?, calendar: String? = nil) -> Int {
+    let cal = Calendar.current
+    guard let date = date else { return 1 }
     var next = nextBirthday(date)
     if calendar == "Lunar" {
         next = lunarConverter(next)
@@ -110,7 +120,7 @@ func monthString(_ month: Int) -> String {
 
 func dayString(_ day: Int) -> String {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd"
+    dateFormatter.dateFormat = "d"
     let date = Calendar.current.date(from: DateComponents(day: day))!
     return dateFormatter.string(from: date)
 }
@@ -124,6 +134,6 @@ func yearString(_ year: Int) -> String {
 
 func dateString(_ date: Date) -> String {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MMMM dd, yyyy"
+    dateFormatter.dateFormat = "MMMM d, yyyy"
     return dateFormatter.string(from: date)
 }

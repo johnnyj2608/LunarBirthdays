@@ -17,12 +17,16 @@ enum Route: Hashable, View {
         switch self {
         case let .profileView(birthday):
             ProfileView(birthday: birthday)
+                .navigationTitle("Profile-Title")
         case let .editView(birthday):
             EditView(birthday: birthday)
+                .navigationTitle("Edit-Title")
         case .addView:
-            EditView(navTitle: "Add")
+            EditView()
+                .navigationTitle("Add-Title")
         case .settingsView:
             SettingsView()
+                .navigationTitle("Settings-Title")
         }
     }
 }

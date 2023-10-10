@@ -25,15 +25,15 @@ struct ProfileView: View {
                     .frame(width: 150, height: 150)
                     .padding(.vertical, 4)
                     .cornerRadius(20)
-                Text("\(birthday.name ?? "")")
+                Text(birthday.name ?? "")
                     .font(.system(size: 40))
                     .fontWeight(.semibold)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
-                Text(dateString(birthday.date ?? Date()))
+                Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
                     .font(.system(size: 25))
                     .lineLimit(1)
-                Text("\(birthday.cal ?? "")")
+                Text(LocalizedStringKey(birthday.cal ?? ""))
                     .font(.system(size: 20))
                     .lineLimit(1)
                     .foregroundColor(Color.secondary)
@@ -41,13 +41,13 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity)
             Section {
                 VStack {
-                    Text("Turns \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? "")) in")
+                    Text("Countdown-In \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
                         .font(.system(size: 25))
                         .padding(.bottom, 1)
                     HStack {
                         switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
                         case (0, 0, 0, 0):
-                            Text("Today!")
+                            Text("Today")
                                 .font(.system(size: 50))
                                 .rainbowStyle()
                         default:
@@ -88,7 +88,11 @@ struct ProfileView: View {
                 }
             }
             Section {
-                Text(birthday.note?.isEmpty == true ? "Note" : birthday.note ?? "")
+                if birthday.note?.isEmpty == false {
+                    Text(birthday.note ?? "")
+                } else {
+                    Text("Note")
+                }
             }
             .onAppear {
                 countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
@@ -99,10 +103,9 @@ struct ProfileView: View {
             .onDisappear {
                 timer.upstream.connect().cancel()
             }
-            .navigationTitle("Profile")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    NavigationLink("Edit", value: Route.editView(birthday: birthday))
+                    NavigationLink("Edit-Title", value: Route.editView(birthday: birthday))
                 }
             }
         }

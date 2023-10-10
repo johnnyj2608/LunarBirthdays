@@ -1,0 +1,86 @@
+// Titles
+"Birthday-Title" = "Birthdays";
+"Profile-Title" = "Profile";
+"Edit-Title" = "Edit";
+"Add-Title" = "Add";
+"Settings-Title" = "Settings";
+
+// Dates
+"Full-Date %@ %@ %@" = "%1$@ %2$@, %3$@";
+"Month-Year %@ %@" = "%1$@ %2$@";
+
+// Units
+"Day" = "Day";
+"Days" = "Days";
+"Hr" = "Hr";
+"Hrs" = "Hrs";
+"Hour" = "Hour";
+"Hours" = "Hours";
+"Min" = "Min";
+"Mins" = "Mins";
+"Sec" = "Sec";
+"Secs" = "Secs";
+"Year" = "Year";
+"Years" = "Years";
+"Today" = "Today!";
+
+// Buttons
+"Change-Image" = "Change Image";
+"Delete" = "Delete";
+"Save" = "Save";
+"Cancel" = "Cancel";
+"Done" = "Done";
+
+// Profile
+"Gregorian" = "Gregorian";
+"Lunar" = "Lunar";
+"Note" = "Note";
+"Name" = "Name";
+"Birthday" = "Birthday";
+"Calendar" = "Calendar";
+"Date" = "Date";
+"Countdown-On %lld %@ %lld" = "Turns %1$lld on %2$@ %3$lld";
+"Countdown-In %lld" = "Turns %1$lld in";
+
+// Appearance
+"Appearance" = "Appearance";
+"Dark-Mode" = "Dark Mode";
+
+// Notifications
+"Notifications" = "Notifications";
+"Enable-Notifications" = "Enable Notifications";
+"Notification-Time" = "Notification Time";
+"On-Birthday-At %@" = "On Birthday at %@";
+"1-Day-Before" = "1 Day Before";
+"1-Week-Before" = "1 Week Before";
+
+// Calendar
+"Default" = "Default";
+"Export-To-Google-Cal" = "Export to Google Calendar";
+"Export-To-Apple-Cal" = "Export to Apple Calendar";
+"Export-Up-To: %lld" = "Export up to: %lld year";
+"Export-Up-To: %llds" = "Export up to: %lld years";
+"Export-99" = "Export birthdays up to 99 years";
+"Sign-Out" = "Sign Out";
+"Success" = "Success!";
+
+// Feedback
+"Feedback" = "Feedback";
+"Rate-This-App" = "Rate this app";
+"Share-With-Others" = "Share with others";
+"Track-Download %@" = "Track your birthdays! Download now: %@";
+
+// Alerts
+"Sign-Out-Success" = "Successfully logged out of Google";
+"No-Birthdays" = "No birthdays to export";
+"Google-Calendar" = "Google Calendar";
+"Ok" = "Ok";
+"Export" = "Export";
+"Exporting" = "Exporting";
+"Confirm-Export" = "Are you sure you want to export? This will overwrite any existing birthdays and calendar settings";
+"Notification-Permission" = "Notification Permission";
+"Confirm-Notification" = "Please go to the notification settings and enable notifications for this app";
+"Are-You-Sure" = "Are you sure?";
+"Discard" = "Discard?";
+"Discard-Changes" = "Discard Changes?";
+"Unknown-Alert" = "Unknown Alert";

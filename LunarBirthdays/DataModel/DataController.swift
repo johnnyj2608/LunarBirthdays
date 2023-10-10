@@ -121,4 +121,16 @@ class DataController: ObservableObject {
             print("Error clearing Documents directory: \(error)")
         }
     }
+    
+    func countBirthdays() -> Int {
+        let fetchRequest: NSFetchRequest<Birthday> = Birthday.fetchRequest()
+        do {
+            let count = try container.viewContext.count(for: fetchRequest)
+            return count
+        } catch {
+            print("Failed to count birthdays: \(error)")
+            return 0
+        }
+    }
+
 }

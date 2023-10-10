@@ -14,9 +14,7 @@ struct EditView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
-    
     var birthday: Birthday?
-    var navTitle: String?
     
     @State private var img = ""
     @State private var name = ""
@@ -58,7 +56,7 @@ struct EditView: View {
                         .frame(width: 150, height: 150)
                         .cornerRadius(20)
                 }
-                PhotosPicker("Change Image", selection: $selectedItem, matching: .images)
+                PhotosPicker("Change-Image", selection: $selectedItem, matching: .images)
             }
             .frame(maxWidth: .infinity)
             Section(header: Text("Name")) {
@@ -70,8 +68,8 @@ struct EditView: View {
             }
             Section(header: Text("Birthday")) {
                 Picker("Calendar", selection: $cal) {
-                    ForEach(calendars, id: \.self) {
-                        Text($0)
+                    ForEach(calendars, id: \.self) { calendarType in
+                        Text(LocalizedStringKey(calendarType))
                     }
                 }
                 WheelDatePicker(selectedDate: $date)
@@ -88,7 +86,7 @@ struct EditView: View {
                         isPresentingConfirm = true
                     }
                     .confirmationDialog("Delete", isPresented: $isPresentingConfirm) {
-                        Button("Are you sure?", role: .destructive) {
+                        Button("Are-You-Sure", role: .destructive) {
                             DataController.shared.deleteBirthday(birthday: birthday!, context: managedObjContext)
                             clearNavigationPath()
                         }
@@ -126,7 +124,6 @@ struct EditView: View {
             originalCal = cal
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitle(navTitle ?? "Edit")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button("Cancel") {
@@ -156,8 +153,8 @@ struct EditView: View {
                 .disabled((name).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         }
-        .confirmationDialog("Discard?", isPresented: $isDiscardingConfirm) {
-            Button("Discard Changes?", role: .destructive) {
+        .confirmationDialog("Discard", isPresented: $isDiscardingConfirm) {
+            Button("Discard-Changes", role: .destructive) {
                 dismiss()
             }
         }

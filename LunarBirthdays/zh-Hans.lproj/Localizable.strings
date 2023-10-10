@@ -1,0 +1,86 @@
+// Titles
+"Birthday-Title" = "生日";
+"Profile-Title" = "剖面";
+"Edit-Title" = "编辑";
+"Add-Title" = "添加";
+"Settings-Title" = "设置";
+
+// Dates
+"Full-Date %@ %@ %@" = "%3$@年%1$@月%2$@日";
+"Month-Year %@ %@" = "%2$@年%1$@月";
+
+// Units
+"Day" = "天";
+"Days" = "天";
+"Hr" = "小时";
+"Hrs" = "小时";
+"Hour" = "小时";
+"Hours" = "小时";
+"Min" = "分钟";
+"Mins" = "分钟";
+"Sec" = "秒";
+"Secs" = "秒";
+"Year" = "年";
+"Years" = "年";
+"Today" = "今天!";
+
+// Buttons
+"Change-Image" = "改变形象";
+"Delete" = "删除";
+"Save" = "节省";
+"Cancel" = "取消";
+"Done" = "完毕";
+
+// Profile
+"Gregorian" = "公历";
+"Lunar" = "农历";
+"Note" = "笔记";
+"Name" = "名字";
+"Birthday" = "生日";
+"Calendar" = "日历";
+"Date" = "日期";
+"Countdown-On %lld %@ %lld" = "%2$@月%3$lld日迎来%1$lld岁生日";
+"Countdown-In %lld" = "%lld岁生日";
+
+// Appearance
+"Appearance" = "外貌";
+"Dark-Mode" = "深色模式";
+
+// Notifications
+"Notifications" = "通知";
+"Enable-Notifications" = "启用通知";
+"Notification-Time" = "通知时间";
+"On-Birthday-At %@" = "发送生日提醒在 %@";
+"1-Day-Before" = "1天前";
+"1-Week-Before" = "1周前";
+
+// Calendar
+"Default" = "默认";
+"Export-To-Google-Cal" = "导出到谷歌日历";
+"Export-To-Apple-Cal" = "导出到苹果日历";
+"Export-Up-To: %lld" = "导出最多: %lld年";
+"Export-Up-To: %llds" = "导出最多: %lld年";
+"Export-99" = "导出生日长达99年";
+"Sign-Out" = "登出";
+"Success" = "成功!";
+
+// Feedback
+"Feedback" = "反馈";
+"Rate-This-App" = "给予反馈";
+"Share-With-Others" = "与他人分享";
+"Track-Download %@" = "追踪你的生日！ 现在下载：%@";
+
+// Alerts
+"Sign-Out-Success" = "成功退出谷歌";
+"No-Birthdays" = "没有要导出的生日";
+"Google-Calendar" = "谷歌日历";
+"Ok" = "好";
+"Export" = "导出";
+"Exporting" = "正在导出";
+"Confirm-Export" = "您确定要导出吗？ 这将覆盖任何现有的生日和日历设置";
+"Notification-Permission" = "通知许可";
+"Confirm-Notification" = "请转到通知设置并为此应用程序启用通知";
+"Are-You-Sure" = "你确定吗？";
+"Discard" = "丢弃?";
+"Discard-Changes" = "放弃更改？";
+"Unknown-Alert" = "未知警报";

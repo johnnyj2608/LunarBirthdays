@@ -31,12 +31,12 @@ struct ContentView: View {
     
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    
     var body: some View {
         VStack {
             List {
                 ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
-                    Section(header: Text("\(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
+                    // Month string needs to be localized
+                    Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getNextYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in
                             NavigationLink(value: Route.profileView(birthday: birthday)) {
                                 BirthdayCell(birthday: birthday, timer: timer)
@@ -52,7 +52,7 @@ struct ContentView: View {
                 birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: "name BEGINSWITH[c] %@", trimmedValue)
             }
         }
-        .navigationTitle("Birthdays")
+        .navigationTitle("Birthday-Title")
         .navigationDestination(for: Route.self) { route in
             route
         }
@@ -98,7 +98,7 @@ struct BirthdayCell: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text("Turns \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? "")) on \(monthString( getMonth(birthday.date ?? Date(), calendar: birthday.cal ?? ""))) \(getDay(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
+                Text("Countdown-On \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? "")) \(monthString(getMonth(birthday.date ?? Date(), calendar: birthday.cal ?? ""))) \(getDay(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
                     .font(.system(size: 15))
                     .lineLimit(2)
             }

@@ -29,6 +29,8 @@ struct LunarBirthdaysApp: App {
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ClearPath"))) { _ in
                     path.removeLast(path.count)
                 }
+                .environment(\.locale, Locale.init(identifier: "zh-CN"))
+                //.environment(\.locale, Locale.init(identifier: "en"))
         }
     }
 }
