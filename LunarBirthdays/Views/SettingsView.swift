@@ -37,6 +37,7 @@ struct SettingsView: View {
     @State private var hud = JGProgressHUD()
     
     @StateObject var googleCalendar = GoogleCalendar()
+    @Environment(\.locale) var currentLocale
 
     var body: some View {
         Form { /*
@@ -97,14 +98,8 @@ struct SettingsView: View {
                             scheduleAllBirthdays(offset: 7)
                         }
                     }
-                    
-                    if Locale.current.identifier == "en" {
-                        Toggle("On-Birthday-At \(twelveFormatter.string(from: notif_date))", isOn: .constant(true))
-                            .tint(Color.green.opacity(0.5))
-                    } else {
-                        Toggle("On-Birthday-At \(timeFormatter.string(from: notif_date))", isOn: .constant(true))
-                            .tint(Color.green.opacity(0.5))
-                    }
+                    Toggle("On-Birthday-At \(twelveFormatter.string(from: notif_date))", isOn: .constant(true))
+                        .tint(Color.green.opacity(0.5))
                     Toggle("1-Day-Before", isOn: $notif_day)
                         .onChange(of: notif_day) { newValue in
                             if newValue {

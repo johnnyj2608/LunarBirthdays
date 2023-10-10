@@ -35,7 +35,6 @@ struct ContentView: View {
         VStack {
             List {
                 ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
-                    // Month string needs to be localized
                     Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getNextYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in
                             NavigationLink(value: Route.profileView(birthday: birthday)) {
