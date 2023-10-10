@@ -113,7 +113,14 @@ func getNextYear(_ date: Date?, calendar: String? = nil) -> Int {
 
 func monthString(_ month: Int) -> String {
     let dateFormatter = DateFormatter()
+    
     dateFormatter.dateFormat = "MMMM"
+    if let firstLanguage = Locale.preferredLanguages.first {
+        if firstLanguage.hasPrefix("zh") {
+            dateFormatter.dateFormat = "M"
+        }
+    }
+    
     let date = Calendar.current.date(from: DateComponents(month: month))!
     return dateFormatter.string(from: date)
 }
