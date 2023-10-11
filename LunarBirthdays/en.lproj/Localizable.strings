@@ -71,15 +71,17 @@
 "Track-Download %@" = "Track your birthdays! Download now: %@";
 
 // Alerts
-"Sign-Out-Success" = "Successfully logged out of Google";
-"No-Birthdays" = "No birthdays to export";
+"Sign-Out-Success" = "Successfully logged out of Google.";
+"No-Birthdays" = "No birthdays to export.";
 "Google-Calendar" = "Google Calendar";
 "Ok" = "Ok";
 "Export" = "Export";
 "Exporting" = "Exporting";
-"Confirm-Export" = "Are you sure you want to export? This will overwrite any existing birthdays and calendar settings";
+"Export-Confirm" = "Are you sure you want to export? This will overwrite any existing birthdays and calendar settings.";
 "Notification-Permission" = "Notification Permission";
-"Confirm-Notification" = "Please go to the notification settings and enable notifications for this app";
+"Notification-Confirm" = "Please go to the notification settings and enable notifications for this app.";
+"Calendar-Permission" = "Calendar Permission";
+"Calendar-Confirm" = "Please go to the calendar settings and enable calendar for this app.";
 "Are-You-Sure" = "Are you sure?";
 "Discard" = "Discard?";
 "Discard-Changes" = "Discard Changes?";

@@ -71,15 +71,17 @@
 "Track-Download %@" = "追踪你的生日！ 现在下载：%@";
 
 // Alerts
-"Sign-Out-Success" = "成功退出谷歌";
-"No-Birthdays" = "没有要导出的生日";
+"Sign-Out-Success" = "成功退出谷歌。";
+"No-Birthdays" = "没有要导出的生日。";
 "Google-Calendar" = "谷歌日历";
 "Ok" = "好";
 "Export" = "导出";
 "Exporting" = "正在导出";
-"Confirm-Export" = "您确定要导出吗？ 这将覆盖任何现有的生日和日历设置";
+"Export-Confirm" = "您确定要导出吗？ 这将覆盖任何现有的生日和日历设置。";
 "Notification-Permission" = "通知许可";
-"Confirm-Notification" = "请转到通知设置并为此应用程序启用通知";
+"Notification-Confirm" = "请转到通知设置并为此应用程序启用通知。";
+"Calendar-Permission" = "日历权限";
+"Calendar-Confirm" = "请转到日历设置并为此应用程序启用日历。";
 "Are-You-Sure" = "你确定吗？";
 "Discard" = "丢弃?";
 "Discard-Changes" = "放弃更改？";

@@ -27,7 +27,8 @@ struct SettingsView: View {
     @AppStorage("calendar") private var calendar = "Lunar"
     let calendars = ["Lunar", "Gregorian"]
     
-    @State private var showPermissionAlert = false
+    @State private var showNotificationPermissionAlert = false
+    @State private var showCalendarPermissionAlert = false
     @State private var showExportAlert = false
     @State private var showSignOutAlert = false
     @State private var showEmptyAlert = false
@@ -64,7 +65,7 @@ struct SettingsView: View {
                                     }
                                 } else {
                                     notifications = false
-                                    showPermissionAlert = true
+                                    showNotificationPermissionAlert = true
                                 }
                             }
                         } else {
@@ -143,7 +144,25 @@ struct SettingsView: View {
                         showEmptyAlert = true
                         return
                     }
-                    self.showExportAlert = true
+                    
+                    let calendarPermissionRequested = UserDefaults.standard.bool(forKey: "calendarPermissionRequested")
+                    if calendarPermissionRequested {
+                        requestCalendarAccess { granted in
+                            if granted {
+                                self.showExportAlert = true
+                            } else {
+                                showCalendarPermissionAlert = true
+                            }
+                        }
+                    } else {
+                        requestCalendarAccess { granted in
+                            if granted {
+                                self.showExportAlert = true
+                            } else {
+                            }
+                            UserDefaults.standard.set(true, forKey: "calendarPermissionRequested")
+                        }
+                    }
                 }) {
                     Text("Export-To-Apple-Cal")
                 }
@@ -172,28 +191,41 @@ struct SettingsView: View {
             }
             .alert(isPresented: Binding<Bool>(
                 get: {
-                    showPermissionAlert || showExportAlert || showEmptyAlert || showSignOutAlert || googleCalendar.showExportAlert
+                    showNotificationPermissionAlert || showCalendarPermissionAlert || showExportAlert || showEmptyAlert || showSignOutAlert || googleCalendar.showExportAlert
                 },
                 set: { newValue in
                 }
             )) {
-                if showPermissionAlert {
+                if showNotificationPermissionAlert {
                     return Alert(
                         title: Text("Notification-Permission"),
-                        message: Text("Confirm-Notification"),
+                        message: Text("Notification-Confirm"),
                         primaryButton: .default(Text("Settings-Title"), action: {
                             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
                             UIApplication.shared.open(settingsURL)
-                            showPermissionAlert = false
+                            showNotificationPermissionAlert = false
                         }),
                         secondaryButton: .cancel{
-                            showPermissionAlert = false
+                            showNotificationPermissionAlert = false
+                        }
+                    )
+                } else if showCalendarPermissionAlert {
+                    return Alert(
+                        title: Text("Calendar-Permission"),
+                        message: Text("Calendar-Confirm"),
+                        primaryButton: .default(Text("Settings-Title"), action: {
+                            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                            UIApplication.shared.open(settingsURL)
+                            showCalendarPermissionAlert = false
+                        }),
+                        secondaryButton: .cancel{
+                            showCalendarPermissionAlert = false
                         }
                     )
                 } else if showExportAlert || googleCalendar.showExportAlert{
                     return Alert(
                         title: Text("Export"),
-                        message: Text("Confirm-Export"),
+                        message: Text("Export-Confirm"),
                         primaryButton: .default(Text("Export")) {
                             showExportAlert = false
                             

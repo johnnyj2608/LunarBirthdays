@@ -129,3 +129,15 @@ func deleteCalendar(completion: @escaping () -> Void) {
     completion()
 }
 
+func requestCalendarAccess(completion: @escaping (Bool) -> Void) {
+    let eventStore = EKEventStore()
+    eventStore.requestAccess(to: .event) { (granted, error) in
+        if granted {
+            completion(true)
+        } else {
+            completion(false)
+            print("Access to calendar denied")
+        }
+    }
+}
+
