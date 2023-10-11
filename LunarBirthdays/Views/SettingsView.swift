@@ -19,8 +19,8 @@ struct SettingsView: View {
     @AppStorage("notif_time") private var notif_time = "00:00"
     @State private var notif_date = Date()
     
-    @AppStorage("notif_tomorrow") private var notif_day = true
-    @AppStorage("notif_week") private var notif_week = true
+    @AppStorage("notif_tomorrow") private var notif_day = false
+    @AppStorage("notif_week") private var notif_week = false
     @AppStorage("notif_toggle") private var notif_toggle = false
     
     @AppStorage("darkMode") private var darkMode = true
@@ -316,6 +316,11 @@ struct SettingsView: View {
         .onAppear {
             if let dateFromTime = timeFormatter.date(from: notif_time) {
                 notif_date = dateFromTime
+            }
+            getNotificationPermission { isAuthorized in
+                if isAuthorized {
+                    notifications = true
+                }
             }
         }
     }
