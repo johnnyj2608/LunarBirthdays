@@ -14,12 +14,6 @@ https://apps.apple.com/us/app/lunar-birthdays/id6468920519
 
 Default profile pictures for each lunar month
 <br>
-Chinese Language setting
-<br>
-Feedback is redirected to the app store
-<br>
-Tell a friend initiates share function
-<br>
 Pro mode
 <br>
 Widgets
