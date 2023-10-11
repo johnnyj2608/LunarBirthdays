@@ -9,9 +9,7 @@ import SwiftUI
 import EventKit
 
 func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @escaping (CGFloat) -> Void, completion: @escaping () -> Void) {
-    deleteCalendar()
     let eventStore = EKEventStore()
-    let appCalendar = appCalendar()
     let calendar = Calendar.current
     
     let recurrence = Int(round(repeatYears))
@@ -20,41 +18,51 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @
     
     eventStore.requestAccess(to: .event) { (granted, error) in
         if granted && error == nil {
-            for birthday in birthdays {
-                for year in 0..<recurrence {
-                    if var date = birthday.date {
-                        date = nextBirthday(date)
-                        if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
-                            date = modifiedDate
-                        }
-                        if birthday.cal == "Lunar" {
-                            date = lunarConverter(date)
-                        }
-                        let event = EKEvent(eventStore: eventStore)
-                        event.calendar = appCalendar
-                        event.title = "\(birthday.name ?? "")'s birthday!"
-                        event.startDate = date
-                        event.endDate = date
-                        event.notes = birthday.note ?? ""
-                        event.isAllDay = true
-                        event.alarms = nil
-                        
-                        do {
-                            try eventStore.save(event, span: .thisEvent)
-                            print("Saved event for \(birthday.name ?? "")'s birthday for \(date)")
-                            eventsSaved += 1
-                            let progressPercentage = CGFloat(eventsSaved) / CGFloat(totalEvents)
-                            progress(progressPercentage)
-                            if progressPercentage >= 1.0 {
-                                DispatchQueue.main.async {
+            deleteCalendar{
+                addCalendar { appCalendar in
+                    guard let appCalendar = appCalendar else {
+                        print("Error creating or retrieving the calendar.")
+                        completion()
+                        return
+                    }
+                    for birthday in birthdays {
+                        for year in 0..<recurrence {
+                            if var date = birthday.date {
+                                date = nextBirthday(date)
+                                if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
+                                    date = modifiedDate
+                                }
+                                if birthday.cal == "Lunar" {
+                                    date = lunarConverter(date)
+                                }
+                                let event = EKEvent(eventStore: eventStore)
+                                event.calendar = appCalendar
+                                event.title = "\(birthday.name ?? "")'s birthday!"
+                                event.startDate = date
+                                event.endDate = date
+                                event.notes = birthday.note ?? ""
+                                event.isAllDay = true
+                                event.alarms = nil
+                                
+                                do {
+                                    try eventStore.save(event, span: .thisEvent)
+                                    print("Saved event for \(birthday.name ?? "")'s birthday for \(date)")
+                                    eventsSaved += 1
+                                    let progressPercentage = CGFloat(eventsSaved) / CGFloat(totalEvents)
+                                    progress(progressPercentage)
+                                    if progressPercentage >= 1.0 {
+                                        DispatchQueue.main.async {
+                                            completion()
+                                        }
+                                    }
+                                } catch {
+                                    print("Error saving event to calendar: \(error.localizedDescription)")
                                     completion()
                                 }
                             }
-                        } catch {
-                            print("Error saving event to calendar: \(error.localizedDescription)")
-                            completion()
                         }
                     }
+                    
                 }
             }
         } else {
@@ -64,7 +72,7 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @
     }
 }
 
-func appCalendar() -> EKCalendar? {
+func addCalendar(completion: @escaping (EKCalendar?) -> Void) {
     let eventStore = EKEventStore()
     let name = "Lunar Birthdays"
     
@@ -73,33 +81,35 @@ func appCalendar() -> EKCalendar? {
             calendar.cgColor = UIColor.red.cgColor
             do {
                 try eventStore.saveCalendar(calendar, commit: true)
-                return calendar
+                completion(calendar)
+                return
             } catch {
                 print("Error updating calendar: \(error.localizedDescription)")
-                return nil
+                completion(nil)
+                return
             }
         }
     }
-    
     let calendar = EKCalendar(for: .event, eventStore: eventStore)
     calendar.title = name
     calendar.cgColor = UIColor.red.cgColor
     
     guard let source = eventStore.defaultCalendarForNewEvents?.source else {
-        return nil
+        completion(nil)
+        return
     }
     calendar.source = source
     do {
         try eventStore.saveCalendar(calendar, commit: true)
         print("Success creating calendar!")
-        return calendar
+        completion(calendar)
     } catch {
         print("Error creating calendar: \(error.localizedDescription)")
-        return nil
+        completion(nil)
     }
 }
 
-func deleteCalendar() {
+func deleteCalendar(completion: @escaping () -> Void) {
     let eventStore = EKEventStore()
     let name = "Lunar Birthdays"
     
@@ -111,9 +121,11 @@ func deleteCalendar() {
             } catch {
                 print("Error deleting calendar: \(error.localizedDescription)")
             }
+            completion()
             return
         }
     }
     print("Calendar with name '\(name)' not found.")
+    completion()
 }
 
