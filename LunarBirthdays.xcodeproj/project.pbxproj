@@ -16,6 +16,7 @@
 		092664462A9711740034296A /* LunarConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664452A9711740034296A /* LunarConverter.swift */; };
 		0926644E2AB008960034296A /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926644D2AB008950034296A /* Navigation.swift */; };
 		094822ED2AD4979B006F667A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 094822EF2AD4979B006F667A /* Localizable.strings */; };
+		094822F92AD74D65006F667A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 094822FB2AD74D65006F667A /* InfoPlist.strings */; };
 		09933A9E2AB77E2100B7420E /* CropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09933A9D2AB77E2100B7420E /* CropController.swift */; };
 		09933AA12AB77EB300B7420E /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 09933AA02AB77EB300B7420E /* CropViewController */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
@@ -54,6 +55,8 @@
 		0926644D2AB008950034296A /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		094822EE2AD4979B006F667A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		094822F02AD497FB006F667A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		094822FA2AD74D65006F667A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		094822FC2AD74D67006F667A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		09933A9D2AB77E2100B7420E /* CropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropController.swift; sourceTree = "<group>"; };
 		09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunarBirthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LunarBirthdaysApp.swift; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 			children = (
 				09C980842AC6474D000D53A2 /* GoogleAPI.plist */,
 				092664442A9308ED0034296A /* Info.plist */,
+				094822FB2AD74D65006F667A /* InfoPlist.strings */,
 				094822EF2AD4979B006F667A /* Localizable.strings */,
 				09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */,
 				09C980802AC63AF7000D53A2 /* AppDelegate.swift */,
@@ -274,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B96D002A6CF8BD00FC5AAA /* Preview Assets.xcassets in Resources */,
+				094822F92AD74D65006F667A /* InfoPlist.strings in Resources */,
 				094822ED2AD4979B006F667A /* Localizable.strings in Resources */,
 				09C980962AC877B9000D53A2 /* LaunchScreen.storyboard in Resources */,
 				09C980982AC87B2A000D53A2 /* Logo.png in Resources */,
@@ -383,6 +388,15 @@
 				094822F02AD497FB006F667A /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		094822FB2AD74D65006F667A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				094822FA2AD74D65006F667A /* en */,
+				094822FC2AD74D67006F667A /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -510,7 +524,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"LunarBirthdays/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8QU55Y2Y7Q;
@@ -560,7 +574,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"LunarBirthdays/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8QU55Y2Y7Q;
