@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  LunarBirthdays
+
+  Created by Johnny Jiang on 10/11/23.
+  
+*/
+
+"NSCalendarsUsageDescription" = "We need access to your calendar to export events"

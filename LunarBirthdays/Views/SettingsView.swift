@@ -254,7 +254,7 @@ struct SettingsView: View {
                         title: Text("Export"),
                         message: Text("No-Birthdays"),
                         dismissButton: .default(Text("Ok")) {
-                            showSignOutAlert = false
+                            showEmptyAlert = false
                         }
                     )
                 } else {
