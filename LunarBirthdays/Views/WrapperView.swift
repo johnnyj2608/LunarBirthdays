@@ -11,13 +11,14 @@ import CoreData
 struct WrapperView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @Binding var path: NavigationPath
+
     var body: some View {
         VStack {
             NavigationStack(path: $path) {
                 ContentView()
             }
             Spacer()
-            //AdBannerView().frame(height: 50)
+            AdBannerView().frame(height: 50)
         }
         //.onAppear {populateCoreData(managedObjContext: managedObjContext)}
     }
