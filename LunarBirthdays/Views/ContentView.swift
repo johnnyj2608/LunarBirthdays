@@ -13,8 +13,10 @@ import Combine
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: []) var birthday: FetchedResults<Birthday>
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var searchText = ""
     
+    // Categorizes birthdays by upcoming months and sorts birthdays by upcoming day
     var groupedBirthday: [Date: [Birthday]] {
         let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), calendar: $0.cal ?? "") < calcCountdown($1.date ?? Date(), calendar: $1.cal ?? "") }
         
@@ -27,9 +29,6 @@ struct ContentView: View {
             return Calendar.current.date(from: components)!
         }
     }
-    // Categorizes birthdays by upcoming months and sorts birthdays by upcoming day
-    
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack {
@@ -45,12 +44,12 @@ struct ContentView: View {
                     }
                 }
             }
-            .searchable(text: $searchText)
             .onChange(of: searchText) { newValue in
                 let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                 birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: "name BEGINSWITH[c] %@", trimmedValue)
             }
         }
+        .searchable(text: $searchText)
         .navigationTitle("Birthday-Title")
         .navigationDestination(for: Route.self) { route in
             route

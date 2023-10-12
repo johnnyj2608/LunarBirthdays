@@ -125,7 +125,6 @@ struct SettingsView: View {
                         Text(LocalizedStringKey(calendarType))
                     }
                 }
-                
                 Button(action: {
                     if DataController.shared.countBirthdays() == 0 {
                         showEmptyAlert = true
@@ -144,7 +143,6 @@ struct SettingsView: View {
                         showEmptyAlert = true
                         return
                     }
-                    
                     let calendarPermissionRequested = UserDefaults.standard.bool(forKey: "calendarPermissionRequested")
                     if calendarPermissionRequested {
                         requestCalendarAccess { granted in
