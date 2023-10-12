@@ -4,7 +4,7 @@ Lunar Birthdays
 
 A SwiftUI mobile app that saves birthday profiles, converts Lunar calendar dates to Gregorian, and sends reminders/notifications.
 
-Using 2 packages, Kingfisher, TOCropViewController, and JGProgressHUD
+Using 3 packages, Kingfisher, TOCropViewController, and JGProgressHUD
 
 ## Installation and Setup Instructions
 
