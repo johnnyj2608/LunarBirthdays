@@ -103,19 +103,19 @@
 		0926640E2A6F50740034296A /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				092663E82A6F2C1E0034296A /* ClearButton.swift */,
 				09B96D0E2A6CFCBF00FC5AAA /* CalcBirthday.swift */,
-				092664152A736FFF0034296A /* WheelPicker.swift */,
-				092664232A74D88D0034296A /* Rainbow.swift */,
+				092663E82A6F2C1E0034296A /* ClearButton.swift */,
+				09933A9D2AB77E2100B7420E /* CropController.swift */,
 				092664272A7760370034296A /* Keyboard.swift */,
-				092664422A8F13E90034296A /* Notifications.swift */,
 				092664452A9711740034296A /* LunarConverter.swift */,
 				0926644D2AB008950034296A /* Navigation.swift */,
-				09933A9D2AB77E2100B7420E /* CropController.swift */,
+				092664422A8F13E90034296A /* Notifications.swift */,
 				09C9806D2AB92091000D53A2 /* GoogleAds.swift */,
-				09C980712AC0CA8C000D53A2 /* AppleCalendar.swift */,
 				09C9809F2AD1B96B000D53A2 /* GoogleCalendar.swift */,
+				09C980712AC0CA8C000D53A2 /* AppleCalendar.swift */,
+				092664232A74D88D0034296A /* Rainbow.swift */,
 				09C980A32AD266EC000D53A2 /* TestingData.swift */,
+				092664152A736FFF0034296A /* WheelPicker.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";

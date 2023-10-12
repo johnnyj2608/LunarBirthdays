@@ -38,7 +38,6 @@ struct SettingsView: View {
     @State private var hud = JGProgressHUD()
     
     @StateObject var googleCalendar = GoogleCalendar()
-    @Environment(\.locale) var currentLocale
 
     var body: some View {
         Form { /*
