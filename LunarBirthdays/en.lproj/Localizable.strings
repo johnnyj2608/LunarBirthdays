@@ -55,7 +55,6 @@
 "1-Week-Before" = "1 Week Before";
 
 // Calendar
-"Default" = "Default";
 "Export-To-Google-Cal" = "Export to Google Calendar";
 "Export-To-Apple-Cal" = "Export to Apple Calendar";
 "Export-Up-To: %lld" = "Export up to: %lld year";

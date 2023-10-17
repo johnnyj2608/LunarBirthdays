@@ -18,11 +18,11 @@ struct ContentView: View {
     
     // Categorizes birthdays by upcoming months and sorts birthdays by upcoming day
     var groupedBirthday: [Date: [Birthday]] {
-        let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), calendar: $0.cal ?? "") < calcCountdown($1.date ?? Date(), calendar: $1.cal ?? "") }
+        let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), lunar: $0.lunar) < calcCountdown($1.date ?? Date(), lunar: $1.lunar) }
         
         return Dictionary(grouping: sortedBirthdays) { birthday in
             var nextBirthday = nextBirthday(birthday.date ?? Date())
-            if birthday.cal == "Lunar" {
+            if birthday.lunar == true {
                 nextBirthday = lunarConverter(nextBirthday)
             }
             let components = Calendar.current.dateComponents([.year, .month], from: nextBirthday)
@@ -96,7 +96,7 @@ struct BirthdayCell: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text("Countdown-On \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? "")) \(monthString(getMonth(birthday.date ?? Date(), calendar: birthday.cal ?? ""))) \(getDay(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
+                Text("Countdown-On \(calcAge(birthday.date ?? Date(), lunar: birthday.lunar)) \(monthString(getMonth(birthday.date ?? Date(), lunar: birthday.lunar))) \(getDay(birthday.date ?? Date(), lunar: birthday.lunar))")
                     .font(.system(size: 15))
                     .lineLimit(2)
             }
@@ -105,7 +105,7 @@ struct BirthdayCell: View {
                 switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
                 case (0, 0, 0, 0):
                     Text("🎂")
-                        .font(.system(size: 20))
+                        .font(.system(size: 35))
                 case (0, 0, 0, _):
                     Text("\(countdown.secs)")
                         .font(.system(size: 25))
@@ -139,11 +139,11 @@ struct BirthdayCell: View {
             .frame(width: 50)
         }
         .onAppear {
-            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
+            countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
         }
         
         .onReceive(timer) { _ in
-            countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
+            countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
         }
     }
 }

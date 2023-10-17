@@ -32,7 +32,7 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @
                                 if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
                                     date = modifiedDate
                                 }
-                                if birthday.cal == "Lunar" {
+                                if birthday.lunar == true {
                                     date = lunarConverter(date)
                                 }
                                 let event = EKEvent(eventStore: eventStore)

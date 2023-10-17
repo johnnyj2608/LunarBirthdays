@@ -33,7 +33,7 @@ struct ProfileView: View {
                 Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
                     .font(.system(size: 25))
                     .lineLimit(1)
-                Text(LocalizedStringKey(birthday.cal ?? ""))
+                Text(LocalizedStringKey(birthday.lunar ? "Lunar" : "Gregorian"))
                     .font(.system(size: 20))
                     .lineLimit(1)
                     .foregroundColor(Color.secondary)
@@ -41,7 +41,7 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity)
             Section {
                 VStack {
-                    Text("Countdown-In \(calcAge(birthday.date ?? Date(), calendar: birthday.cal ?? ""))")
+                    Text("Countdown-In \(calcAge(birthday.date ?? Date(), lunar: birthday.lunar))")
                         .font(.system(size: 25))
                         .padding(.bottom, 1)
                     HStack {
@@ -95,10 +95,10 @@ struct ProfileView: View {
                 }
             }
             .onAppear {
-                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
+                countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
             }
             .onReceive(timer) { _ in
-                countdown = calcCountdown(birthday.date ?? Date(), calendar: birthday.cal ?? "")
+                countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
             }
             .onDisappear {
                 timer.upstream.connect().cancel()

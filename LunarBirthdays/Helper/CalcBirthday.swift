@@ -28,11 +28,11 @@ func nextBirthday(_ date: Date) -> Date {
     return unwrappedNextDate
 }
 
-func calcCountdown(_ date: Date, calendar: String? = nil) -> (days: Int, hours: Int, mins: Int, secs: Int) {
+func calcCountdown(_ date: Date, lunar: Bool? = false) -> (days: Int, hours: Int, mins: Int, secs: Int) {
     let cal = Calendar.current
     let today = Date()
     var nextBirthday = cal.startOfDay(for: nextBirthday(date))
-    if calendar == "Lunar" {
+    if lunar == true {
         nextBirthday = lunarConverter(nextBirthday)
     }
     
@@ -52,11 +52,11 @@ func calcCountdown(_ date: Date, calendar: String? = nil) -> (days: Int, hours: 
     return (daysRemaining, hoursRemaining, minutesRemaining, secondsRemaining)
 }
 
-func calcAge(_ date: Date, calendar: String? = nil) -> Int {
+func calcAge(_ date: Date, lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     let birthday = cal.startOfDay(for: date)
     var nextBirthdayDate = nextBirthday(date)
-    if calendar == "Lunar" {
+    if lunar == true {
         nextBirthdayDate = lunarConverter(nextBirthdayDate)
     }
     let nextBirthday = cal.startOfDay(for: nextBirthdayDate)
@@ -65,47 +65,47 @@ func calcAge(_ date: Date, calendar: String? = nil) -> Int {
     guard let age = ageComponents.year else {
         return -1
     }
-    if calendar == "Lunar" {
+    if lunar == true {
         return age + 1
     }
     return age
 }
 
-func getDay(_ date: Date?, calendar: String? = nil) -> Int {
+func getDay(_ date: Date?, lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
     var next = nextBirthday(date)
-    if calendar == "Lunar" {
+    if lunar == true {
         next = lunarConverter(next)
     }
     return cal.component(.day, from: next)
 }
 
-func getMonth(_ date: Date?, calendar: String? = nil) -> Int {
+func getMonth(_ date: Date?, lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
     var next = nextBirthday(date)
-    if calendar == "Lunar" {
+    if lunar == true {
         next = lunarConverter(next)
     }
     return cal.component(.month, from: next)
 }
 
-func getYear(_ date: Date?, calendar: String? = nil) -> Int {
+func getYear(_ date: Date?, lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
     var next = date
-    if calendar == "Lunar" {
+    if lunar == true {
         next = lunarConverter(next)
     }
     return cal.component(.year, from: next)
 }
 
-func getNextYear(_ date: Date?, calendar: String? = nil) -> Int {
+func getNextYear(_ date: Date?, lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
     var next = nextBirthday(date)
-    if calendar == "Lunar" {
+    if lunar == true {
         next = lunarConverter(next)
     }
     return cal.component(.year, from: next)

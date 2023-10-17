@@ -119,11 +119,6 @@ struct SettingsView: View {
                 }
             }
             Section(header: Text("Calendar"), footer: Text("Export-99")) {
-                Picker("Default", selection: $calendar) {
-                    ForEach(calendars, id: \.self) { calendarType in
-                        Text(LocalizedStringKey(calendarType))
-                    }
-                }
                 Button(action: {
                     if DataController.shared.countBirthdays() == 0 {
                         showEmptyAlert = true

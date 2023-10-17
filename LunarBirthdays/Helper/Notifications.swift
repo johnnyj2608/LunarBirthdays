@@ -11,7 +11,7 @@ import UserNotifications
 class Notifications {
     
     static func scheduleBirthday(_ birthday: Birthday, offset: Int = 0) {
-        let notificationDate = calcNotification(birthday: birthday.date!, offset: offset, cal: birthday.cal!)
+        let notificationDate = calcNotification(birthday: birthday.date!, offset: offset, lunar: birthday.lunar)
         
         let content = UNMutableNotificationContent()
         content.title = "Lunar Birthdays"
@@ -26,12 +26,12 @@ class Notifications {
         content.sound = UNNotificationSound.default
         
         var calendar: Calendar
-        if birthday.cal == "Gregorian" {
+        if birthday.lunar == false {
             calendar = Calendar(identifier: .gregorian)
-        } else if birthday.cal == "Lunar" {
+        } else if birthday.lunar == true {
             calendar = Calendar(identifier: .chinese)
         } else {
-            fatalError("Unsupported calendar type: \(birthday.cal!)")
+            fatalError("Unsupported calendar type: \(birthday.lunar)")
         }
         var components = calendar.dateComponents([.calendar, .day, .hour, .minute], from: notificationDate)
         
@@ -55,16 +55,12 @@ class Notifications {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(birthday.id!)_\(offset)"])
     }
     
-    static func calcNotification(birthday: Date, offset: Int, cal: String) -> Date {
+    static func calcNotification(birthday: Date, offset: Int, lunar: Bool) -> Date {
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
         var newBirthday = nextBirthday(birthday)
         
-        if cal == "Gregorian" {
-            
-        } else if cal == "Lunar" {
+        if lunar == true {
             newBirthday = lunarConverter(newBirthday)
-        } else {
-            fatalError("Unsupported calendar type: \(cal)")
         }
         return newBirthday.addingTimeInterval(notificationOffset)
     }

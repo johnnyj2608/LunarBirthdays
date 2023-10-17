@@ -85,7 +85,7 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
                                 if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
                                     date = modifiedDate
                                 }
-                                if birthday.cal == "Lunar" {
+                                if birthday.lunar == true {
                                     date = lunarConverter(date)
                                 }
                                 
