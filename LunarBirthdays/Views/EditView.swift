@@ -27,8 +27,6 @@ struct EditView: View {
     @State private var croppedImg = UIImage(named: "Logo") ?? UIImage()
     @State private var isShowingCropView = false
     
-    
-    
     @State private var title = ""
     @State private var pickerReset = UUID()
     

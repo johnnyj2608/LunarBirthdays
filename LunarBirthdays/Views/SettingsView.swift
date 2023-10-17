@@ -15,6 +15,7 @@ struct SettingsView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: []) var birthday: FetchedResults<Birthday>
     
+    @AppStorage("darkMode") private var darkMode = true
     @AppStorage("notifications") private var notifications = false
     @AppStorage("notif_time") private var notif_time = "00:00"
     @State private var notif_date = Date()
@@ -22,10 +23,6 @@ struct SettingsView: View {
     @AppStorage("notif_tomorrow") private var notif_day = false
     @AppStorage("notif_week") private var notif_week = false
     @AppStorage("notif_toggle") private var notif_toggle = false
-    
-    @AppStorage("darkMode") private var darkMode = true
-    @AppStorage("calendar") private var calendar = "Lunar"
-    let calendars = ["Lunar", "Gregorian"]
     
     @State private var showNotificationPermissionAlert = false
     @State private var showCalendarPermissionAlert = false
