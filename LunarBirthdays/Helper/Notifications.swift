@@ -11,7 +11,7 @@ import UserNotifications
 class Notifications {
     
     static func scheduleBirthday(_ birthday: Birthday, offset: Int = 0) {
-        let notificationDate = calcNotification(birthday: birthday.date!, offset: offset, lunar: birthday.lunar)
+        var notificationDate = calcOffset(birthday.date!, offset, birthday.lunar)
         
         let content = UNMutableNotificationContent()
         content.title = "Lunar Birthdays"
@@ -25,15 +25,11 @@ class Notifications {
         content.badge = NSNumber (value: 1)
         content.sound = UNNotificationSound.default
         
-        var calendar: Calendar
-        if birthday.lunar == false {
-            calendar = Calendar(identifier: .gregorian)
-        } else if birthday.lunar == true {
+        var calendar = Calendar(identifier: .gregorian)
+        if birthday.lunar == true {
             calendar = Calendar(identifier: .chinese)
-        } else {
-            fatalError("Unsupported calendar type: \(birthday.lunar)")
         }
-        var components = calendar.dateComponents([.calendar, .day, .hour, .minute], from: notificationDate)
+        var components = calendar.dateComponents([.calendar, .year, .month, .day, .hour, .minute], from: notificationDate)
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
@@ -43,7 +39,6 @@ class Notifications {
             components.hour = Calendar.current.component(.hour, from: timeComponents)
             components.minute = Calendar.current.component(.minute, from: timeComponents)
         }
-        
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         
         let request = UNNotificationRequest(identifier: "\(birthday.id!)_\(offset)", content: content, trigger: trigger)
@@ -55,13 +50,12 @@ class Notifications {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(birthday.id!)_\(offset)"])
     }
     
-    static func calcNotification(birthday: Date, offset: Int, lunar: Bool) -> Date {
-        let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
-        var newBirthday = nextBirthday(birthday)
-        
+    static func calcOffset(_ birthday: Date, _ offset: Int, _ lunar: Bool) -> Date {
+        var notificationDate = birthday
         if lunar == true {
-            newBirthday = lunarConverter(newBirthday)
+            notificationDate = lunarConverter(notificationDate)
         }
-        return newBirthday.addingTimeInterval(notificationOffset)
+        let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
+        return notificationDate.addingTimeInterval(notificationOffset)
     }
 }
