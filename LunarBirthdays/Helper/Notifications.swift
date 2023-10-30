@@ -29,7 +29,7 @@ class Notifications {
         if birthday.lunar == true {
             calendar = Calendar(identifier: .chinese)
         }
-        var components = calendar.dateComponents([.calendar, .year, .month, .day, .hour, .minute], from: notificationDate)
+        var components = calendar.dateComponents([.calendar, .month, .day, .hour, .minute], from: notificationDate)
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
