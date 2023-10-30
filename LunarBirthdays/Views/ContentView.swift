@@ -13,7 +13,7 @@ import Combine
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: []) var birthday: FetchedResults<Birthday>
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var searchText = ""
     
     // Categorizes birthdays by upcoming months and sorts birthdays by upcoming day
@@ -37,7 +37,7 @@ struct ContentView: View {
                     Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getNextYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in
                             NavigationLink(value: Route.profileView(birthday: birthday)) {
-                                BirthdayCell(birthday: birthday, timer: timer)
+                                BirthdayCell(birthday: birthday, timer: $timer)
                             }
                         }
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
@@ -78,7 +78,7 @@ struct ContentView: View {
 
 struct BirthdayCell: View {
     @ObservedObject var birthday: Birthday
-    var timer: Publishers.Autoconnect<Timer.TimerPublisher>
+    @Binding var timer: Publishers.Autoconnect<Timer.TimerPublisher>
     
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
     
@@ -139,6 +139,7 @@ struct BirthdayCell: View {
             .frame(width: 50)
         }
         .onAppear {
+            timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
             countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
         }
         

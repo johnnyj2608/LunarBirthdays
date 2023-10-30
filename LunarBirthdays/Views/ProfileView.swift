@@ -14,7 +14,7 @@ struct ProfileView: View {
     @ObservedObject var birthday: Birthday
     
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         List {
@@ -95,6 +95,7 @@ struct ProfileView: View {
                 }
             }
             .onAppear {
+                timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                 countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
             }
             .onReceive(timer) { _ in
