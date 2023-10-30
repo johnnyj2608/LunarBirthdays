@@ -11,7 +11,7 @@ import UserNotifications
 class Notifications {
     
     static func scheduleBirthday(_ birthday: Birthday, offset: Int = 0) {
-        var notificationDate = calcOffset(birthday.date!, offset, birthday.lunar)
+        let notificationDate = calcOffset(birthday.date!, offset, birthday.lunar)
         
         let content = UNMutableNotificationContent()
         content.title = "Lunar Birthdays"
