@@ -40,7 +40,7 @@ struct ContentView: View {
         VStack {
             List {
                 ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
-                    Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getNextYear(key)))")) {
+                    Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in
                             NavigationLink(value: Route.profileView(birthday: birthday)) {
                                 BirthdayCell(birthday: birthday, timer: $timer)

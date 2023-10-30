@@ -125,21 +125,6 @@ func getYear(_ date: Date?, lunar: Bool? = false) -> Int {
     return cal.component(.year, from: nextBirthday)
 }
 
-func getNextYear(_ date: Date?, lunar: Bool? = false) -> Int {
-    let cal = Calendar.current
-    guard let date = date else { return 1 }
-    let today = cal.startOfDay(for: Date())
-    var nextBirthday = nextBirthday(date)
-    if lunar == true {
-        let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-        if today <= lunarConverter(lastBirthday) {
-            nextBirthday = lastBirthday
-        }
-        nextBirthday = lunarConverter(nextBirthday)
-    }
-    return cal.component(.year, from: nextBirthday)
-}
-
 func monthString(_ month: Int) -> String {
     let dateFormatter = DateFormatter()
     
