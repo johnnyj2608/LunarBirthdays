@@ -41,6 +41,7 @@
 "Date" = "日期";
 "Countdown-On %lld %@ %lld" = "%2$@月%3$lld日迎来%1$lld岁生日";
 "Countdown-In %lld" = "%lld岁生日";
+"Zodiac %@" = "中国十二生肖: %@";
 
 // Appearance
 "Appearance" = "外貌";

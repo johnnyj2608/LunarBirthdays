@@ -30,6 +30,7 @@ struct ProfileView: View {
                     .fontWeight(.semibold)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
+                Spacer().frame(height: 10)
                 Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
                     .font(.system(size: 25))
                     .lineLimit(1)
@@ -87,7 +88,8 @@ struct ProfileView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            Section {
+            Section(footer: Text("Zodiac \(getZodiac(birthday.date ?? Date(), birthday.lunar))")
+                .font(.headline)) {
                 if birthday.note?.isEmpty == false {
                     Text(birthday.note ?? "")
                 } else {
@@ -104,10 +106,10 @@ struct ProfileView: View {
             .onDisappear {
                 timer.upstream.connect().cancel()
             }
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    NavigationLink("Edit-Title", value: Route.editView(birthday: birthday))
-                }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                NavigationLink("Edit-Title", value: Route.editView(birthday: birthday))
             }
         }
     }

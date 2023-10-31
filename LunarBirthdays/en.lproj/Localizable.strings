@@ -41,6 +41,7 @@
 "Date" = "Date";
 "Countdown-On %lld %@ %lld" = "Turns %1$lld on %2$@ %3$lld";
 "Countdown-In %lld" = "Turns %1$lld in";
+"Zodiac %@" = "Chinese Zodiac: %@";
 
 // Appearance
 "Appearance" = "Appearance";
