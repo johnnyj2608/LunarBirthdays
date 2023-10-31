@@ -31,7 +31,7 @@ struct ProfileView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                 Spacer().frame(height: 10)
-                Text("Full-Date \(monthString(getMonth(birthday.date ?? Date(), birthday.lunar))) \(dayString(getDay(birthday.date ?? Date(), birthday.lunar))) \(yearString(getYear(birthday.date ?? Date(), birthday.lunar)))")
+                Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
                     .font(.system(size: 25))
                     .lineLimit(1)
                 Text(LocalizedStringKey(birthday.lunar ? "Lunar" : "Gregorian"))
