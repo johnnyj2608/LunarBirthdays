@@ -18,7 +18,7 @@ struct ContentView: View {
     
     // Categorizes birthdays by upcoming months and sorts birthdays by upcoming day
     var groupedBirthday: [Date: [Birthday]] {
-        let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), lunar: $0.lunar) < calcCountdown($1.date ?? Date(), lunar: $1.lunar) }
+        let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), $0.lunar) < calcCountdown($1.date ?? Date(), $1.lunar) }
         
         return Dictionary(grouping: sortedBirthdays) { birthday in
             let cal = Calendar.current
@@ -102,7 +102,7 @@ struct BirthdayCell: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
-                Text("Countdown-On \(calcAge(birthday.date ?? Date(), lunar: birthday.lunar)) \(monthString(getMonth(birthday.date ?? Date(), lunar: birthday.lunar))) \(getDay(birthday.date ?? Date(), lunar: birthday.lunar))")
+                Text("Countdown-On \(calcAge(birthday.date ?? Date(), birthday.lunar)) \(monthString(getMonth(birthday.date ?? Date(), birthday.lunar))) \(getDay(birthday.date ?? Date(), birthday.lunar))")
                     .font(.system(size: 15))
                     .lineLimit(2)
             }
@@ -146,11 +146,11 @@ struct BirthdayCell: View {
         }
         .onAppear {
             timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-            countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
+            countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
         }
         
         .onReceive(timer) { _ in
-            countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
+            countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
         }
     }
 }

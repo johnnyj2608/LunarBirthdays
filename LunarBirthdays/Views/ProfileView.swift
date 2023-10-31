@@ -31,7 +31,7 @@ struct ProfileView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                 Spacer().frame(height: 10)
-                Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
+                Text("Full-Date \(monthString(getMonth(birthday.date ?? Date(), birthday.lunar))) \(dayString(getDay(birthday.date ?? Date(), birthday.lunar))) \(yearString(getYear(birthday.date ?? Date(), birthday.lunar)))")
                     .font(.system(size: 25))
                     .lineLimit(1)
                 Text(LocalizedStringKey(birthday.lunar ? "Lunar" : "Gregorian"))
@@ -42,7 +42,7 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity)
             Section {
                 VStack {
-                    Text("Countdown-In \(calcAge(birthday.date ?? Date(), lunar: birthday.lunar))")
+                    Text("Countdown-In \(calcAge(birthday.date ?? Date(), birthday.lunar))")
                         .font(.system(size: 25))
                         .padding(.bottom, 1)
                     HStack {
@@ -98,10 +98,10 @@ struct ProfileView: View {
             }
             .onAppear {
                 timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-                countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
+                countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
             }
             .onReceive(timer) { _ in
-                countdown = calcCountdown(birthday.date ?? Date(), lunar: birthday.lunar)
+                countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
             }
             .onDisappear {
                 timer.upstream.connect().cancel()

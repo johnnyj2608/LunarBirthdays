@@ -28,7 +28,7 @@ func nextBirthday(_ date: Date) -> Date {
     return unwrappedNextDate
 }
 
-func calcCountdown(_ date: Date, lunar: Bool? = false) -> (days: Int, hours: Int, mins: Int, secs: Int) {
+func calcCountdown(_ date: Date, _ lunar: Bool? = false) -> (days: Int, hours: Int, mins: Int, secs: Int) {
     let cal = Calendar.current
     let today = cal.startOfDay(for: Date())
     var nextBirthday = cal.startOfDay(for: nextBirthday(date))
@@ -56,7 +56,7 @@ func calcCountdown(_ date: Date, lunar: Bool? = false) -> (days: Int, hours: Int
     return (daysRemaining, hoursRemaining, minutesRemaining, secondsRemaining)
 }
 
-func calcAge(_ date: Date, lunar: Bool? = false) -> Int {
+func calcAge(_ date: Date, _ lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     let birthday = cal.startOfDay(for: date)
     let today = cal.startOfDay(for: Date())
@@ -80,7 +80,7 @@ func calcAge(_ date: Date, lunar: Bool? = false) -> Int {
     return age
 }
 
-func getDay(_ date: Date?, lunar: Bool? = false) -> Int {
+func getDay(_ date: Date?, _ lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
     let today = cal.startOfDay(for: Date())
@@ -95,7 +95,7 @@ func getDay(_ date: Date?, lunar: Bool? = false) -> Int {
     return cal.component(.day, from: nextBirthday)
 }
 
-func getMonth(_ date: Date?, lunar: Bool? = false) -> Int {
+func getMonth(_ date: Date?, _ lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
     let today = cal.startOfDay(for: Date())
@@ -110,7 +110,7 @@ func getMonth(_ date: Date?, lunar: Bool? = false) -> Int {
     return cal.component(.month, from: nextBirthday)
 }
 
-func getYear(_ date: Date?, lunar: Bool? = false) -> Int {
+func getYear(_ date: Date?, _ lunar: Bool? = false) -> Int {
     let cal = Calendar.current
     guard let date = date else { return 1 }
     let today = cal.startOfDay(for: Date())
