@@ -19,7 +19,11 @@ struct ProfileView: View {
     var body: some View {
         List {
             VStack(alignment: .center) {
-                KFImage(URL(fileURLWithPath: birthday.img ?? ""))
+                KFImage.url(URL(fileURLWithPath: birthday.img ?? ""))
+                    .placeholder {
+                        Image("Logo")
+                            .resizable()
+                    }
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)

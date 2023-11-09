@@ -90,7 +90,11 @@ struct BirthdayCell: View {
     
     var body: some View {
         HStack {
-            KFImage(URL(fileURLWithPath: birthday.img ?? ""))
+            KFImage.url(URL(fileURLWithPath: birthday.img ?? ""))
+                .placeholder {
+                    Image("Logo")
+                        .resizable()
+                }
                 .resizable()
                 .scaledToFill()
                 .frame(width: 55, height: 55)
