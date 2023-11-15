@@ -153,8 +153,31 @@ func yearString(_ year: Int) -> String {
     return dateFormatter.string(from: date)
 }
 
-func dateString(_ date: Date) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MMMM d, yyyy"
-    return dateFormatter.string(from: date)
+func nextLunarBirthday(_ birthday: Date, _ lunar: Bool) -> String {
+    let cal = Calendar.current
+    let birthday = cal.startOfDay(for: birthday)
+    let today = cal.startOfDay(for: Date())
+    var nextBirthday = nextBirthday(birthday)
+    var dateToConvert = Date()
+    
+    if lunar {
+        let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
+        if today <= lunarConverter(lastBirthday) {
+            nextBirthday = lastBirthday
+        }
+        dateToConvert = lunarConverter(nextBirthday)
+    } else {
+        let nextYear = cal.date(byAdding: .year, value: 1, to: nextBirthday)!
+        if today > gregorianConverter(nextBirthday) {
+            nextBirthday = nextYear
+        }
+        dateToConvert = gregorianConverter(nextBirthday)
+    }
+    
+    let month = monthString(getMonth(dateToConvert))
+    let day = dayString(getDay(dateToConvert))
+    let year = yearString(getYear(dateToConvert))
+    
+    let dateString = String.localizedStringWithFormat(NSLocalizedString("Full-Date %@ %@ %@", comment: ""), month, day, year)
+    return dateString
 }

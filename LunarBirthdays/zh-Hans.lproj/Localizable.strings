@@ -42,6 +42,9 @@
 "Countdown-On %lld %@ %lld" = "%2$@月%3$lld日迎来%1$lld岁生日";
 "Countdown-In %lld" = "%lld岁生日";
 "Zodiac %@" = "中国十二生肖: %@";
+"NextLunarBirthday" = "下一个农历生日:";
+"LunarTrack" = "农历生日倒计时";
+"GregorianTrack" = "公历生日倒计时";
 
 // Appearance
 "Appearance" = "外貌";

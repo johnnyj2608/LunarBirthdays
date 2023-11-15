@@ -13,7 +13,7 @@ struct ProfileView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @ObservedObject var birthday: Birthday
     
-    @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
+    @State var countdown: (days: Int, hours: Int, mins: Int, secs: Int)
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -38,13 +38,15 @@ struct ProfileView: View {
                 Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
                     .font(.system(size: 25))
                     .lineLimit(1)
-                Text(LocalizedStringKey(birthday.lunar ? "Lunar" : "Gregorian"))
+                    .padding(.bottom, 1)
+                Text("Zodiac \(getZodiac(birthday.date ?? Date(), birthday.lunar))")
                     .font(.system(size: 20))
                     .lineLimit(1)
                     .foregroundColor(Color.secondary)
             }
             .frame(maxWidth: .infinity)
-            Section {
+            Section(footer: Text(LocalizedStringKey(birthday.lunar ? "LunarTrack" : "GregorianTrack"))
+                .font(.headline)) {
                 VStack {
                     Text("Countdown-In \(calcAge(birthday.date ?? Date(), birthday.lunar))")
                         .font(.system(size: 25))
@@ -89,11 +91,21 @@ struct ProfileView: View {
                             }
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity)
+            }
+            Section {
+                VStack {
+                    Text("NextLunarBirthday")
+                        .font(.system(size: 25))
+                        .padding(.bottom, 2)
+                    Text(nextLunarBirthday(birthday.date ?? Date(), birthday.lunar))
+                        .font(.system(size: 25))
+                        .lineLimit(1)
                 }
             }
-            Section(footer: Text("Zodiac \(getZodiac(birthday.date ?? Date(), birthday.lunar))")
-                .font(.headline)) {
+            .frame(maxWidth: .infinity)
+            Section {
                 if birthday.note?.isEmpty == false {
                     Text(birthday.note ?? "")
                 } else {

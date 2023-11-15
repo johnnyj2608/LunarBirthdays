@@ -42,6 +42,9 @@
 "Countdown-On %lld %@ %lld" = "Turns %1$lld on %2$@ %3$lld";
 "Countdown-In %lld" = "Turns %1$lld in";
 "Zodiac %@" = "Chinese Zodiac: %@";
+"NextLunarBirthday" = "Next Lunar Birthday:";
+"LunarTrack" = "Counting Down Lunar Birthday";
+"GregorianTrack" = "Counting Down Gregorian Birthday";
 
 // Appearance
 "Appearance" = "Appearance";

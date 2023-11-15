@@ -16,7 +16,7 @@ enum Route: Hashable, View {
     var body: some View {
         switch self {
         case let .profileView(birthday):
-            ProfileView(birthday: birthday)
+            ProfileView(birthday: birthday, countdown: calcCountdown(birthday.date ?? Date(), birthday.lunar))
                 .navigationTitle("Profile-Title")
         case let .editView(birthday):
             EditView(birthday: birthday)
