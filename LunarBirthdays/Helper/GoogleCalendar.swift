@@ -66,14 +66,18 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
         
         let calendar = Calendar.current
         let recurrence = Int(round(repeatYears))
-        let totalEvents = birthdays.count * recurrence
+        let totalEvents = (birthdays.count * recurrence)+2 // +2 to account for delete/create progress
         var eventsSaved = 0
         removeCalendar { error in
+            eventsSaved += 1
+            progress(CGFloat(eventsSaved) / CGFloat(totalEvents))
             if let error = error {
                 print("Error removing calendar: \(error.localizedDescription)")
                 completion()
             } else {
                 createCalendar { calendarId in
+                    eventsSaved += 1
+                    progress(CGFloat(eventsSaved) / CGFloat(totalEvents))
                     if let myCalendarId = calendarId {
                         for birthday in birthdays {
                             for year in 0..<recurrence {
