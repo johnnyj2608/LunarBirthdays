@@ -127,7 +127,16 @@ struct SettingsView: View {
                         googleCalendar.signIn()
                     }
                 }) {
-                    Text("Export-To-Google-Cal")
+                    HStack{
+                        Image("Google_Calendar_icon")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                        Text("Export-To-Google-Cal")
+                            .font(.body)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .foregroundColor(darkMode ? .white : .black)
                 }
                 Button(action: {
                     if DataController.shared.countBirthdays() == 0 {
@@ -153,7 +162,16 @@ struct SettingsView: View {
                         }
                     }
                 }) {
-                    Text("Export-To-Apple-Cal")
+                    HStack{
+                        Image(systemName: "applelogo")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                        Text("Export-To-Apple-Cal")
+                            .font(.body)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .foregroundColor(darkMode ? .white : .black)
                 }
                 VStack {
                     if exportValue == 1 {
@@ -170,12 +188,22 @@ struct SettingsView: View {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     }
                 }) {
-                    Text("Rate-This-App")
+                    HStack{
+                        Text("Rate-This-App")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .foregroundColor(darkMode ? .white : .black)
                 }
                 ShareLink(item: URL(string: "https://apps.apple.com/us/app/lunar-birthdays/id6468920519")!,
                           subject: Text("Lunar Birthdays"),
                           message: Text("Track-Download \("https://apps.apple.com/us/app/lunar-birthdays/id6468920519")")) {
-                    Text("Share-With-Others")
+                    HStack {
+                        Text("Share-With-Others")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .foregroundColor(darkMode ? .white : .black)
                 }
             }
             .alert(isPresented: Binding<Bool>(
