@@ -55,12 +55,13 @@ struct BirthdayWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .supportedFamilies([])
     }
 }
 
-struct BirthdayWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        BirthdayWidgetEntryView(entry: SimpleEntry(date: Date()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
-    }
-}
+//struct BirthdayWidget_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BirthdayWidgetEntryView(entry: SimpleEntry(date: Date()))
+//            .previewContext(WidgetPreviewContext(family: .systemSmall))
+//    }
+//}
