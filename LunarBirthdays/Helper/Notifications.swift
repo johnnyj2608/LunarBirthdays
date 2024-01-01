@@ -50,6 +50,10 @@ class Notifications {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(birthday.id!)_\(offset)"])
     }
     
+    static func cancelAllBirthdays() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    
     static func calcOffset(_ birthday: Date, _ offset: Int, _ lunar: Bool) -> Date {
         var notificationDate = birthday
         if lunar == true {

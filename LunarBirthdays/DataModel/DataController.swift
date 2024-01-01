@@ -76,11 +76,22 @@ class DataController: ObservableObject {
         }
     }
     func deleteBirthday(birthday: Birthday, context: NSManagedObjectContext) {
+        if UserDefaults.standard.bool(forKey: "notifications") {
+            Notifications.cancelBirthday(birthday, offset: 0)
+        }
+        if UserDefaults.standard.bool(forKey: "notif_day") {
+            Notifications.cancelBirthday(birthday, offset: 1)
+        }
+        if UserDefaults.standard.bool(forKey: "notif_week") {
+            Notifications.cancelBirthday(birthday, offset: 7)
+        }
         context.delete(birthday)
         save(context: context)
     }
     
     func deleteAllBirthdays() {
+        Notifications.cancelAllBirthdays()
+        
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Birthday")
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
