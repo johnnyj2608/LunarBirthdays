@@ -22,15 +22,7 @@ struct ContentView: View {
         
         return Dictionary(grouping: sortedBirthdays) { birthday in
             let cal = Calendar.current
-            let today = cal.startOfDay(for: Date())
-            var nextBirthday = nextBirthday(birthday.date ?? Date())
-            if birthday.lunar == true {
-                let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-                if today <= lunarConverter(lastBirthday) {
-                    nextBirthday = lastBirthday
-                }
-                nextBirthday = lunarConverter(nextBirthday)
-            }
+            let nextBirthday = nextBirthday(birthday.date ?? Date(), birthday.lunar)
             let components = Calendar.current.dateComponents([.year, .month], from: nextBirthday)
             return Calendar.current.date(from: components)!
         }

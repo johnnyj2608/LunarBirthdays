@@ -28,12 +28,9 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @
                     for birthday in birthdays {
                         for year in 0..<recurrence {
                             if var date = birthday.date {
-                                date = nextBirthday(date)
+                                date = nextBirthday(date, birthday.lunar)
                                 if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
                                     date = modifiedDate
-                                }
-                                if birthday.lunar == true {
-                                    date = lunarConverter(date)
                                 }
                                 let event = EKEvent(eventStore: eventStore)
                                 event.calendar = appCalendar

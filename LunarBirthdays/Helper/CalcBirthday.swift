@@ -7,7 +7,7 @@
 
 import Foundation
 
-func nextBirthday(_ date: Date) -> Date {
+func nextBirthday(_ date: Date, _ lunar: Bool? = false) -> Date {
     let cal = Calendar.current
     let today = cal.startOfDay(for: Date())
     let birthday = cal.startOfDay(for: date)
@@ -20,12 +20,20 @@ func nextBirthday(_ date: Date) -> Date {
     }
     
     let components = cal.dateComponents([.day, .month], from: birthday)
-    let nextDate = cal.nextDate(after: today, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
+    var nextDate = cal.nextDate(after: today, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
     
-    guard let unwrappedNextDate = nextDate else {
+    if lunar == true {
+        let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextDate!)
+        if today <= lunarConverter(lastBirthday!) {
+            nextDate = lastBirthday
+        }
+        nextDate = lunarConverter(nextDate!)
+    }
+    
+    guard let nextDate = nextDate else {
             fatalError("Next birthday date calculation failed.")
         }
-    return unwrappedNextDate
+    return nextDate
 }
 
 func calcCountdown(_ date: Date, _ lunar: Bool? = false) -> (days: Int, hours: Int, mins: Int, secs: Int) {

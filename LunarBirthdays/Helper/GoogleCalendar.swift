@@ -85,12 +85,9 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
                                 event.summary = "\(birthday.name ?? "")'s birthday!"
                                 event.descriptionProperty = birthday.note ?? ""
                                 
-                                var date = nextBirthday(birthday.date ?? Date())
+                                var date = nextBirthday(birthday.date!, birthday.lunar)
                                 if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {
                                     date = modifiedDate
-                                }
-                                if birthday.lunar == true {
-                                    date = lunarConverter(date)
                                 }
                                 
                                 let startDate = GTLRDateTime(date: date)
