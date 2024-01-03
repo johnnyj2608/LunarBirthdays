@@ -32,10 +32,14 @@ class DataController: ObservableObject {
             print("Failed to save data")
         }
     }
-    func addBirthday(img: String, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
+    func addBirthday(img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
-        birthday.img = img
+        
+        if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+             birthday.img = imagePath
+         }
+        
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -53,8 +57,11 @@ class DataController: ObservableObject {
             Notifications.scheduleBirthday(birthday, offset: 7)
         }
     }
-    func editBirthday(birthday: Birthday, img: String, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
-        birthday.img = img
+    func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
+        if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+             birthday.img = imagePath
+         }
+        
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
         birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -118,20 +125,22 @@ class DataController: ObservableObject {
         return nil
     }
     
-    func clearDocumentsDirectory() {
-        let fileManager = FileManager.default
-        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+    func loadImage(withFilename filename: String) -> UIImage? {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let fileURL = paths[0].appendingPathComponent(filename)
 
-        do {
-            let fileURLs = try fileManager.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: [])
-            
-            for fileURL in fileURLs {
-                try fileManager.removeItem(at: fileURL)
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                let imageData = try Data(contentsOf: fileURL)
+                return UIImage(data: imageData)
+            } catch {
+                print("Failed to load image: \(error)")
             }
-        } catch {
-            print("Error clearing Documents directory: \(error)")
         }
+
+        return nil
     }
+
     
     func countBirthdays() -> Int {
         let fetchRequest: NSFetchRequest<Birthday> = Birthday.fetchRequest()

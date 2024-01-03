@@ -41,8 +41,14 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
+                if img != "" {
                     KFImage(URL(fileURLWithPath: img))
+                        .onSuccess { r in
+                            print("Success")
+                        }
+                        .onFailure { e in
+                            print("Failure")
+                        }
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
@@ -130,17 +136,10 @@ struct EditView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
-                        // If using a previously set image
-                    } else {
-                        if let imagePath = DataController.shared.saveImage(croppedImg, withFilename: "\(UUID()).jpg") {
-                            img = imagePath
-                        }
-                    }
                     if birthday != nil {
-                        DataController.shared.editBirthday(birthday: birthday!, img: img, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
+                        DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
                     } else {
-                        DataController.shared.addBirthday(img: img, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
+                        DataController.shared.addBirthday(img: croppedImg, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
                     }
                     dismiss()
                 }

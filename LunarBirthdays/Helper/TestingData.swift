@@ -12,12 +12,12 @@ func populateCoreData(managedObjContext: NSManagedObjectContext) {
     DataController.shared.deleteAllBirthdays()
     
     let calendar = Calendar.current
-    let sampleData: [(img: String, name: String, date: Date, note: String, lunar: Bool)] = [
-        ("", "Asian Jim", calendar.date(from: DateComponents(year: 1978, month: 10, day: 1))!, "", true),
-        ("", "Jim Halpert", calendar.date(from: DateComponents(year: 1978, month: 10, day: 1))!, "", false),
-        ("", "Michael Scott", calendar.date(from: DateComponents(year: 1965, month: 3, day: 15))!, "", false),
-        ("", "Pam Beesly", calendar.date(from: DateComponents(year: 1979, month: 3, day: 25))!, "", false),
-        ("", "Dwight Schrute", calendar.date(from: DateComponents(year: 1970, month: 1, day: 20))!, "", false),
+    let sampleData: [(img: UIImage, name: String, date: Date, note: String, lunar: Bool)] = [
+        (UIImage(), "Asian Jim", calendar.date(from: DateComponents(year: 1978, month: 10, day: 1))!, "", true),
+        (UIImage(), "Jim Halpert", calendar.date(from: DateComponents(year: 1978, month: 10, day: 1))!, "", false),
+        (UIImage(), "Michael Scott", calendar.date(from: DateComponents(year: 1965, month: 3, day: 15))!, "", false),
+        (UIImage(), "Pam Beesly", calendar.date(from: DateComponents(year: 1979, month: 3, day: 25))!, "", false),
+        (UIImage(), "Dwight Schrute", calendar.date(from: DateComponents(year: 1970, month: 1, day: 20))!, "", false),
     ]
     
     for data in sampleData {
