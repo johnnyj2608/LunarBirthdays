@@ -114,19 +114,58 @@ class DataController: ObservableObject {
         }
     }
     
-    func saveImage(_ image: UIImage, withFilename filename: String) -> String? {
+    func relativePath(for imageName: String) -> URL {
+        let documentsDirectory = UserDefaults.standard.string(forKey: "documentsDirectory")
+        let imagePath = URL(fileURLWithPath: documentsDirectory!)
+            .appendingPathComponent(imageName)
+
+        return imagePath
+    }
+
+    
+    func saveImage(_ image: UIImage, withFilename fileName: String) -> String? {
         if let data = image.jpegData(compressionQuality: 0.8) {
-            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileURL = documentsDirectory.appendingPathComponent(filename)
+            let fileURL = relativePath(for: fileName)
 
             do {
                 try data.write(to: fileURL)
-                return filename
+                return fileName
             } catch {
                 print("Failed to save image: \(error)")
             }
         }
         return nil
+    }
+    
+    func loadImage(withFilename fileName: String) -> UIImage? {
+        let fileURL = relativePath(for: fileName)
+
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            if let imageData = try? Data(contentsOf: fileURL),
+               let loadedImage = UIImage(data: imageData) {
+                return loadedImage
+            } else {
+                print("Failed to load image.")
+            }
+        } else {
+            print("Image with filename '\(fileName)' does not exist.")
+        }
+
+        return nil
+    }
+    
+    func clearFileSystem() {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: [])
+            for fileURL in fileURLs {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            print("File system cleared successfully.")
+        } catch {
+            print("Failed to clear file system: \(error)")
+        }
     }
     
     func countBirthdays() -> Int {

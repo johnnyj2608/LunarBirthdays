@@ -113,7 +113,7 @@ struct EditView: View {
         }
         .onAppear {
             if let imgName = birthday?.img, !imgName.isEmpty {
-                img = URL(fileURLWithPath: UserDefaults.standard.string(forKey: "documentsDirectory") ?? "").appendingPathComponent(imgName).path
+                img = DataController.shared.relativePath(for: imgName).path
             } else {
                 img = ""
             }
