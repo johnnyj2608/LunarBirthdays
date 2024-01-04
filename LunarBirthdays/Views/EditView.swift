@@ -46,7 +46,7 @@ struct EditView: View {
                 cache.clearDiskCache{print("Done")}
             }
             VStack {
-                if img != "" {
+                if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
                     KFImage(URL(fileURLWithPath: img))
                         .onSuccess { r in
                             print("Success")
