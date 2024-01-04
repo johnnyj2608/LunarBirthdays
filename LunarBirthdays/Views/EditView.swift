@@ -40,11 +40,6 @@ struct EditView: View {
     
     var body: some View {
         Form {
-            Button("Clear") {
-                let cache = ImageCache.default
-                cache.clearMemoryCache()
-                cache.clearDiskCache{print("Done")}
-            }
             VStack {
                 if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
                     KFImage(URL(fileURLWithPath: img))
@@ -117,7 +112,12 @@ struct EditView: View {
             }
         }
         .onAppear {
-            img = birthday?.img ?? ""
+            if let imgName = birthday?.img, !imgName.isEmpty {
+                img = URL(fileURLWithPath: UserDefaults.standard.string(forKey: "documentsDirectory") ?? "").appendingPathComponent(imgName).path
+            } else {
+                img = ""
+            }
+
             name = birthday?.name ?? ""
             date = birthday?.date ?? Date()
             note = birthday?.note ?? ""

@@ -16,10 +16,12 @@ struct ProfileView: View {
     @State var countdown: (days: Int, hours: Int, mins: Int, secs: Int)
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+    @State private var img = ""
+    
     var body: some View {
         List {
             VStack(alignment: .center) {
-                KFImage.url(URL(fileURLWithPath: birthday.img ?? ""))
+                KFImage(URL(fileURLWithPath: img))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
@@ -109,6 +111,12 @@ struct ProfileView: View {
                 }
             }
             .onAppear {
+                if let imgName = birthday.img, !imgName.isEmpty {
+                    img = URL(fileURLWithPath: UserDefaults.standard.string(forKey: "documentsDirectory") ?? "").appendingPathComponent(imgName).path
+                } else {
+                    img = ""
+                }
+                
                 timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                 countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
             }

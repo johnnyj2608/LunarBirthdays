@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import PhotosUI
+import Kingfisher
 
 class DataController: ObservableObject {
     
@@ -36,8 +37,8 @@ class DataController: ObservableObject {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
         
-        if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
-             birthday.img = imagePath
+        if let imageName = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+             birthday.img = imageName
          }
         
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -59,8 +60,8 @@ class DataController: ObservableObject {
     }
     func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
         if img != UIImage() {
-            if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
-                 birthday.img = imagePath
+            if let imageName = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+                 birthday.img = imageName
              }
         }
         
@@ -115,34 +116,18 @@ class DataController: ObservableObject {
     
     func saveImage(_ image: UIImage, withFilename filename: String) -> String? {
         if let data = image.jpegData(compressionQuality: 0.8) {
-            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let fileURL = paths[0].appendingPathComponent(filename)
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentsDirectory.appendingPathComponent(filename)
+
             do {
                 try data.write(to: fileURL)
-                return fileURL.path
+                return filename
             } catch {
                 print("Failed to save image: \(error)")
             }
         }
         return nil
     }
-    
-    func loadImage(withFilename filename: String) -> UIImage? {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let fileURL = paths[0].appendingPathComponent(filename)
-
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                let imageData = try Data(contentsOf: fileURL)
-                return UIImage(data: imageData)
-            } catch {
-                print("Failed to load image: \(error)")
-            }
-        }
-
-        return nil
-    }
-
     
     func countBirthdays() -> Int {
         let fetchRequest: NSFetchRequest<Birthday> = Birthday.fetchRequest()

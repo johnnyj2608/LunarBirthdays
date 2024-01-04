@@ -11,6 +11,7 @@ import Kingfisher
 import Combine
 
 struct ContentView: View {
+    
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: []) var birthday: FetchedResults<Birthday>
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -74,14 +75,16 @@ struct ContentView: View {
 }
 
 struct BirthdayCell: View {
+    
     @ObservedObject var birthday: Birthday
     @Binding var timer: Publishers.Autoconnect<Timer.TimerPublisher>
-    
     @State private var countdown: (days: Int, hours: Int, mins: Int, secs: Int) = (0, 0, 0, 0)
+    
+    @State private var img = ""
     
     var body: some View {
         HStack {
-            KFImage.url(URL(fileURLWithPath: birthday.img ?? ""))
+            KFImage(URL(fileURLWithPath: img))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 55, height: 55)
@@ -136,6 +139,12 @@ struct BirthdayCell: View {
             .frame(width: 50)
         }
         .onAppear {
+            if let imgName = birthday.img, !imgName.isEmpty {
+                img = URL(fileURLWithPath: UserDefaults.standard.string(forKey: "documentsDirectory") ?? "").appendingPathComponent(imgName).path
+            } else {
+                img = ""
+            }
+            
             timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
             countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
         }

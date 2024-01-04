@@ -16,6 +16,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         registerForLocalNotifications()
         UNUserNotificationCenter.current().delegate = self
         
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        UserDefaults.standard.set(documentsDirectory.path, forKey: "documentsDirectory")
+        
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }
