@@ -58,9 +58,11 @@ class DataController: ObservableObject {
         }
     }
     func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
-        if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
-             birthday.img = imagePath
-         }
+        if img != UIImage() {
+            if let imagePath = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+                 birthday.img = imagePath
+             }
+        }
         
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date

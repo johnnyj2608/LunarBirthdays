@@ -40,6 +40,11 @@ struct EditView: View {
     
     var body: some View {
         Form {
+            Button("Clear") {
+                let cache = ImageCache.default
+                cache.clearMemoryCache()
+                cache.clearDiskCache{print("Done")}
+            }
             VStack {
                 if img != "" {
                     KFImage(URL(fileURLWithPath: img))
@@ -136,6 +141,10 @@ struct EditView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
+                    if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
+                        // If using a previously set image, set image to update as nil
+                        croppedImg = UIImage()
+                    }
                     if birthday != nil {
                         DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
                     } else {
