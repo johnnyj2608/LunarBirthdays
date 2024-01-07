@@ -37,7 +37,7 @@ class DataController: ObservableObject {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
         
-        if let imageName = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+        if let imageName = saveImage(img, withFilename: "\(UUID()).jpg") {
              birthday.img = imageName
          }
         
@@ -59,8 +59,11 @@ class DataController: ObservableObject {
         }
     }
     func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
+        
         if img != UIImage() {
-            if let imageName = saveImage(img, withFilename: "\(birthday.id!).jpg") {
+            deleteImage(withFilename: birthday.img!)
+            
+            if let imageName = saveImage(img, withFilename: "\(UUID()).jpg") {
                  birthday.img = imageName
              }
         }
@@ -86,6 +89,8 @@ class DataController: ObservableObject {
         }
     }
     func deleteBirthday(birthday: Birthday, context: NSManagedObjectContext) {
+        deleteImage(withFilename: birthday.img!)
+        
         if UserDefaults.standard.bool(forKey: "notifications") {
             Notifications.cancelBirthday(birthday, offset: 0)
         }
@@ -121,7 +126,6 @@ class DataController: ObservableObject {
 
         return imagePath
     }
-
     
     func saveImage(_ image: UIImage, withFilename fileName: String) -> String? {
         if let data = image.jpegData(compressionQuality: 0.8) {
@@ -152,6 +156,17 @@ class DataController: ObservableObject {
         }
 
         return nil
+    }
+    
+    func deleteImage(withFilename fileName: String) {
+        let fileURL = relativePath(for: fileName)
+
+        do {
+            try FileManager.default.removeItem(at: fileURL)
+            print("Image '\(fileName)' deleted successfully.")
+        } catch {
+            print("Failed to delete image '\(fileName)': \(error)")
+        }
     }
     
     func clearFileSystem() {

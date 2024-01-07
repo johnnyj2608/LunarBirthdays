@@ -43,12 +43,6 @@ struct EditView: View {
             VStack {
                 if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
                     KFImage(URL(fileURLWithPath: img))
-                        .onSuccess { r in
-                            print("Success")
-                        }
-                        .onFailure { e in
-                            print("Failure")
-                        }
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
