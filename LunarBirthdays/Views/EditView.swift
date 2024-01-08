@@ -46,7 +46,7 @@ struct EditView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 150, height: 150)
-                        .cornerRadius(10)
+                        .cornerRadius(20)
                 } else {
                     Image(uiImage: croppedImg)
                         .resizable()
@@ -148,6 +148,10 @@ struct EditView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
+                    if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
+                        croppedImg = UIImage()
+                        // No need to update image if using previous
+                    }
                     if birthday != nil {
                         DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
                     } else {
