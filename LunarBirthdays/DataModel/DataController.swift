@@ -37,9 +37,13 @@ class DataController: ObservableObject {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
         
-        if let imageName = saveImage(img, withFilename: "\(UUID()).jpg") {
-             birthday.img = imageName
-         }
+        var fileName = "logo.jpg"
+        if img.pngData() != UIImage(named: "Logo")?.pngData() ?? UIImage().pngData() {
+            fileName = "\(UUID()).jpg"
+        }
+        if let imageName = saveImage(img, withFilename: fileName) {
+            birthday.img = imageName
+        }
         
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
@@ -61,11 +65,16 @@ class DataController: ObservableObject {
     func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
         
         if img != UIImage() {
-            deleteImage(withFilename: birthday.img!)
-            
-            if let imageName = saveImage(img, withFilename: "\(UUID()).jpg") {
-                 birthday.img = imageName
-             }
+            var fileName = "logo.jpg"
+            if birthday.img != fileName {
+                deleteImage(withFilename: birthday.img!)
+            }
+            if img.pngData() != UIImage(named: "Logo")?.pngData() ?? UIImage().pngData() {
+                fileName = "\(UUID()).jpg"
+            }
+            if let imageName = saveImage(img, withFilename: fileName) {
+                birthday.img = imageName
+            }
         }
         
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -89,7 +98,9 @@ class DataController: ObservableObject {
         }
     }
     func deleteBirthday(birthday: Birthday, context: NSManagedObjectContext) {
-        deleteImage(withFilename: birthday.img!)
+        if birthday.img != "logo.jpg" {
+            deleteImage(withFilename: birthday.img!)
+        }
         
         if UserDefaults.standard.bool(forKey: "notifications") {
             Notifications.cancelBirthday(birthday, offset: 0)

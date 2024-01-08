@@ -54,7 +54,7 @@ struct EditView: View {
                         .frame(width: 150, height: 150)
                         .cornerRadius(20)
                 }
-                if croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData() {
+                if (birthday?.img == "logo.jpg" && croppedImg == UIImage()) || (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
                     PhotosPicker("Choose-Image", selection: $selectedItem, matching: .images)
                 } else {
                     Text("Delete-Image")
