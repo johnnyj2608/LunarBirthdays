@@ -24,7 +24,7 @@ struct EditView: View {
     
     @State private var selectedItem: PhotosPickerItem?
     @State private var imgUI = UIImage()
-    @State private var croppedImg = UIImage(named: "Logo") ?? UIImage()
+    @State private var croppedImg = UIImage()
     @State private var isShowingCropView = false
     
     @State private var title = ""
@@ -41,7 +41,7 @@ struct EditView: View {
     var body: some View {
         Form {
             VStack {
-                if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
+                if img != "" && croppedImg == UIImage() {
                     KFImage(URL(fileURLWithPath: img))
                         .resizable()
                         .scaledToFit()
@@ -111,6 +111,10 @@ struct EditView: View {
             } else {
                 img = ""
             }
+            
+            if birthday == nil {
+                croppedImg = UIImage(named: "Logo") ?? UIImage()
+            }
 
             name = birthday?.name ?? ""
             date = birthday?.date ?? Date()
@@ -135,10 +139,6 @@ struct EditView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
-                        // If using a previously set image, set image to update as nil
-                        croppedImg = UIImage()
-                    }
                     if birthday != nil {
                         DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
                     } else {
