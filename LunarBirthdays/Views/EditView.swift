@@ -148,7 +148,7 @@ struct EditView: View {
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    if img != "" && (croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData()) {
+                    if img != "" && imgUI == UIImage() {
                         croppedImg = UIImage()
                         // No need to update image if using previous
                     }
