@@ -25,7 +25,8 @@
 "Today" = "Today!";
 
 // Buttons
-"Change-Image" = "Change Image";
+"Choose-Image" = "Choose Image";
+"Delete-Image" = "Delete Image";
 "Delete" = "Delete";
 "Save" = "Save";
 "Cancel" = "Cancel";

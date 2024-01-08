@@ -54,7 +54,16 @@ struct EditView: View {
                         .frame(width: 150, height: 150)
                         .cornerRadius(20)
                 }
-                PhotosPicker("Change-Image", selection: $selectedItem, matching: .images)
+                if croppedImg.pngData() == UIImage(named: "Logo")?.pngData() ?? UIImage().pngData() {
+                    PhotosPicker("Choose-Image", selection: $selectedItem, matching: .images)
+                } else {
+                    Text("Delete-Image")
+                        .foregroundColor(.red)
+                        .onTapGesture {
+                            croppedImg = UIImage(named: "Logo") ?? UIImage()
+                            imgUI = UIImage(named: "Logo") ?? UIImage()
+                        }
+                }
             }
             .frame(maxWidth: .infinity)
             Section(header: Text("Name")) {

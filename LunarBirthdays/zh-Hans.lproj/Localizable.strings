@@ -25,7 +25,8 @@
 "Today" = "今天!";
 
 // Buttons
-"Change-Image" = "改变形象";
+"Choose-Image" = "选择图像";
+"Delete-Image" = "删除图像";
 "Delete" = "删除";
 "Save" = "节省";
 "Cancel" = "取消";
