@@ -152,7 +152,6 @@ struct BirthdayCell: View {
                 img = ""
             }
             
-            timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
             countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
         }
         
