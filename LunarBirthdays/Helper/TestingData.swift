@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 func populateCoreData(managedObjContext: NSManagedObjectContext) {
-    DataController.shared.deleteAllBirthdays()
     
     let calendar = Calendar.current
     let sampleData: [(img: UIImage, name: String, date: Date, note: String, lunar: Bool)] = [
@@ -23,4 +22,6 @@ func populateCoreData(managedObjContext: NSManagedObjectContext) {
     for data in sampleData {
         DataController.shared.addBirthday(img: data.img, name: data.name, date: data.date, note: data.note, lunar: data.lunar, context: managedObjContext)
     }
+    
+    DataController.shared.deleteAllBirthdays(context: managedObjContext)
 }

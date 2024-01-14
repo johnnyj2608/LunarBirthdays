@@ -115,15 +115,15 @@ class DataController: ObservableObject {
         save(context: context)
     }
     
-    func deleteAllBirthdays() {
+    func deleteAllBirthdays(context: NSManagedObjectContext) {
         Notifications.cancelAllBirthdays()
         
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Birthday")
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
-            try container.viewContext.execute(batchDeleteRequest)
-            try container.viewContext.save()
+            try context.execute(deleteRequest)
+            try context.save()
             print("All data deleted")
         } catch {
             print("Failed to delete all data: \(error)")
