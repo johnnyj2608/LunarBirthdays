@@ -67,7 +67,7 @@ class DataController: ObservableObject {
         if img != UIImage() {
             var fileName = "logo.jpg"
             if birthday.img != fileName {
-                deleteImage(withFilename: birthday.img!)
+                deleteImage(withFilename: birthday.img ?? "")
             }
             if img.pngData() != UIImage(named: "Logo")?.pngData() ?? UIImage().pngData() {
                 fileName = "\(UUID()).jpg"
@@ -118,15 +118,19 @@ class DataController: ObservableObject {
     func deleteAllBirthdays(context: NSManagedObjectContext) {
         Notifications.cancelAllBirthdays()
         
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Birthday")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Birthday")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        deleteRequest.resultType = .resultTypeObjectIDs
         
         do {
-            try context.execute(deleteRequest)
-            try context.save()
-            print("All data deleted")
-        } catch {
-            print("Failed to delete all data: \(error)")
+            let result = try context.execute(deleteRequest) as! NSBatchDeleteResult
+            let changes: [AnyHashable: Any] = [
+                NSDeletedObjectsKey: result.result as! [NSManagedObjectID]
+            ]
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+            print("Data deleted")
+        } catch _ as NSError {
+            print("Failed to delete all data")
         }
     }
     

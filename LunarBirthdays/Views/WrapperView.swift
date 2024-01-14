@@ -20,6 +20,6 @@ struct WrapperView: View {
             Spacer()
             //AdBannerView().frame(height: 50)
         }
-        //.onAppear {populateCoreData(managedObjContext: managedObjContext)}
+        .onAppear {populateCoreData(managedObjContext: managedObjContext)}
     }
 }
