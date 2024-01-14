@@ -33,6 +33,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .refreshable {
+                updateGroupedBirthdays()
+            }
             .onChange(of: searchText) { newValue in
                 let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                 birthday.nsPredicate = trimmedValue.isEmpty ? nil : NSPredicate(format: "name BEGINSWITH[c] %@", trimmedValue)
