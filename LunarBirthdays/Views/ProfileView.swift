@@ -110,27 +110,27 @@ struct ProfileView: View {
                     Text("Note")
                 }
             }
-            .onAppear {
-                if let imgName = birthday.img, !imgName.isEmpty {
-                    img = DataController.shared.relativePath(for: imgName).path
-                } else {
-                    img = ""
-                }
-                
-                timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-                countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
-            }
-            .onReceive(timer) { _ in
-                countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
-            }
-            .onDisappear {
-                timer.upstream.connect().cancel()
-            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 NavigationLink("Edit-Title", value: Route.editView(birthday: birthday))
             }
+        }
+        .onAppear {
+            if let imgName = birthday.img, !imgName.isEmpty {
+                img = DataController.shared.relativePath(for: imgName).path
+            } else {
+                img = ""
+            }
+            
+            timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+            countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
+        }
+        .onReceive(timer) { _ in
+            countdown = calcCountdown(birthday.date ?? Date(), birthday.lunar)
+        }
+        .onDisappear {
+            timer.upstream.connect().cancel()
         }
     }
 }
