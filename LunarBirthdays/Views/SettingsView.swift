@@ -52,12 +52,12 @@ struct SettingsView: View {
                             getNotificationPermission { isAuthorized in
                                 if isAuthorized {
                                     notif_toggle = true
-                                    scheduleAllBirthdays(offset: 0)
+                                    scheduleAllBirthdaysOffset(offset: 0)
                                     if notif_day {
-                                        scheduleAllBirthdays(offset: 1)
+                                        scheduleAllBirthdaysOffset(offset: 1)
                                     }
                                     if notif_week {
-                                        scheduleAllBirthdays(offset: 7)
+                                        scheduleAllBirthdaysOffset(offset: 7)
                                     }
                                 } else {
                                     notifications = false
@@ -66,9 +66,7 @@ struct SettingsView: View {
                             }
                         } else {
                             notif_toggle = false
-                            cancelAllBirthdays(offset: 0)
-                            cancelAllBirthdays(offset: 1)
-                            cancelAllBirthdays(offset: 7)
+                            Notifications.cancelAllBirthdays()
                         }
                     }
                 if notifications && notif_toggle {
@@ -81,18 +79,16 @@ struct SettingsView: View {
                         notif_time = timeFormatter.string(from: newValue)
                     }
                     .onChange(of: notif_time) { newValue in
-                        cancelAllBirthdays(offset: 0)
-                        cancelAllBirthdays(offset: 1)
-                        cancelAllBirthdays(offset: 7)
+                        Notifications.cancelAllBirthdays()
                         
                         if notifications {
-                            scheduleAllBirthdays(offset: 0)
+                            scheduleAllBirthdaysOffset(offset: 0)
                         }
                         if notif_day {
-                            scheduleAllBirthdays(offset: 1)
+                            scheduleAllBirthdaysOffset(offset: 1)
                         }
                         if notif_week {
-                            scheduleAllBirthdays(offset: 7)
+                            scheduleAllBirthdaysOffset(offset: 7)
                         }
                     }
                     Toggle("On-Birthday-At \(twelveFormatter.string(from: notif_date))", isOn: .constant(true))
@@ -100,17 +96,17 @@ struct SettingsView: View {
                     Toggle("1-Day-Before", isOn: $notif_day)
                         .onChange(of: notif_day) { newValue in
                             if newValue {
-                                scheduleAllBirthdays(offset: 1)
+                                scheduleAllBirthdaysOffset(offset: 1)
                             } else {
-                                cancelAllBirthdays(offset: 1)
+                                cancelAllBirthdaysOffset(offset: 1)
                             }
                         }
                     Toggle("1-Week-Before", isOn: $notif_week)
                         .onChange(of: notif_week) { newValue in
                             if newValue {
-                                scheduleAllBirthdays(offset: 7)
+                                scheduleAllBirthdaysOffset(offset: 7)
                             } else {
-                                cancelAllBirthdays(offset: 7)
+                                cancelAllBirthdaysOffset(offset: 7)
                             }
                         }
                 }
@@ -358,12 +354,12 @@ struct SettingsView: View {
         formatter.dateFormat = "h:mm a"
         return formatter
     }()
-    private func scheduleAllBirthdays(offset: Int = 0) {
+    private func scheduleAllBirthdaysOffset(offset: Int = 0) {
         for bday in birthday {
             Notifications.scheduleBirthday(bday, offset: offset)
         }
     }
-    private func cancelAllBirthdays(offset: Int = 0) {
+    private func cancelAllBirthdaysOffset(offset: Int = 0) {
         for bday in birthday {
             Notifications.cancelBirthday(bday, offset: offset)
         }
