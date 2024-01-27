@@ -7,7 +7,7 @@
 
 import Foundation
 
-func lunarConverter(_ birthday: Date) -> Date {
+func convertLunarToGregorian(_ birthday: Date) -> Date {
     let g_year = Calendar.current.component(.year, from: birthday)
     let g_adj_year = g_year + 2697
 
@@ -26,7 +26,7 @@ func lunarConverter(_ birthday: Date) -> Date {
     return c_ny
 }
 
-func gregorianConverter(_ birthday: Date) -> Date {
+func convertGregorianToLunar(_ birthday: Date) -> Date {
     let chineseCalendar = Calendar(identifier: .chinese)
 
     let c_era = chineseCalendar.component(.era, from: birthday)
@@ -50,7 +50,7 @@ func gregorianConverter(_ birthday: Date) -> Date {
 func getZodiac(_ birthday: Date, _ lunar: Bool) -> String {
     var year = birthday
     if lunar == false {
-        year = gregorianConverter(year)
+        year = convertGregorianToLunar(year)
     }
     let zodiac = getYear(year)
     switch zodiac % 12 {

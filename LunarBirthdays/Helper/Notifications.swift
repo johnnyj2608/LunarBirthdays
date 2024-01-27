@@ -57,7 +57,7 @@ class Notifications {
     static func calcOffset(_ birthday: Date, _ offset: Int, _ lunar: Bool) -> Date {
         var notificationDate = birthday
         if lunar == true {
-            notificationDate = lunarConverter(notificationDate)
+            notificationDate = convertLunarToGregorian(notificationDate)
         }
         let notificationOffset: TimeInterval = TimeInterval(-offset) * 24 * 60 * 60
         return notificationDate.addingTimeInterval(notificationOffset)

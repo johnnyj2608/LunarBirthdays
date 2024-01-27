@@ -24,10 +24,10 @@ func nextBirthday(_ date: Date, _ lunar: Bool? = false) -> Date {
     
     if lunar == true {
         let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextDate!)
-        if today <= lunarConverter(lastBirthday!) {
+        if today <= convertLunarToGregorian(lastBirthday!) {
             nextDate = lastBirthday
         }
-        nextDate = lunarConverter(nextDate!)
+        nextDate = convertLunarToGregorian(nextDate!)
     }
     
     guard let nextDate = nextDate else {
@@ -42,10 +42,10 @@ func calcCountdown(_ date: Date, _ lunar: Bool? = false) -> (days: Int, hours: I
     var nextBirthday = cal.startOfDay(for: nextBirthday(date))
     if lunar == true {
         let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-        if today <= lunarConverter(lastBirthday) {
+        if today <= convertLunarToGregorian(lastBirthday) {
             nextBirthday = lastBirthday
         }
-        nextBirthday = lunarConverter(nextBirthday)
+        nextBirthday = convertLunarToGregorian(nextBirthday)
     }
     
     if nextBirthday <= today {
@@ -71,10 +71,10 @@ func calcAge(_ date: Date, _ lunar: Bool? = false) -> Int {
     var nextBirthday = nextBirthday(date)
     if lunar == true {
         let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-        if today <= lunarConverter(lastBirthday) {
+        if today <= convertLunarToGregorian(lastBirthday) {
             nextBirthday = lastBirthday
         }
-        nextBirthday = lunarConverter(nextBirthday)
+        nextBirthday = convertLunarToGregorian(nextBirthday)
     }
     nextBirthday = cal.startOfDay(for: nextBirthday)
     let ageComponents = cal.dateComponents([.year], from: birthday, to: nextBirthday)
@@ -95,10 +95,10 @@ func getDay(_ date: Date?, _ lunar: Bool? = false) -> Int {
     var nextBirthday = nextBirthday(date)
     if lunar == true {
         let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-        if today <= lunarConverter(lastBirthday) {
+        if today <= convertLunarToGregorian(lastBirthday) {
             nextBirthday = lastBirthday
         }
-        nextBirthday = lunarConverter(nextBirthday)
+        nextBirthday = convertLunarToGregorian(nextBirthday)
     }
     return cal.component(.day, from: nextBirthday)
 }
@@ -110,10 +110,10 @@ func getMonth(_ date: Date?, _ lunar: Bool? = false) -> Int {
     var nextBirthday = nextBirthday(date)
     if lunar == true {
         let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-        if today <= lunarConverter(lastBirthday) {
+        if today <= convertLunarToGregorian(lastBirthday) {
             nextBirthday = lastBirthday
         }
-        nextBirthday = lunarConverter(nextBirthday)
+        nextBirthday = convertLunarToGregorian(nextBirthday)
     }
     return cal.component(.month, from: nextBirthday)
 }
@@ -125,10 +125,10 @@ func getYear(_ date: Date?, _ lunar: Bool? = false) -> Int {
     var nextBirthday = date
     if lunar == true {
         let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-        if today <= lunarConverter(lastBirthday) {
+        if today <= convertLunarToGregorian(lastBirthday) {
             nextBirthday = lastBirthday
         }
-        nextBirthday = lunarConverter(nextBirthday)
+        nextBirthday = convertLunarToGregorian(nextBirthday)
     }
     return cal.component(.year, from: nextBirthday)
 }
@@ -170,16 +170,16 @@ func nextLunarBirthday(_ birthday: Date, _ lunar: Bool) -> String {
     
     if lunar {
         let lastBirthday = cal.date(byAdding: .year, value: -1, to: nextBirthday)!
-        if today <= lunarConverter(lastBirthday) {
+        if today <= convertLunarToGregorian(lastBirthday) {
             nextBirthday = lastBirthday
         }
-        dateToConvert = lunarConverter(nextBirthday)
+        dateToConvert = convertLunarToGregorian(nextBirthday)
     } else {
         let nextYear = cal.date(byAdding: .year, value: 1, to: nextBirthday)!
-        if today > gregorianConverter(nextBirthday) {
+        if today > convertGregorianToLunar(nextBirthday) {
             nextBirthday = nextYear
         }
-        dateToConvert = gregorianConverter(nextBirthday)
+        dateToConvert = convertGregorianToLunar(nextBirthday)
     }
     
     let month = monthString(getMonth(dateToConvert))
