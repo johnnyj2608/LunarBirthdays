@@ -12,6 +12,7 @@ import UserNotifications
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        //Thread.sleep(forTimeInterval: 1.0)
         
         registerForLocalNotifications()
         UNUserNotificationCenter.current().delegate = self
