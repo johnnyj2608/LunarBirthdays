@@ -62,9 +62,9 @@
 // Calendar
 "Export-To-Google-Cal" = "创建谷歌日历";
 "Export-To-Apple-Cal" = "创建苹果日历";
-"Export-Up-To: %lld" = "导出最多: %lld年";
-"Export-Up-To: %llds" = "导出最多: %lld年";
-"Export-99" = "导出生日长达99年";
+"Export-Up-To: %lld" = "创建最多: %lld年";
+"Export-Up-To: %llds" = "创建最多: %lld年";
+"Export-99" = "创建长达10年的生日";
 "Sign-Out" = "登出";
 "Success" = "成功!";
 

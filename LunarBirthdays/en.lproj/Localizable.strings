@@ -62,9 +62,9 @@
 // Calendar
 "Export-To-Google-Cal" = "Create a Google Calendar";
 "Export-To-Apple-Cal" = "Create an Apple Calendar";
-"Export-Up-To: %lld" = "Export up to: %lld year";
-"Export-Up-To: %llds" = "Export up to: %lld years";
-"Export-99" = "Export birthdays up to 99 years";
+"Export-Up-To: %lld" = "Create up to: %lld year";
+"Export-Up-To: %llds" = "Create up to: %lld years";
+"Export-99" = "Create birthdays up to 10 years";
 "Sign-Out" = "Sign Out";
 "Success" = "Success!";
 

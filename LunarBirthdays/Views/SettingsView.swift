@@ -29,7 +29,7 @@ struct SettingsView: View {
     @State private var showExportAlert = false
     @State private var showSignOutAlert = false
     @State private var showEmptyAlert = false
-    @AppStorage("exportValue")  private var exportValue: Double = 50
+    @AppStorage("exportValue")  private var exportValue: Double = 1
     
     @State private var exportProgress: CGFloat = 0.0
     @State private var hud = JGProgressHUD()
@@ -169,13 +169,13 @@ struct SettingsView: View {
                     }
                     .foregroundColor(darkMode ? .white : .black)
                 }
-                VStack {
+                HStack {
                     if exportValue == 1 {
                         Text("Export-Up-To: \(Int(exportValue))")
                     } else {
                         Text("Export-Up-To: \(Int(exportValue))s")
                     }
-                    Slider(value: $exportValue, in: 1...99, step: 1)
+                    Stepper("", value: $exportValue, in: 1...10, step: 1)
                 }
             }
             Section(header: Text("Feedback")) {
