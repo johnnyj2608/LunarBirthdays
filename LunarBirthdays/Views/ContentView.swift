@@ -115,34 +115,34 @@ struct BirthdayCell: View {
                 switch (countdown.days, countdown.hours, countdown.mins, countdown.secs) {
                 case (0, 0, 0, 0):
                     Text("🎂")
-                        .font(.system(size: 35))
+                        .font(.system(size: 30))
                 case (0, 0, 0, _):
                     Text("\(countdown.secs)")
-                        .font(.system(size: 25))
+                        .font(.system(size: 20))
                         .foregroundColor(countdown.days < 11 ? .red : .primary)
                     Text(countdown.secs == 1 ? "Sec" : "Secs")
-                        .font(.system(size: 20))
+                        .font(.system(size: 15))
                         .lineLimit(1)
                 case (0, 0, _, _):
                     Text("\(countdown.mins)")
-                        .font(.system(size: 25))
+                        .font(.system(size: 20))
                         .foregroundColor(countdown.days < 11 ? .red : .primary)
                     Text(countdown.mins == 1 ? "Min" : "Mins")
-                        .font(.system(size: 20))
+                        .font(.system(size: 15))
                         .lineLimit(1)
                 case (0, _, _, _):
                     Text("\(countdown.hours)")
-                        .font(.system(size: 25))
+                        .font(.system(size: 20))
                         .foregroundColor(countdown.days < 11 ? .red : .primary)
                     Text(countdown.hours == 1 ? "Hrs" : "Hrs")
-                        .font(.system(size: 20))
+                        .font(.system(size: 15))
                         .lineLimit(1)
                 default:
                     Text("\(countdown.days)")
-                        .font(.system(size: 25))
+                        .font(.system(size: 20))
                         .foregroundColor(countdown.days < 11 ? .red : .primary)
                     Text(countdown.days == 1 ? "Day" : "Days")
-                        .font(.system(size: 20))
+                        .font(.system(size: 15))
                         .lineLimit(1)
                 }
             }

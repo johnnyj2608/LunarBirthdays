@@ -60,8 +60,8 @@
 "1-Week-Before" = "1 Week Before";
 
 // Calendar
-"Export-To-Google-Cal" = "Export to Google Calendar";
-"Export-To-Apple-Cal" = "Export to Apple Calendar";
+"Export-To-Google-Cal" = "Create a Google Calendar";
+"Export-To-Apple-Cal" = "Create an Apple Calendar";
 "Export-Up-To: %lld" = "Export up to: %lld year";
 "Export-Up-To: %llds" = "Export up to: %lld years";
 "Export-99" = "Export birthdays up to 99 years";

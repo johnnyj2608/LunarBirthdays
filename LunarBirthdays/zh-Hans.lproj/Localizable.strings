@@ -60,8 +60,8 @@
 "1-Week-Before" = "1周前";
 
 // Calendar
-"Export-To-Google-Cal" = "导出到谷歌日历";
-"Export-To-Apple-Cal" = "导出到苹果日历";
+"Export-To-Google-Cal" = "创建谷歌日历";
+"Export-To-Apple-Cal" = "创建苹果日历";
 "Export-Up-To: %lld" = "导出最多: %lld年";
 "Export-Up-To: %llds" = "导出最多: %lld年";
 "Export-99" = "导出生日长达99年";
