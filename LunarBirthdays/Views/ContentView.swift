@@ -18,6 +18,8 @@ struct ContentView: View {
     @State private var searchText = ""
     
     @State private var groupedBirthday: [Date: [Birthday]] = [:]
+    @State private var isPresentingConfirm: Bool = false
+    @State private var selectedBirthday: Birthday?
     
     var body: some View {
         VStack {
@@ -25,11 +27,38 @@ struct ContentView: View {
                 ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
                     Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in
-                            NavigationLink(value: Route.profileView(birthday: birthday)) {
+                            HStack {
                                 BirthdayCell(birthday: birthday, timer: $timer)
+                                Spacer()
+                                Menu {
+                                    Button(action: {
+                                        print("Pin tapped!")
+                                        print(nextBirthday(birthday.date ?? Date(), birthday.lunar))
+                                    }) {
+                                        Text("Pin")
+                                    }
+                                    NavigationLink(value: Route.profileView(birthday: birthday)) {
+                                        Text("View")
+                                    }
+                                    NavigationLink(value: Route.editView(birthday: birthday)) {
+                                        Text("Edit")
+                                    }
+                                    Button ("Delete", role: .destructive) {
+                                        selectedBirthday = birthday
+                                        isPresentingConfirm = true
+                                    }
+                                } label: {
+                                    Image(systemName: "ellipsis")
+                                        .font(.system(size: 24))
+                                        .foregroundColor(.primary)
+                                        .rotationEffect(.degrees(90))
+                                }
                             }
+                            .padding([.leading, .trailing], 10)
+                            .border(nextBirthday(birthday.date ?? Date(), birthday.lunar) == Calendar.current.startOfDay(for: Date()) ? Color.red : Color.clear, width: 2)
+                            // Border based on month/day lunar, not Gregorian bug
                         }
-                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
                 }
             }
@@ -72,9 +101,17 @@ struct ContentView: View {
         .onDisappear {
             timer.upstream.connect().cancel()
         }
+        .confirmationDialog("Delete", isPresented: $isPresentingConfirm) {
+            Button("Are-You-Sure", role: .destructive) {
+                DataController.shared.deleteBirthday(birthday: selectedBirthday!, context: managedObjContext)
+                updateGroupedBirthdays()
+            }
+        }
     }
     private func updateGroupedBirthdays() {
         let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), $0.lunar) < calcCountdown($1.date ?? Date(), $1.lunar) }
+        
+        // Not sorting lunar birthdays properly
         
         groupedBirthday = Dictionary(grouping: sortedBirthdays) { birthday in
             let nextBirthday = nextBirthday(birthday.date ?? Date(), birthday.lunar)
