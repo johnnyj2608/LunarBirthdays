@@ -12,13 +12,6 @@ func nextBirthday(_ date: Date, _ lunar: Bool? = false) -> Date {
     let today = cal.startOfDay(for: Date())
     let birthday = cal.startOfDay(for: date)
     
-    let birthdayComponents = cal.dateComponents([.month, .day], from: birthday)
-    let todayComponents = cal.dateComponents([.month, .day], from: today)
-
-    if birthdayComponents == todayComponents {
-        return today
-    }
-    
     let components = cal.dateComponents([.day, .month], from: birthday)
     var nextDate = cal.nextDate(after: today, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
     
@@ -28,6 +21,13 @@ func nextBirthday(_ date: Date, _ lunar: Bool? = false) -> Date {
             nextDate = lastBirthday
         }
         nextDate = convertLunarToGregorian(nextDate!)
+    }
+    
+    let birthdayComponents = cal.dateComponents([.month, .day], from: nextDate!)
+    let todayComponents = cal.dateComponents([.month, .day], from: today)
+
+    if birthdayComponents == todayComponents {
+        return today
     }
     
     guard let nextDate = nextDate else {

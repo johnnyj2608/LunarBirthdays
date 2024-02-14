@@ -56,7 +56,6 @@ struct ContentView: View {
                             }
                             .padding([.leading, .trailing], 10)
                             .border(nextBirthday(birthday.date ?? Date(), birthday.lunar) == Calendar.current.startOfDay(for: Date()) ? Color.red : Color.clear, width: 2)
-                            // Border based on month/day lunar, not Gregorian bug
                         }
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
@@ -110,8 +109,6 @@ struct ContentView: View {
     }
     private func updateGroupedBirthdays() {
         let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), $0.lunar) < calcCountdown($1.date ?? Date(), $1.lunar) }
-        
-        // Not sorting lunar birthdays properly
         
         groupedBirthday = Dictionary(grouping: sortedBirthdays) { birthday in
             let nextBirthday = nextBirthday(birthday.date ?? Date(), birthday.lunar)
