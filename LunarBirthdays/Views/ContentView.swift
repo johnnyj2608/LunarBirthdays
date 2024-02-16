@@ -42,6 +42,7 @@ struct ContentView: View {
                                 BirthdayCell(birthday: birthday, timer: $timer)
                             }
                             .padding([.leading, .trailing], 10)
+                            //.border(nextBirthday(birthday.date ?? Date(), birthday.lunar) == Calendar.current.startOfDay(for: Date()) ? Color.red : Color.clear, width: 2)
                         }
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
