@@ -20,29 +20,34 @@ struct ProfileView: View {
     
     var body: some View {
         List {
-            VStack(alignment: .center) {
-                KFImage(URL(fileURLWithPath: img))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150, height: 150)
-                    .padding(.vertical, 4)
-                    .cornerRadius(20)
-                Text(birthday.name ?? "")
-                    .font(.system(size: 40))
-                    .fontWeight(.semibold)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-                Spacer().frame(height: 10)
-                Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
-                    .font(.system(size: 25))
-                    .lineLimit(1)
-                    .padding(.bottom, 1)
-                Text("Zodiac \(getZodiac(birthday.date ?? Date(), birthday.lunar))")
-                    .font(.system(size: 20))
-                    .lineLimit(1)
-                    .foregroundColor(Color.secondary)
+            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                if birthday.pin {
+                    Text("📌")
+                }
+                VStack(alignment: .center) {
+                    KFImage(URL(fileURLWithPath: img))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .padding(.vertical, 4)
+                        .cornerRadius(20)
+                    Text(birthday.name ?? "")
+                        .font(.system(size: 40))
+                        .fontWeight(.semibold)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                    Spacer().frame(height: 10)
+                    Text("Full-Date \(monthString(getMonth(birthday.date ?? Date()))) \(dayString(getDay(birthday.date ?? Date()))) \(yearString(getYear(birthday.date ?? Date())))")
+                        .font(.system(size: 25))
+                        .lineLimit(1)
+                        .padding(.bottom, 1)
+                    Text("Zodiac \(getZodiac(birthday.date ?? Date(), birthday.lunar))")
+                        .font(.system(size: 20))
+                        .lineLimit(1)
+                        .foregroundColor(Color.secondary)
+                }
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
             Section(footer: Text(LocalizedStringKey(birthday.lunar ? "LunarTrack" : "GregorianTrack"))
                 .font(.headline)) {
                 VStack {
@@ -103,13 +108,6 @@ struct ProfileView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            Section {
-                if birthday.note?.isEmpty == false {
-                    Text(birthday.note ?? "")
-                } else {
-                    Text("Note")
-                }
-            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {

@@ -4,6 +4,7 @@
 "Edit-Title" = "Edit";
 "Add-Title" = "Add";
 "Settings-Title" = "Settings";
+"Pinned" = "Pinned 📌";
 
 // Dates
 "Full-Date %@ %@ %@" = "%1$@ %2$@, %3$@";
@@ -46,6 +47,7 @@
 "NextLunarBirthday" = "Next Lunar Birthday:";
 "LunarTrack" = "Counting Down Lunar Birthday";
 "GregorianTrack" = "Counting Down Gregorian Birthday";
+"Pin" = "Pin";
 
 // Appearance
 "Appearance" = "Appearance";

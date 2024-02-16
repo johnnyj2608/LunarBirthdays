@@ -33,7 +33,7 @@ class DataController: ObservableObject {
             print("Failed to save data")
         }
     }
-    func addBirthday(img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
+    func addBirthday(img: UIImage, name: String, date: Date, lunar: Bool, pin: Bool, context: NSManagedObjectContext) {
         let birthday = Birthday(context: context)
         birthday.id = UUID()
         
@@ -47,8 +47,8 @@ class DataController: ObservableObject {
         
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
-        birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.lunar = lunar
+        birthday.pin = pin
          
         save(context: context)
         
@@ -62,7 +62,7 @@ class DataController: ObservableObject {
             Notifications.scheduleBirthday(birthday, offset: 7)
         }
     }
-    func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, note: String, lunar: Bool, context: NSManagedObjectContext) {
+    func editBirthday(birthday: Birthday, img: UIImage, name: String, date: Date, lunar: Bool, pin: Bool, context: NSManagedObjectContext) {
         
         if img != UIImage() {
             var fileName = "logo.jpg"
@@ -79,8 +79,8 @@ class DataController: ObservableObject {
         
         birthday.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.date = date
-        birthday.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
         birthday.lunar = lunar
+        birthday.pin = pin
         
         save(context: context)
 

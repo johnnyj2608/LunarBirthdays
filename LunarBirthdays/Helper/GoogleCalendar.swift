@@ -83,7 +83,6 @@ class GoogleCalendar: NSObject, ObservableObject, GIDSignInDelegate {
                             for year in 0..<recurrence {
                                 let event = GTLRCalendar_Event()
                                 event.summary = "\(birthday.name ?? "")'s birthday!"
-                                event.descriptionProperty = birthday.note ?? ""
                                 
                                 var date = nextBirthday(birthday.date!, birthday.lunar)
                                 if let modifiedDate = calendar.date(byAdding: .year, value: year, to: date) {

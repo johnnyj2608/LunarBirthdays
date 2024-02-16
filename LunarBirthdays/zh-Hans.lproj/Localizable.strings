@@ -4,6 +4,7 @@
 "Edit-Title" = "编辑";
 "Add-Title" = "添加";
 "Settings-Title" = "设置";
+"Pinned" = "置顶📌";
 
 // Dates
 "Full-Date %@ %@ %@" = "%3$@年%1$@月%2$@日";
@@ -46,6 +47,7 @@
 "NextLunarBirthday" = "下一个农历生日:";
 "LunarTrack" = "农历生日倒计时";
 "GregorianTrack" = "公历生日倒计时";
+"Pin" = "置顶";
 
 // Appearance
 "Appearance" = "外貌";

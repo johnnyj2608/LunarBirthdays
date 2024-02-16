@@ -37,7 +37,6 @@ func exportBirthdays(_ birthdays: [Birthday], _ repeatYears: Double, progress: @
                                 event.title = "\(birthday.name ?? "")'s birthday!"
                                 event.startDate = date
                                 event.endDate = date
-                                event.notes = birthday.note ?? ""
                                 event.isAllDay = true
                                 event.alarms = nil
                                 

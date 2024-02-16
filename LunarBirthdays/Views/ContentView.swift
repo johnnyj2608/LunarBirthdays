@@ -18,24 +18,33 @@ struct ContentView: View {
     @State private var searchText = ""
     
     @State private var groupedBirthday: [Date: [Birthday]] = [:]
+    @State private var pinnedBirthdays: [Birthday] = []
+    
     @State private var isPresentingConfirm: Bool = false
     @State private var selectedBirthday: Birthday?
     
     var body: some View {
         VStack {
             List {
+                Section(header: Text("Pinned")) {
+                    ForEach(pinnedBirthdays, id: \.self) { birthday in
+                        NavigationLink(value: Route.profileView(birthday: birthday)) {
+                            BirthdayCell(birthday: birthday, timer: $timer)
+                        }
+                        .padding([.leading, .trailing], 10)
+                    }
+                }
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
                     Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in
-                            HStack {
-                                NavigationLink(value: Route.profileView(birthday: birthday)) {
-                                    BirthdayCell(birthday: birthday, timer: $timer)
-                                }
+                            NavigationLink(value: Route.profileView(birthday: birthday)) {
+                                BirthdayCell(birthday: birthday, timer: $timer)
                             }
                             .padding([.leading, .trailing], 10)
                         }
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
             }
             .refreshable {
@@ -87,11 +96,14 @@ struct ContentView: View {
     private func updateGroupedBirthdays() {
         let sortedBirthdays = birthday.sorted { calcCountdown($0.date ?? Date(), $0.lunar) < calcCountdown($1.date ?? Date(), $1.lunar) }
         
-        groupedBirthday = Dictionary(grouping: sortedBirthdays) { birthday in
+        let regularBirthdays = sortedBirthdays.filter { !$0.pin }
+        groupedBirthday = Dictionary(grouping: regularBirthdays) { birthday in
             let nextBirthday = nextBirthday(birthday.date ?? Date(), birthday.lunar)
             let components = Calendar.current.dateComponents([.year, .month], from: nextBirthday)
             return Calendar.current.date(from: components)!
         }
+        
+        pinnedBirthdays = sortedBirthdays.filter { $0.pin }
     }
 }
 

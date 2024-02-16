@@ -19,8 +19,8 @@ struct EditView: View {
     @State private var img = ""
     @State private var name = ""
     @State private var date = Date()
-    @State private var note = ""
     @State private var lunar = false
+    @State private var pin = false
     
     @State private var selectedItem: PhotosPickerItem?
     @State private var imgUI = UIImage()
@@ -35,8 +35,8 @@ struct EditView: View {
     
     @State private var originalName = ""
     @State private var originalDate = Date()
-    @State private var originalNote = ""
     @State private var originalCal = false
+    @State private var originalPin = false
     
     var body: some View {
         Form {
@@ -77,11 +77,8 @@ struct EditView: View {
                 Toggle("Lunar", isOn: $lunar)
                 WheelDatePicker(selectedDate: $date)
             }
-            Section(header: Text("Note")) {
-                TextField("Note", text: $note)
-                    .onReceive(note.publisher.collect()) {
-                        note = String($0.prefix(255))
-                    }
+            Section(header: Text("Pin")) {
+                Toggle("Pin", isOn: $pin)
             }
             Section {
                 if birthday != nil {
@@ -127,13 +124,13 @@ struct EditView: View {
 
             name = birthday?.name ?? ""
             date = birthday?.date ?? Date()
-            note = birthday?.note ?? ""
             lunar = birthday?.lunar ?? false
+            pin = birthday?.pin ?? false
             
             originalName = name
             originalDate = date
-            originalNote = note
             originalCal = lunar
+            originalPin = pin
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -153,9 +150,9 @@ struct EditView: View {
                         // No need to update image if using previous
                     }
                     if birthday != nil {
-                        DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
+                        DataController.shared.editBirthday(birthday: birthday!, img: croppedImg, name: name, date: date, lunar: lunar, pin: pin, context: managedObjContext)
                     } else {
-                        DataController.shared.addBirthday(img: croppedImg, name: name, date: date, note: note, lunar: lunar, context: managedObjContext)
+                        DataController.shared.addBirthday(img: croppedImg, name: name, date: date, lunar: lunar, pin: pin, context: managedObjContext)
                     }
                     dismiss()
                 }
@@ -175,7 +172,7 @@ struct EditView: View {
         return !(imgUI == UIImage() &&
                  name == originalName &&
                  date == originalDate &&
-                 note == originalNote &&
-                 lunar == originalCal)
+                 lunar == originalCal &&
+                 pin == originalPin)
     }
 }
