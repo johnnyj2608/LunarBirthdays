@@ -139,6 +139,7 @@ struct BirthdayCell: View {
                 case (0, 0, 0, 0):
                     Text("🎂")
                         .font(.system(size: 30))
+                        .rainbowStyle(retainColor: true)
                 case (0, 0, 0, _):
                     Text("\(countdown.secs)")
                         .font(.system(size: 20))

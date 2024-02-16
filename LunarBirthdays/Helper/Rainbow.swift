@@ -1,18 +1,12 @@
-//
-//  Rainbow.swift
-//  LunarBirthdays
-//
-//  Created by Johnny Jiang on 7/29/23.
-//
-
 import SwiftUI
 
 struct RainbowText: ViewModifier {
     @State private var isScaled: Bool = false
+    var retainColor: Bool = false
 
     func body(content: Content) -> some View {
         content
-            .foregroundColor(.clear)
+            .foregroundColor(retainColor ? .primary : .clear)
             .background(
                 LinearGradient(
                     gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink, .red]),
@@ -32,8 +26,7 @@ struct RainbowText: ViewModifier {
 }
 
 extension View {
-    func rainbowStyle() -> some View {
-        self.modifier(RainbowText())
+    func rainbowStyle(retainColor: Bool = false) -> some View {
+        self.modifier(RainbowText(retainColor: retainColor))
     }
 }
-
