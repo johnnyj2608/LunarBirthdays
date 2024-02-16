@@ -28,34 +28,11 @@ struct ContentView: View {
                     Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in
                             HStack {
-                                BirthdayCell(birthday: birthday, timer: $timer)
-                                Spacer()
-                                Menu {
-                                    Button(action: {
-                                        print("Pin tapped!")
-                                        print(nextBirthday(birthday.date ?? Date(), birthday.lunar))
-                                    }) {
-                                        Text("Pin")
-                                    }
-                                    NavigationLink(value: Route.profileView(birthday: birthday)) {
-                                        Text("View")
-                                    }
-                                    NavigationLink(value: Route.editView(birthday: birthday)) {
-                                        Text("Edit")
-                                    }
-                                    Button ("Delete", role: .destructive) {
-                                        selectedBirthday = birthday
-                                        isPresentingConfirm = true
-                                    }
-                                } label: {
-                                    Image(systemName: "ellipsis")
-                                        .font(.system(size: 24))
-                                        .foregroundColor(.primary)
-                                        .rotationEffect(.degrees(90))
+                                NavigationLink(value: Route.profileView(birthday: birthday)) {
+                                    BirthdayCell(birthday: birthday, timer: $timer)
                                 }
                             }
                             .padding([.leading, .trailing], 10)
-                            .border(nextBirthday(birthday.date ?? Date(), birthday.lunar) == Calendar.current.startOfDay(for: Date()) ? Color.red : Color.clear, width: 2)
                         }
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
