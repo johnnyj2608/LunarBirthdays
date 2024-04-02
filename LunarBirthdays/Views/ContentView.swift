@@ -26,15 +26,17 @@ struct ContentView: View {
     var body: some View {
         VStack {
             List {
-                Section(header: Text("Pinned")) {
-                    ForEach(pinnedBirthdays, id: \.self) { birthday in
-                        NavigationLink(value: Route.profileView(birthday: birthday)) {
-                            BirthdayCell(birthday: birthday, timer: $timer)
+                if !pinnedBirthdays.isEmpty {
+                    Section(header: Text("Pinned")) {
+                        ForEach(pinnedBirthdays, id: \.self) { birthday in
+                            NavigationLink(value: Route.profileView(birthday: birthday)) {
+                                BirthdayCell(birthday: birthday, timer: $timer)
+                            }
+                            .padding([.leading, .trailing], 10)
                         }
-                        .padding([.leading, .trailing], 10)
                     }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
-                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 ForEach(groupedBirthday.keys.sorted(), id: \.self) { key in
                     Section(header: Text("Month-Year \(monthString(getMonth(key))) \(yearString(getYear(key)))")) {
                         ForEach(groupedBirthday[key]!, id: \.self) { birthday in

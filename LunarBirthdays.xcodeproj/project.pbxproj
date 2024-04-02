@@ -11,14 +11,17 @@
 		092664162A736FFF0034296A /* WheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664152A736FFF0034296A /* WheelPicker.swift */; };
 		092664242A74D88D0034296A /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664232A74D88D0034296A /* Rainbow.swift */; };
 		092664282A7760370034296A /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664272A7760370034296A /* Keyboard.swift */; };
-		092664312A7B58820034296A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 092664302A7B58820034296A /* Kingfisher */; };
 		092664432A8F13E90034296A /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664422A8F13E90034296A /* Notifications.swift */; };
 		092664462A9711740034296A /* CalConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092664452A9711740034296A /* CalConverter.swift */; };
 		0926644E2AB008960034296A /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0926644D2AB008950034296A /* Navigation.swift */; };
+		093DD5D52B844B850047CC3D /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 093DD5D42B844B850047CC3D /* JGProgressHUD */; };
+		093DD5D82B844B940047CC3D /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 093DD5D72B844B940047CC3D /* CropViewController */; };
+		093DD5DA2B844B940047CC3D /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 093DD5D92B844B940047CC3D /* TOCropViewController */; };
+		093DD5DD2B844BA60047CC3D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 093DD5DC2B844BA60047CC3D /* Kingfisher */; };
+		093DD5E32B844D500047CC3D /* SwiftUIDatePickerDialog in Frameworks */ = {isa = PBXBuildFile; productRef = 093DD5E22B844D500047CC3D /* SwiftUIDatePickerDialog */; };
 		094822ED2AD4979B006F667A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 094822EF2AD4979B006F667A /* Localizable.strings */; };
 		094822F92AD74D65006F667A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 094822FB2AD74D65006F667A /* InfoPlist.strings */; };
 		09933A9E2AB77E2100B7420E /* CropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09933A9D2AB77E2100B7420E /* CropController.swift */; };
-		09933AA12AB77EB300B7420E /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 09933AA02AB77EB300B7420E /* CropViewController */; };
 		09B96CF82A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF72A6CF8BB00FC5AAA /* LunarBirthdaysApp.swift */; };
 		09B96CFA2A6CF8BB00FC5AAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B96CF92A6CF8BB00FC5AAA /* ContentView.swift */; };
 		09B96D002A6CF8BD00FC5AAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B96CFF2A6CF8BD00FC5AAA /* Preview Assets.xcassets */; };
@@ -31,7 +34,6 @@
 		09C9806E2AB92091000D53A2 /* GoogleAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806D2AB92091000D53A2 /* GoogleAds.swift */; };
 		09C980702AB944EA000D53A2 /* WrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C9806F2AB944EA000D53A2 /* WrapperView.swift */; };
 		09C980722AC0CA8C000D53A2 /* AppleCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980712AC0CA8C000D53A2 /* AppleCalendar.swift */; };
-		09C980752AC26429000D53A2 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 09C980742AC26429000D53A2 /* JGProgressHUD */; };
 		09C980812AC63AF7000D53A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C980802AC63AF7000D53A2 /* AppDelegate.swift */; };
 		09C980852AC6474E000D53A2 /* GoogleAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09C980842AC6474D000D53A2 /* GoogleAPI.plist */; };
 		09C980922AC87511000D53A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C980912AC87511000D53A2 /* Assets.xcassets */; };
@@ -105,10 +107,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09C980752AC26429000D53A2 /* JGProgressHUD in Frameworks */,
-				092664312A7B58820034296A /* Kingfisher in Frameworks */,
-				09933AA12AB77EB300B7420E /* CropViewController in Frameworks */,
+				093DD5E32B844D500047CC3D /* SwiftUIDatePickerDialog in Frameworks */,
+				093DD5D52B844B850047CC3D /* JGProgressHUD in Frameworks */,
 				4901EA319EC841EEA1B81B75 /* Pods_LunarBirthdays.framework in Frameworks */,
+				093DD5DA2B844B940047CC3D /* TOCropViewController in Frameworks */,
+				093DD5D82B844B940047CC3D /* CropViewController in Frameworks */,
+				093DD5DD2B844BA60047CC3D /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,9 +247,11 @@
 			);
 			name = LunarBirthdays;
 			packageProductDependencies = (
-				092664302A7B58820034296A /* Kingfisher */,
-				09933AA02AB77EB300B7420E /* CropViewController */,
-				09C980742AC26429000D53A2 /* JGProgressHUD */,
+				093DD5D42B844B850047CC3D /* JGProgressHUD */,
+				093DD5D72B844B940047CC3D /* CropViewController */,
+				093DD5D92B844B940047CC3D /* TOCropViewController */,
+				093DD5DC2B844BA60047CC3D /* Kingfisher */,
+				093DD5E22B844D500047CC3D /* SwiftUIDatePickerDialog */,
 			);
 			productName = LunarBirthdays;
 			productReference = 09B96CF42A6CF8BB00FC5AAA /* LunarBirthdays.app */;
@@ -277,9 +283,10 @@
 			);
 			mainGroup = 09B96CEB2A6CF8BB00FC5AAA;
 			packageReferences = (
-				0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */,
-				09C980732AC26429000D53A2 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				093DD5D32B844B850047CC3D /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				093DD5D62B844B940047CC3D /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				093DD5DB2B844BA60047CC3D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				093DD5E12B844D500047CC3D /* XCRemoteSwiftPackageReference "swiftui-date-picker-dialog" */,
 			);
 			productRefGroup = 09B96CF52A6CF8BB00FC5AAA /* Products */;
 			projectDirPath = "";
@@ -568,7 +575,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
-				MARKETING_VERSION = 3.4;
+				MARKETING_VERSION = 3.5;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bachi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -619,7 +626,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
-				MARKETING_VERSION = 3.4;
+				MARKETING_VERSION = 3.5;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bachi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -657,47 +664,65 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-		09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		09C980732AC26429000D53A2 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+		093DD5D32B844B850047CC3D /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD";
 			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		093DD5D62B844B940047CC3D /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		093DD5DB2B844BA60047CC3D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		093DD5E12B844D500047CC3D /* XCRemoteSwiftPackageReference "swiftui-date-picker-dialog" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-date-picker-dialog";
+			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		092664302A7B58820034296A /* Kingfisher */ = {
+		093DD5D42B844B850047CC3D /* JGProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0926642F2A7B58820034296A /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
+			package = 093DD5D32B844B850047CC3D /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
 		};
-		09933AA02AB77EB300B7420E /* CropViewController */ = {
+		093DD5D72B844B940047CC3D /* CropViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 09933A9F2AB77EB300B7420E /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			package = 093DD5D62B844B940047CC3D /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = CropViewController;
 		};
-		09C980742AC26429000D53A2 /* JGProgressHUD */ = {
+		093DD5D92B844B940047CC3D /* TOCropViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 09C980732AC26429000D53A2 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
-			productName = JGProgressHUD;
+			package = 093DD5D62B844B940047CC3D /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
+		};
+		093DD5DC2B844BA60047CC3D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 093DD5DB2B844BA60047CC3D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		093DD5E22B844D500047CC3D /* SwiftUIDatePickerDialog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 093DD5E12B844D500047CC3D /* XCRemoteSwiftPackageReference "swiftui-date-picker-dialog" */;
+			productName = SwiftUIDatePickerDialog;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/JonasGessner/JGProgressHUD",
       "state" : {
-        "revision" : "78d7cd35f1d90ff74fd82e486f2cbe4b24be8cf9",
-        "version" : "2.2.0"
+        "branch" : "master",
+        "revision" : "6336c426fb147ee19c15252eaf363f29720c3eb5"
       }
     },
     {
@@ -14,8 +14,26 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "revision" : "b6f62758f21a8c03cd64f4009c037cfa580a256e",
-        "version" : "7.9.1"
+        "branch" : "master",
+        "revision" : "5c21dc6a151367d23e8cc8ae624b35e7182011b2"
+      }
+    },
+    {
+      "identity" : "swiftui-date-picker-dialog",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-date-picker-dialog",
+      "state" : {
+        "revision" : "71fd42d30b6659dc66574db068ade4fefd4ced4e",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swiftui-generic-dialog",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-generic-dialog",
+      "state" : {
+        "revision" : "e7f1a107014c3767c4220f9cae1e57d5c9f8fa8b",
+        "version" : "1.0.1"
       }
     },
     {
@@ -23,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TimOliver/TOCropViewController",
       "state" : {
-        "revision" : "d0470491f56e734731bbf77991944c0dfdee3e0e",
-        "version" : "2.6.1"
+        "branch" : "main",
+        "revision" : "a942414508012b13102f776eb65dac655f31cabb"
       }
     }
   ],
