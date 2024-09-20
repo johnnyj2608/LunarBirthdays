@@ -6,6 +6,9 @@ A SwiftUI mobile app that saves birthday profiles, converts Lunar calendar dates
 
 Using 3 packages, Kingfisher, TOCropViewController, and JGProgressHUD
 
+### Demo Video
+[![Watch the demo](https://img.youtube.com/vi/yANz3VMv6_s/0.jpg)](https://www.youtube.com/watch?v=yANz3VMv6_s)
+
 ## Installation and Setup Instructions
 
 https://apps.apple.com/us/app/lunar-birthdays/id6468920519
